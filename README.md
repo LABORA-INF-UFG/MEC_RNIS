@@ -15,7 +15,6 @@ A estrutura da API está sendo feita com base nas especificações do ETSI GS ME
 ---
 
 
-
 # Ambiente virtual
 
 sudo pip3 install virtualenv  --user
@@ -50,5 +49,3 @@ pip3 install pika
 
 Detalhe o __init__.py dizer que esta pasta no qual esta inserido e um modulo/pacote. Para que possamos utilizar como se fosse uma blibloteca da mesma forma que importamos um Flask
 
-
-# Descrição
