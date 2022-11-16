@@ -1,3 +1,21 @@
+# MEC_RNIS
+
+---
+Repositório que contém todo o desenvolvimento relacionado à dissertação de mestrado "Integração da Computação de Borda Móvel e Sistema 5G para Internet das Coisas na Agricultura 4.0". 
+
+Aluno responsável:
+* [Kaíque Matheus](http://lattes.cnpq.br/9539570966327546)
+
+
+---
+# Descrição
+
+A estrutura da API está sendo feita com base nas especificações do ETSI GS MEC 012 V2.1.1 (2019-12).
+
+---
+
+
+
 # Ambiente virtual
 
 sudo pip3 install virtualenv  --user
