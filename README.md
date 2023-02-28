@@ -13,7 +13,11 @@ Aluno responsável:
 A estrutura da API está sendo feita com base nas especificações do ETSI GS MEC 012 V2.1.1 (2019-12).
 
 ---
+# Instalando o python 3
 
+sudo apt-get install python3
+
+sudo apt-get install python3-pip
 
 # Ambiente virtual
 
@@ -49,3 +53,8 @@ pip3 install pika
 
 Detalhe o __init__.py dizer que esta pasta no qual esta inserido e um modulo/pacote. Para que possamos utilizar como se fosse uma blibloteca da mesma forma que importamos um Flask
 
+# Running on 
+
+python3 app.py
+
+#http://127.0.0.1:5000/hoteis

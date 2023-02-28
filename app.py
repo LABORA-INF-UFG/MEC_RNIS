@@ -31,6 +31,7 @@ api.add_resource(RabInfo, '/rni/v2/queries/rab_info')
 if __name__ == '__main__':
     app.run(debug=True)
 
-# Running on http://127.0.0.1:5000/rni/v2/queries/rab_info
+# Running on 
+
 #http://127.0.0.1:5000/hoteis
 #python3 app.py
