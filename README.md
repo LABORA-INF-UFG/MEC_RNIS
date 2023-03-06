@@ -96,10 +96,12 @@ Iniciar o RabbitMQ
 
     Para acessar o rabbitmq no browser podemos utilizar http://localhost:15672/
 
-# Inicio
-  - Running on http://127.0.0.1:5000/rni/v2/queries/rab_info
-  
-  python3 app.py
+# Running on 
+
+python3 app.py
+
+- Running on http://127.0.0.1:5000/rni/v2/queries/rab_info
+
 
 # Detalhes
 
