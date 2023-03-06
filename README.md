@@ -59,4 +59,4 @@ Detalhe o __init__.py dizer que esta pasta no qual esta inserido e um modulo/pac
 
 python3 app.py
 
-#http://127.0.0.1:5000/hoteis
+- Running on http://127.0.0.1:5000/rni/v2/queries/rab_info
