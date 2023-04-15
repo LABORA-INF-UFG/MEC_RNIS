@@ -107,3 +107,12 @@ python3 app.py
 
 Detalhe o __init__.py dizer que esta pasta no qual esta inserido e um modulo/pacote. Para que possamos utilizar como se fosse uma blibloteca da mesma forma que importamos um Flask
 
+# locustfile.py para teste
+   Instalando o locust
+      pip3 install locust
+      locust -V
+
+   Crirar um arquivo chamado locustfile.py onde vamos iniciar as configurações para executar testes na api
+   - https://locust.io
+   - https://docs.locust.io/en/stable/installation.html
+   - https://docs.locust.io/en/stable/quickstart.html
