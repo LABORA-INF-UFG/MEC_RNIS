@@ -45,6 +45,13 @@ pip3 install connexion
 
 pip3 install pika
 
+## Para criar um requirements e simples
+
+pip3 freeze > requirements.txt
+
+## Para instalar as dependências de um “requirements.txt” usamos o seguinte comando
+
+pip3 install -r requirements.txt
 
 # Passo a passo
 
