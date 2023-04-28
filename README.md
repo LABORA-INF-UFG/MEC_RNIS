@@ -105,14 +105,12 @@ Iniciar o RabbitMQ
 
 # Running on 
 
+source nome_Do_ambiente/bin/activate
+
 python3 app.py
 
 - Running on http://127.0.0.1:5000/rni/v2/queries/rab_info
 
-
-# Detalhes
-
-Detalhe o __init__.py dizer que esta pasta no qual esta inserido e um modulo/pacote. Para que possamos utilizar como se fosse uma blibloteca da mesma forma que importamos um Flask
 
 # locustfile.py para teste
    Instalando o locust
@@ -123,3 +121,7 @@ Detalhe o __init__.py dizer que esta pasta no qual esta inserido e um modulo/pac
    - https://locust.io
    - https://docs.locust.io/en/stable/installation.html
    - https://docs.locust.io/en/stable/quickstart.html
+   
+# Detalhes
+
+Detalhe o __init__.py dizer que esta pasta no qual esta inserido e um modulo/pacote. Para que possamos utilizar como se fosse uma blibloteca da mesma forma que importamos um Flask
