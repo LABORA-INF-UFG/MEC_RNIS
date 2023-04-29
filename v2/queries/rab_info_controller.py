@@ -1,6 +1,7 @@
 #Importando as bibliotecas
 from flask_restful import Resource, reqparse, request
-from v2.models.rab_info import RabInfoModel
+#from v2.models.rab_info import RabInfoModel
+from v2.models.rab_info_2 import RabInfoModel
 from v2.receive.exchange import Exchange
 from v2.exemplo_dados.rab_info import rabinfos2
 
@@ -15,7 +16,7 @@ class RabInfo(Resource):
     # Teste com o RabbitMQ
     def get (self):
 
-        Exchange.receive('rab','rab_info')
+        Exchange.receive2('rab','rab_info', 'rab_1')
         return {'message':"sucesso"}, 200
 
 class RabInfo2(Resource):
@@ -33,7 +34,7 @@ class RabInfo2(Resource):
         rab_JSON = rab_objeto.json()
 	
 	    # Manda o json para a Exchange que envia para o RabbitMQ
-        Exchange.emit('rab','rab_info',rab_JSON)
+        Exchange.emit('rab','rab_info','rab_1', rab_JSON)
 
         '''
         #Serializa o objeto
