@@ -13,7 +13,7 @@ from v2 import util
 
 class S1BearerInfoModel(Model):
    
-    def __init__(self, s1_ue_info: List[S1UeInfo], time_stamp: TimeStamp):  # noqa: E501
+    def __init__(self, s1_ue_info: List[S1UeInfo], time_stamp: List[TimeStamp]):  # noqa: E501
         """S1BearerInfo - a model defined in Swagger
 
         :param s1_ue_info: The s1_ue_info of this S1BearerInfo.  # noqa: E501
@@ -76,7 +76,7 @@ class S1BearerInfoModel(Model):
         self._s1_ue_info = new_s1_ue_info
 
     @property
-    def time_stamp(self) -> TimeStamp:
+    def time_stamp(self) -> List[TimeStamp]:
         """Gets the time_stamp of this S1BearerInfo.
 
 
@@ -86,7 +86,7 @@ class S1BearerInfoModel(Model):
         return self._time_stamp
 
     @time_stamp.setter
-    def time_stamp(self, time_stamp: TimeStamp):
+    def time_stamp(self, time_stamp: List[TimeStamp]):
         """Sets the time_stamp of this S1BearerInfo.
 
 

@@ -1,9 +1,8 @@
 #Importando as bibliotecas
 from flask_restful import Resource, reqparse, request
-#from v2.models.rab_info import RabInfoModel
-from v2.models.rab_info_2 import RabInfoModel
+from v2.models.rab_info import RabInfoModel
 from v2.receive.exchange import Exchange
-from v2.exemplo_dados.rab_info import rabinfos2
+#from v2.exemplo_dados.rab_info import rabinfos2
 
 #from requests import request
 import pika

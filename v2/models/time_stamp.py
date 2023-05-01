@@ -18,8 +18,8 @@ class TimeStamp(Model):
         :type seconds: int
         """
         
-        self._nano_seconds = nano_seconds
-        self._seconds = seconds
+        self.nano_seconds = nano_seconds
+        self.seconds = seconds
 
     # Esta função pega um self e tranforma em dicionário
     # Pega o objeto e retorna ele em formato json

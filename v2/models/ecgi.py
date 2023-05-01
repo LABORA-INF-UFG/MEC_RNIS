@@ -8,6 +8,7 @@ from typing import List, Dict  # noqa: F401
 from v2.models.base_model_ import Model
 from v2.models.plmn import Plmn  # noqa: F401,E501
 from v2 import util
+from v2.models.plmn_info import PlmnInfoModel
 
 
 class Ecgi(Model):
@@ -17,8 +18,11 @@ class Ecgi(Model):
     """
     def __init__(self, cell_id: str, plmn: Plmn):  # noqa: E501
         
-        self._cell_id = cell_id
-        self._plmn = plmn
+        self.cell_id = cell_id
+        self.plmn = plmn
+
+        # Criando um objeto do tipo rab_info
+        plmn_objeto = PlmnInfoModel(**plmn)
 
     # Esta função pega um self e tranforma em dicionário
     # Pega o objeto e retorna ele em formato json

@@ -62,6 +62,7 @@ class Exchange():
 
         # Tenho que fechar a conexão, A questão e como fechar ela corretamente.
 
+    # Recebe mensagens
     def receive2(exchange_name, queue_name, severity):
         # Conectando com o RabbitMQ
         connection = Exchange.connect()
