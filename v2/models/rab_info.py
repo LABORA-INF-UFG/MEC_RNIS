@@ -74,7 +74,6 @@ class RabInfoModel(Model):
 
     @property
     def app_instance_id(self) -> str:
-        print ("Passou no segundo _app_instance_id ")
         return self._app_instance_id
 
     @app_instance_id.setter
@@ -86,7 +85,6 @@ class RabInfoModel(Model):
         :param app_instance_id: The app_instance_id of this RabInfo.
         :type app_instance_id: str
         """
-        print ("Passou no primeiro _app_instance_id ")
         if app_instance_id is None:
             raise ValueError("Invalid value for `app_instance_id`, must not be `None`")  # noqa: E501
 
@@ -112,8 +110,20 @@ class RabInfoModel(Model):
         :param cell_user_info: The cell_user_info of this RabInfo.
         :type cell_user_info: List[CellUserInfo]
         """
+        # Verifica se não é vazio porem ainda não tem tratamento de erro
+        if cell_user_info == "":
+            raise ValueError("Invalid value for `cell_user_info`, must not be `None`")  # noqa: E501
 
-        self._cell_user_info = cell_user_info
+
+        # Chamo o construtor da classe TimeStamp passando os parametros nano_seconds e seconds
+        #new_time_stamp =  TimeStamp(time_stamp['nano_seconds'],time_stamp['seconds'])   
+        new_cell_user_info = CellUserInfo(**cell_user_info)
+ 
+        # Chamo o método json da classe TimeStamp para transformar os dados em json
+        new_cell_user_info = new_cell_user_info.json()
+       
+        # Finalmente retorno o Json
+        self._cell_user_info = new_cell_user_info
 
     @property
     def request_id(self) -> str:

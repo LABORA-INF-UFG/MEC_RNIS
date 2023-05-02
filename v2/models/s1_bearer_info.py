@@ -41,6 +41,7 @@ class S1BearerInfoModel(Model):
         :return: The S1BearerInfo of this S1BearerInfo.  # noqa: E501
         :rtype: S1BearerInfo
         """
+
         return util.deserialize_model(dikt, cls)
 
     @property
@@ -63,6 +64,7 @@ class S1BearerInfoModel(Model):
         :param s1_ue_info: The s1_ue_info of this S1BearerInfo.
         :type s1_ue_info: List[S1UeInfo]
         """
+
         if s1_ue_info == "":
             raise ValueError("Invalid value for `s1_ue_info`, must not be `None`")  # noqa: E501
 
@@ -105,4 +107,4 @@ class S1BearerInfoModel(Model):
         new_time_stamp = new_time_stamp.json()
        
         # Finalmente retorno o Json
-        self._time_stamp = time_stamp
+        self._time_stamp = new_time_stamp

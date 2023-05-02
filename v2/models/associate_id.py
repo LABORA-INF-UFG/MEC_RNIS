@@ -20,8 +20,8 @@ class AssociateId(Model):
         :type value: str
         """
         
-        self._type = type
-        self._value = value
+        self.type = type
+        self.value = value
 
     # Esta função pega um self e tranforma em dicionário
     # Pega o objeto e retorna ele em formato json
@@ -50,6 +50,7 @@ class AssociateId(Model):
         :return: The type of this AssociateId.
         :rtype: Type
         """
+
         return self._type
 
     @type.setter
@@ -60,7 +61,33 @@ class AssociateId(Model):
         :param type: The type of this AssociateId.
         :type type: Type
         """
+        #print("Passou no type")
+        #if type == " ":
+        #    raise ValueError("Invalid value for `type`, must not be `None`")  # noqa: E501
+        
+        if type == Type._0:
+            self._type = type
 
+        elif type == Type._1:
+            self._type = type
+
+        elif type == Type._2:
+            self._type = type
+
+        elif type == Type._3:
+            self._type = type
+
+        elif type == Type._4:
+            self._type = type
+        else:
+            self._type = type
+            #raise ValueError("Invalid value for `associate_id`, must not be `None`")  # noqa: E501
+
+
+        #if type != (Type._0 or Type._1 or Type._2 or Type._3 or Type._4):
+        #    raise ValueError("Invalid value for `type`")  # noqa: E501
+  
+        '''
         # Chamo o construtor da classe Type
         new_type = Type(**type)
         
@@ -69,6 +96,7 @@ class AssociateId(Model):
 
         # Finalmente retorno o Json
         self._type = new_type
+        '''
 
     @property
     def value(self) -> str:
@@ -90,5 +118,4 @@ class AssociateId(Model):
         :param value: The value of this AssociateId.
         :type value: str
         """
-
         self._value = value
