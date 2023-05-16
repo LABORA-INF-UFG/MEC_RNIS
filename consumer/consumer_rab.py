@@ -4,7 +4,7 @@
 import pika 
 import time
 
-
+#A ideia e que tenha um cliente que consuma informações direto do RNIS sem conectar com o RABBITMQ
 credentials = pika.PlainCredentials(username='admin', password='123456')
 connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost',credentials=credentials))
 channel = connection.channel()

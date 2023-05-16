@@ -9,16 +9,17 @@ import json
 import connexion
 
 
-class post(Resource):
+class subscription_post(Resource):
 
-    def post (self):
+    def post (self, exchange_name, queue_name, severity):
         # Inscrever em um tópico
         #Como posso fazer para me inscrever em um tópico
-        Exchange.receive3('direct_logs','rab_info', 'info')
+        Exchange.receive2(exchange_name, queue_name, severity)
+        #Exchange.receive3('rab','rab_info', 'rab1')
 
         return {'message':"sucesso"}, 200
 
-class teste(Resource):
+class subscription_delete(Resource):
 
     def get (self):
         # Ver quais tópicos estou inscrito

@@ -99,7 +99,7 @@ class Exchange():
         # declara a queue
         #channel.queue_declare(queue=queue_name, durable=True)
         
-        channel.exchange_declare(exchange=exchange_name, exchange_type='direct', durable=True)
+        channel.exchange_declare(exchange=exchange_name, exchange_type='fanout', durable=True)
 
         result = channel.queue_declare(queue='', exclusive=True)
         queue_name = result.method.queue
@@ -146,27 +146,3 @@ class Exchange():
         connection.close()
 
         # Envia mensagens
-    def emit3(exchange_name, queue_name, severity, dados):
-        # Conectando com o RabbitMQ
-        connection = Exchange.connect()
-        channel = connection.channel()
-        #
-        # 
-        # Pego os dados e serializo aqui!
-        # 
-        # #
-
-        # serializando os dados com o json.dumps
-        mensagem = json.dumps(dados)
-
-        # declara a queue
-        channel.queue_declare(queue=queue_name, durable=True)
-        
-        channel.exchange_declare(exchange=exchange_name, exchange_type='direct', durable=True)
-        
-        channel.basic_publish(exchange=exchange_name, routing_key=queue_name, body=mensagem)
-
-        # Antes de sair do programa, precisamos ter certeza de que os buffers de rede foram liberados e 
-        # nossa mensagem foi realmente entregue ao RabbitMQ. Podemos fazê-lo fechando suavemente a conexão.
-        connection.close()
-    

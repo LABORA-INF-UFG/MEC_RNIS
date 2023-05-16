@@ -3,3 +3,6 @@
 
 #Diretorios
 ./amb/
+./docker-compose/dados/
+./v2/models/__pycache__/
+./v2/queries/__pycache__/

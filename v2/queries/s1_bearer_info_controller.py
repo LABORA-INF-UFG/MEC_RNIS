@@ -9,13 +9,14 @@ import json
 import connexion
 
  
-class S1BearerInfo(Resource):
+#class S1BearerInfo(Resource):
 
     # Teste com o RabbitMQ
-    def get (self):
+#    def get (self):
 
-        Exchange.receive2('s1bearer','s1bearer_info', 's1bearer_1')
-        return {'message':"sucesso"}, 200
+#        Exchange.receive2('s1bearer','s1bearer_info', 's1bearer_1')
+#        return {'message':"sucesso"}, 200
+
 
 class S1BearerInfo2(Resource):
 

@@ -10,13 +10,13 @@ import json
 import connexion
 
  
-class RabInfo(Resource):
+#class RabInfo(Resource):
 
     # Teste com o RabbitMQ
-    def get (self):
+#    def get (self):
 
-        Exchange.receive2('rab','rab_info', 'rab_1')
-        return {'message':"sucesso"}, 200
+#        Exchange.receive2('rab','rab_info', 'rab_1')
+#        return {'message':"sucesso"}, 200
 
 class RabInfo2(Resource):
 
