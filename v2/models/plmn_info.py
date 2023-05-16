@@ -15,7 +15,7 @@ from v2 import util
 class PlmnInfoModel(Model):
 
     #Construtor
-    def __init__(self, app_instance_id: str, plmn: List[Plmn], time_stamp: List[TimeStamp]): 
+    def __init__(self, app_instance_id: str, plmn: List[Plmn], time_stamp:  List[TimeStamp]): 
 
         """PlmnInfo - a model
 
@@ -28,12 +28,24 @@ class PlmnInfoModel(Model):
             :param time_stamp: The time_stamp of this PlmnInfo.  
             :type time_stamp: TimeStamp
         """
+        
 
+        """
+        self.swagger_types = {
+            'app_instance_id': str,
+            'plmn': List[Plmn],
+            'time_stamp': TimeStamp
+        }
+
+        self.attribute_map = {
+            'app_instance_id': 'appInstanceId',
+            'plmn': 'plmn',
+            'time_stamp': 'timeStamp'
+        }
+        """
         self.app_instance_id = app_instance_id
         self.plmn = plmn
-        self.time_stamp = time_stamp
-        
-        
+        self.time_stamp = time_stamp        
         
     # Esta função pega um self e tranforma em dicionário
     # Pega o objeto e retorna ele em formato json
@@ -92,7 +104,7 @@ class PlmnInfoModel(Model):
         self._app_instance_id = app_instance_id
 
     @property
-    def plmn(self) -> Plmn:
+    def plmn(self) -> List[Plmn]:
         """Gets the plmn of this PlmnInfo.
 
             Identidade de Rede Móvel Terrestre Pública.
@@ -103,7 +115,7 @@ class PlmnInfoModel(Model):
         return self._plmn
 
     @plmn.setter
-    def plmn(self, plmn: Plmn):
+    def plmn(self, plmn: List[Plmn]):
 
 
         """Sets the plmn of this PlmnInfo.
@@ -128,17 +140,17 @@ class PlmnInfoModel(Model):
         self._plmn = new_plmn
 
     @property
-    def time_stamp(self) -> TimeStamp:
+    def time_stamp(self) -> List[TimeStamp]:
         return self._time_stamp
 
     @time_stamp.setter
-    def time_stamp(self, time_stamp: TimeStamp):
+    def time_stamp(self, time_stamp: List[TimeStamp]):
 
        # Verifica se não é vazio porem ainda não tem tratamento de erro
         if time_stamp == "":
             raise ValueError("Invalid value for `time_stamp`, must not be `None`")  # noqa: E501
 
-
+        
         # Chamo o construtor da classe TimeStamp passando os parametros nano_seconds e seconds
         #new_time_stamp =  TimeStamp(time_stamp['nano_seconds'],time_stamp['seconds'])   
         new_time_stamp = TimeStamp(**time_stamp)

@@ -82,7 +82,14 @@ class S1UeInfo(Model):
         :type associate_id: List[AssociateId]
         """
 
-        self._associate_id = associate_id
+        # Chamo o construtor da classe Ecgi passando os parametros cell_id e plmn
+        new_associate_id = AssociateId(**associate_id)
+        
+        # Chamo o método json da classe Ecgi para transformar os dados em json
+        new_associate_id = new_associate_id.json()
+        
+        # Finalmente retorno o Json
+        self._associate_id = new_associate_id
 
     @property
     def ecgi(self) -> List[Ecgi]:

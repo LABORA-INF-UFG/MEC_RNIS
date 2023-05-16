@@ -12,7 +12,7 @@ from v2 import util
 
 class CellUserInfo(Model):
 
-    def __init__(self, ecgi: Ecgi, ue_info: List[UeInfo]):  # noqa: E501
+    def __init__(self, ecgi: List[Ecgi], ue_info: List[UeInfo]):  # noqa: E501
         """CellUserInfo - a model defined in Swagger
 
         :param ecgi: The ecgi of this CellUserInfo.  # noqa: E501
@@ -43,7 +43,7 @@ class CellUserInfo(Model):
         return util.deserialize_model(dikt, cls)
 
     @property
-    def ecgi(self) -> Ecgi:
+    def ecgi(self) -> List[Ecgi]:
         """Gets the ecgi of this CellUserInfo.
 
 
@@ -53,7 +53,7 @@ class CellUserInfo(Model):
         return self._ecgi
 
     @ecgi.setter
-    def ecgi(self, ecgi: Ecgi):
+    def ecgi(self, ecgi: List[Ecgi]):
         """Sets the ecgi of this CellUserInfo.
 
 

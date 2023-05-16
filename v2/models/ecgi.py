@@ -8,6 +8,7 @@ from typing import List, Dict  # noqa: F401
 from v2.models.base_model_ import Model
 from v2.models.plmn import Plmn  # noqa: F401,E501
 from v2 import util
+from v2.models.plmn_info import PlmnInfoModel
 
 
 class Ecgi(Model):
@@ -15,10 +16,10 @@ class Ecgi(Model):
 
     Do not edit the class manually.
     """
-    def __init__(self, cell_id: str, plmn: Plmn):  # noqa: E501
+    def __init__(self, cell_id: str, plmn: List[Plmn]):  # noqa: E501
         
-        self._cell_id = cell_id
-        self._plmn = plmn
+        self.cell_id = cell_id
+        self.plmn = plmn
 
     # Esta função pega um self e tranforma em dicionário
     # Pega o objeto e retorna ele em formato json
@@ -48,7 +49,6 @@ class Ecgi(Model):
         :return: The cell_id of this Ecgi.
         :rtype: str
         """
-
         return self._cell_id
 
     @cell_id.setter
@@ -68,7 +68,7 @@ class Ecgi(Model):
         self._cell_id = cell_id
 
     @property
-    def plmn(self) -> Plmn:
+    def plmn(self) -> List[Plmn]:
         """Gets the plmn of this Ecgi.
 
 
@@ -78,7 +78,7 @@ class Ecgi(Model):
         return self._plmn
 
     @plmn.setter
-    def plmn(self, plmn: Plmn):
+    def plmn(self, plmn: List[Plmn]):
         """Sets the plmn of this Ecgi.
 
 
