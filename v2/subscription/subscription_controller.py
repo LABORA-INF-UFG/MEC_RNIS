@@ -19,6 +19,36 @@ class subscription_post(Resource):
 
         return {'message':"sucesso"}, 200
 
+""" 
+        O post deve passar como parametro o NotificationSubscription pag. 59 ETSI 012 V2
+        
+        O corpo da entidade na requisição contém o tipo de dados da assinatura específica 
+        do evento RNI que se deseja criar, onde as opções de tipo de dados estão listadas 
+        abaixo e definidas nas cláusulas 6.3.2 a 6.3.9 e na cláusula 6.3.11:
+            
+            • CellChangeSubscription 
+            • RabEstSubscription 
+            • RabModSubscription 
+            • RabRelSubscription 
+            • MeasRepUeSubscription 
+            • NrMeasRepUeSubscription 
+            • MeasTaSubscription 
+            • CaReconfSubscription 
+            • S1BearerSubscription 
+ """
+""" 
+    exchange_name = 
+            • CellChangeSubscription 
+            • RabEstSubscription 
+            • RabModSubscription 
+            • RabRelSubscription 
+            • MeasRepUeSubscription 
+            • NrMeasRepUeSubscription 
+            • MeasTaSubscription 
+            • CaReconfSubscription 
+            • S1BearerSubscription 
+
+ """
 class subscription_delete(Resource):
 
     def get (self):
