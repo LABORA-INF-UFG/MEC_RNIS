@@ -8,6 +8,7 @@
 import subprocess
 import os
 
+
 from flask import Flask
 from flask_restful import Api
 from v2.queries.rab_info_controller import RabInfo2
@@ -15,8 +16,12 @@ from v2.queries.plmn_info_controller import PlmnInfo2
 from v2.queries.s1_bearer_info_controller import S1BearerInfo2 
 from v2.subscription.subscription_controller import subscription_post
 
-diretorio = "/l/disk0/mcunha/Documentos/ufg/MEC_RNIS/docker-compose" # Caminho do dirteório desejado
-diretorio_atual = "/l/disk0/mcunha/Documentos/ufg/MEC_RNIS"
+
+result = subprocess.run(['pwd'], capture_output=True, text=True)
+current_directory = result.stdout.strip()
+
+diretorio = f'{current_directory}/docker-compose'
+
 # Cria uma variavel para passar o Flask
 app = Flask(__name__)
 
@@ -37,12 +42,14 @@ api.add_resource(subscription_post, '/rni/v2/subscription/subscription/<string:e
 
 # Configuração basica do Flask
 if __name__ == '__main__':
+
+    
     print("Iniciando")
     os.chdir(diretorio) # Mudando para o diretório
     #Executando o comando docker para subir o RabbitMQ
     subprocess.run("docker-compose up -d", shell=True)
     print("RabbiMQ ok")
-    os.chdir(diretorio_atual) # Mudando para o diretório
+    os.chdir(current_directory) # Mudando para o diretório
     app.run(debug=True)
     
 
