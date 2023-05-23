@@ -12,9 +12,12 @@ import connexion
 class subscription_post(Resource):
 
     def post (self, exchange_name, queue_name, severity):
+
+        # Pega os dados enviados via post.
+        dados = request.get_json()
         # Inscrever em um tópico
         #Como posso fazer para me inscrever em um tópico
-        Exchange.receive2(exchange_name, queue_name, severity)
+        Exchange.receive2(**dados)
         #Exchange.receive3('rab','rab_info', 'rab1')
 
         return {'message':"sucesso"}, 200
@@ -27,15 +30,22 @@ class subscription_post(Resource):
         abaixo e definidas nas cláusulas 6.3.2 a 6.3.9 e na cláusula 6.3.11:
             
             • CellChangeSubscription 
+
             • RabEstSubscription 
             • RabModSubscription 
             • RabRelSubscription 
-            • MeasRepUeSubscription 
-            • NrMeasRepUeSubscription 
+
+            • MeasRepUeSubscription
             • MeasTaSubscription 
+
+            • NrMeasRepUeSubscription 
+
             • CaReconfSubscription 
+
             • S1BearerSubscription 
- """
+            
+"""
+
 """ 
     exchange_name = 
             • CellChangeSubscription 

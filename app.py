@@ -43,13 +43,18 @@ api.add_resource(subscription_post, '/rni/v2/subscription/subscription/<string:e
 # Configuração basica do Flask
 if __name__ == '__main__':
 
-    
     print("Iniciando")
+    
     os.chdir(diretorio) # Mudando para o diretório
+
     #Executando o comando docker para subir o RabbitMQ
     subprocess.run("docker-compose up -d", shell=True)
+    
     print("RabbiMQ ok")
+    
     os.chdir(current_directory) # Mudando para o diretório
+
+    # Executa a aplicação
     app.run(debug=True)
     
 

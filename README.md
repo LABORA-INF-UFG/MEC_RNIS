@@ -25,7 +25,7 @@ sudo apt install python3-virtualenv
 
 ## criando o ambiente:
 
- virtualenv nome_Do_ambiente  --python=python3.10         
+ virtualenv nome_Do_ambiente  --python=python3.10
 
 ## para acessar o ambiente use o comando:
 
