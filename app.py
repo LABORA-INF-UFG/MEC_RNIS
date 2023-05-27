@@ -47,7 +47,7 @@ if __name__ == '__main__':
     
     os.chdir(diretorio) # Mudando para o diretório
 
-    #Executando o comando docker para subir o RabbitMQ
+    # Executando o comando docker para subir o RabbitMQ
     subprocess.run("docker-compose up -d", shell=True)
     
     print("RabbiMQ ok")
