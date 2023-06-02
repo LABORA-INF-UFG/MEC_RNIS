@@ -37,7 +37,7 @@ api = Api(app)
 api.add_resource(RabInfo2, '/rni/v2/queries/rab_info/<string:app_instance_id>')
 api.add_resource(PlmnInfo2, '/rni/v2/queries/plmn_info/<string:app_instance_id>')
 api.add_resource(S1BearerInfo2, '/rni/v2/queries/s1_bearer_info')
-api.add_resource(subscription_post, '/rni/v2/subscription/subscription/<string:exchange_name>,<string:queue_name>,<string:severity>')
+api.add_resource(subscription_post, '/rni/v2/subscription/subscription/notificationsubscription/<string:NotificationSubscription>')
 # api.add_resource(subscription_post, '/rni/v2/subscription/subscriptions')
 
 # Configuração basica do Flask
@@ -59,5 +59,4 @@ if __name__ == '__main__':
     
 
 # Running on http://127.0.0.1:5000/rni/v2/queries/rab_info
-#http://127.0.0.1:5000/hoteis
 #python3 app.py
