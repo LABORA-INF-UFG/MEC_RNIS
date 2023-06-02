@@ -15,7 +15,7 @@ import connexion
     # Teste com o RabbitMQ
 #    def get (self):
 
-#        Exchange.receive2('rab','rab_info', 'rab_1')
+#        Exchange.receiver('rab','rab_info', 'rab_1')
 #        return {'message':"sucesso"}, 200
 
 class RabInfo2(Resource):

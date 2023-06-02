@@ -47,8 +47,8 @@ class subscription_get(Resource):
         dados = request.get_json()
         # Inscrever em um tópico
         #Como posso fazer para me inscrever em um tópico
-        Exchange.receive2(**dados)
-        #Exchange.receive3('rab','rab_info', 'rab1')
+        Exchange.receiver(**dados)
+
 
         return {'message':"sucesso"}, 200
 
@@ -99,39 +99,39 @@ class subscription_post(Resource):
         notificationsubscription = dados # pegar somente o valor do NotificationSubscription
 
         if notificationsubscription == "CellChangeSubscription ":
-            Exchange.receive2(notificationsubscription)
+            Exchange.receiver(notificationsubscription)
             print("Cell Change.")
         
         elif notificationsubscription == "RabEstSubscription":
-            Exchange.receive2(notificationsubscription)
+            Exchange.receiver(notificationsubscription)
             print("RAB Establishment.")
 
         elif notificationsubscription == "RabModSubscription ":
-            Exchange.receive2(notificationsubscription)
+            Exchange.receiver(notificationsubscription)
             print("RAB Modification.")
 
         elif notificationsubscription == "RabRelSubscription ":
-            Exchange.receive2(notificationsubscription)
+            Exchange.receiver(notificationsubscription)
             print("RAB Release.")
 
         elif notificationsubscription == "MeasRepUeSubscription":
-            Exchange.receive2(notificationsubscription)
+            Exchange.receiver(notificationsubscription)
             print("UE Measurement Report.")
 
         elif notificationsubscription == "NrMeasRepUeSubscription ":
-            Exchange.receive2(notificationsubscription)
+            Exchange.receiver(notificationsubscription)
             print("5G UE Measurement Report .")
 
         elif notificationsubscription == "MeasTaSubscription ":
-            Exchange.receive2(notificationsubscription)
+            Exchange.receiver(notificationsubscription)
             print("UE Timing Advance.")
 
         elif notificationsubscription == "CaReconfSubscription ":
-            Exchange.receive2(notificationsubscription)
+            Exchange.receiver(notificationsubscription)
             print("Carrier Aggregation Reconfig.")
 
         elif notificationsubscription == "S1BearerSubscription ":
-            Exchange.receive2(notificationsubscription)
+            Exchange.receiver(notificationsubscription)
             print("S1 Bearer Notification.")
 
         else:
