@@ -11,7 +11,7 @@ import connexion
 
 class subscription_get(Resource):
 
-    def post (self, subscription_type):
+    def get (self, subscription_type):
 
         if subscription_type == "CellChangeSubscription ":
             print("Cell Change.")
@@ -92,44 +92,52 @@ class subscription_get(Resource):
 
 class subscription_post(Resource):
 
-    def post (self, notificationsubscription):
+    def post (self):
+
+        # Pega os dados enviados via post.
+        dados = request.get_json()
+        notificationsubscription = dados # pegar somente o valor do NotificationSubscription
 
         if notificationsubscription == "CellChangeSubscription ":
+            Exchange.receive2(notificationsubscription)
             print("Cell Change.")
         
         elif notificationsubscription == "RabEstSubscription":
+            Exchange.receive2(notificationsubscription)
             print("RAB Establishment.")
 
         elif notificationsubscription == "RabModSubscription ":
+            Exchange.receive2(notificationsubscription)
             print("RAB Modification.")
 
         elif notificationsubscription == "RabRelSubscription ":
+            Exchange.receive2(notificationsubscription)
             print("RAB Release.")
 
         elif notificationsubscription == "MeasRepUeSubscription":
+            Exchange.receive2(notificationsubscription)
             print("UE Measurement Report.")
 
         elif notificationsubscription == "NrMeasRepUeSubscription ":
+            Exchange.receive2(notificationsubscription)
             print("5G UE Measurement Report .")
 
         elif notificationsubscription == "MeasTaSubscription ":
+            Exchange.receive2(notificationsubscription)
             print("UE Timing Advance.")
 
         elif notificationsubscription == "CaReconfSubscription ":
+            Exchange.receive2(notificationsubscription)
             print("Carrier Aggregation Reconfig.")
 
         elif notificationsubscription == "S1BearerSubscription ":
+            Exchange.receive2(notificationsubscription)
             print("S1 Bearer Notification.")
 
         else:
             print("Não foi possível determinar o valor.")
+            return {'message':"sucesso"}, 400
         
-        # Pega os dados enviados via post.
-        dados = request.get_json()
-        # Inscrever em um tópico
-        #Como posso fazer para me inscrever em um tópico
-        Exchange.receive2(**dados)
-        #Exchange.receive3('rab','rab_info', 'rab1')
 
         return {'message':"sucesso"}, 200
     
