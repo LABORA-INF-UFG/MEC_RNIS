@@ -7,8 +7,8 @@ from v2.receive.exchange import Exchange
 import pika
 import json
 import connexion
-
-
+from flask import Flask, request, jsonify
+global next_id
 class subscription_get(Resource):
 
     def get (self, subscription_type):
@@ -101,6 +101,12 @@ class subscription_post(Resource):
         if notificationsubscription == "CellChangeSubscription ":
             Exchange.receiver(notificationsubscription)
             print("Cell Change.")
+            ids = []
+            next_id = 1
+            new_id = next_id
+            next_id += 1
+            ids.append(new_id)
+            return jsonify({'id': new_id})
         
         elif notificationsubscription == "RabEstSubscription":
             Exchange.receiver(notificationsubscription)

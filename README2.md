@@ -6,6 +6,7 @@
 
 - Python, docker, virtualenv instalados e com o ambiente virtual criado
 
+
 # Ative o ambiente virtual
 source amb/bin/activate
 
