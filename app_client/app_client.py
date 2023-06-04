@@ -1,9 +1,9 @@
 import requests
 
 def call_api():
-    url = 'http://127.0.0.1:5000/rni/v2/queries'  # Substitua pela URL da sua API
-    endpoint = '/NotificationSubscription/CellChangeSubscription'  # Substitua pelo endpoint específico da sua API
-    data = {'NotificationSubscription': 'CellChangeSubscription'} 
+    url = 'http://127.0.0.1:5000/rni/v2'  # URL da API
+    endpoint = '/subscription/subscription_post'  # Endpoint específico da API
+    data = {"NotificationSubscription" : "CellChangeSubscription"} 
     
     try:
         response = requests.post(url + endpoint, json=data)

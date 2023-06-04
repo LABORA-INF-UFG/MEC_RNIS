@@ -9,6 +9,7 @@ import json
 import connexion
 from flask import Flask, request, jsonify
 global next_id
+
 class subscription_get(Resource):
 
     def get (self, subscription_type):
@@ -89,6 +90,7 @@ class subscription_get(Resource):
             • S1BearerSubscription 
 
  """
+
 
 class subscription_post(Resource):
 

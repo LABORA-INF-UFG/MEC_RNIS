@@ -55,8 +55,9 @@ if __name__ == '__main__':
     os.chdir(current_directory) # Mudando para o diretório
 
     # Executa a aplicação
-    app.run(debug=True)
-    
+    #app.run(debug=True)
+    app.run()
 
 # Running on http://127.0.0.1:5000/rni/v2/queries/rab_info
 #python3 app.py
+
