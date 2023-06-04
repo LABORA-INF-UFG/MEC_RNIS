@@ -16,15 +16,6 @@ from v2.queries.plmn_info_controller import PlmnInfo2
 from v2.queries.s1_bearer_info_controller import S1BearerInfo2 
 from v2.subscription.subscription_controller import subscription_post
 
-ids = []
-next_id = 1
-
-def generate_id():
-    global next_id
-    new_id = next_id
-    next_id += 1
-    ids.append(new_id)
-    return jsonify({'id': new_id})
 
 result = subprocess.run(['pwd'], capture_output=True, text=True)
 current_directory = result.stdout.strip()
