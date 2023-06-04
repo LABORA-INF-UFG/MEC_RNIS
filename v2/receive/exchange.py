@@ -19,10 +19,11 @@ class Exchange():
         return connection
 
     # Recebe mensagens
-    def receiver(exchange_name, queue_name, severity):
+    def receiver(exchange_name):
         # Conectando com o RabbitMQ
         connection = Exchange.connect()
         channel = connection.channel()
+        severity = exchange_name
 
         # declara a queue
         #channel.queue_declare(queue=queue_name, durable=True)

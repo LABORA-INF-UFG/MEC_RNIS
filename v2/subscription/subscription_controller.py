@@ -93,59 +93,81 @@ class subscription_get(Resource):
 class subscription_post(Resource):
 
     def post (self):
-
+        print("Subscription")
         # Pega os dados enviados via post.
         dados = request.get_json()
-        notificationsubscription = dados # pegar somente o valor do NotificationSubscription
-
-        if notificationsubscription == "CellChangeSubscription ":
+        notificationsubscription = dados['NotificationSubscription'] # pegar somente o valor do NotificationSubscription
+        ids = []
+        next_id = 1
+        new_id = next_id
+        
+        
+        if notificationsubscription == "CellChangeSubscription":
             Exchange.receiver(notificationsubscription)
             print("Cell Change.")
-            ids = []
-            next_id = 1
-            new_id = next_id
             next_id += 1
             ids.append(new_id)
-            return jsonify({'id': new_id})
+            return jsonify({'app_id': new_id})
         
         elif notificationsubscription == "RabEstSubscription":
-            Exchange.receiver(notificationsubscription)
+#            Exchange.receiver(notificationsubscription)
+            next_id += 1
+            ids.append(new_id)
             print("RAB Establishment.")
-
+            return jsonify({'app_id': new_id})
+        
         elif notificationsubscription == "RabModSubscription ":
-            Exchange.receiver(notificationsubscription)
+#            Exchange.receiver(notificationsubscription)
+            next_id += 1
+            ids.append(new_id)
             print("RAB Modification.")
+            return {'message':"sucesso"}, 200
 
         elif notificationsubscription == "RabRelSubscription ":
-            Exchange.receiver(notificationsubscription)
+#            Exchange.receiver(notificationsubscription)
+            next_id += 1
+            ids.append(new_id)
             print("RAB Release.")
+            return {'message':"sucesso"}, 200
 
         elif notificationsubscription == "MeasRepUeSubscription":
-            Exchange.receiver(notificationsubscription)
+#            Exchange.receiver(notificationsubscription)
+            next_id += 1
+            ids.append(new_id)
             print("UE Measurement Report.")
-
+            return {'message':"sucesso"}, 200
+        
         elif notificationsubscription == "NrMeasRepUeSubscription ":
-            Exchange.receiver(notificationsubscription)
+#            Exchange.receiver(notificationsubscription)
+            next_id += 1
+            ids.append(new_id)
             print("5G UE Measurement Report .")
+            return {'message':"sucesso"}, 200
 
         elif notificationsubscription == "MeasTaSubscription ":
-            Exchange.receiver(notificationsubscription)
+#            Exchange.receiver(notificationsubscription)
+            next_id += 1
+            ids.append(new_id)
             print("UE Timing Advance.")
-
+            return {'message':"sucesso"}, 200
+        
         elif notificationsubscription == "CaReconfSubscription ":
-            Exchange.receiver(notificationsubscription)
+#            Exchange.receiver(notificationsubscription)
+            next_id += 1
+            ids.append(new_id)
             print("Carrier Aggregation Reconfig.")
-
+            return {'message':"sucesso"}, 200
+        
         elif notificationsubscription == "S1BearerSubscription ":
-            Exchange.receiver(notificationsubscription)
+#            Exchange.receiver(notificationsubscription)
+            next_id += 1
+            ids.append(new_id)
             print("S1 Bearer Notification.")
+            return {'message':"sucesso"}, 200
 
         else:
             print("Não foi possível determinar o valor.")
-            return {'message':"sucesso"}, 400
-        
-
-        return {'message':"sucesso"}, 200
+            return {'message':"error"}, 400
     
 class subscription_delete(Resource):
 
