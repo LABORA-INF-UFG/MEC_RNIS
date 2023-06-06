@@ -1,13 +1,11 @@
 #Importando as bibliotecas
 from flask_restful import Resource, reqparse, request
 from v2.receive.exchange import Exchange
-
-
-#from requests import request
-import pika
-import json
-import connexion
 from flask import Flask, request, jsonify
+
+
+import pika, json, connexion, uuid
+
 global next_id
 
 class subscription_get(Resource):
@@ -74,11 +72,8 @@ class subscription_get(Resource):
             • CaReconfSubscription 
 
             • S1BearerSubscription 
-            
-"""
 
-""" 
-    exchange_name = 
+            exchange_name = 
             • CellChangeSubscription 
             • RabEstSubscription 
             • RabModSubscription 
@@ -88,82 +83,73 @@ class subscription_get(Resource):
             • MeasTaSubscription 
             • CaReconfSubscription 
             • S1BearerSubscription 
-
- """
-
+            
+"""
 
 class subscription_post(Resource):
-
+    
     def post (self):
         print("Subscription")
         # Pega os dados enviados via post.
         dados = request.get_json()
         notificationsubscription = dados['NotificationSubscription'] # pegar somente o valor do NotificationSubscription
+        
         ids = []
         next_id = 1
         new_id = next_id
         
-        
         if notificationsubscription == "CellChangeSubscription":
-            Exchange.receiver(notificationsubscription)
-            print("Cell Change.")
-            next_id += 1
-            ids.append(new_id)
-            return jsonify({'app_id': new_id})
-        
-        elif notificationsubscription == "RabEstSubscription":
-#            Exchange.receiver(notificationsubscription)
-            next_id += 1
-            ids.append(new_id)
-            print("RAB Establishment.")
-            return jsonify({'app_id': new_id})
-        
-        elif notificationsubscription == "RabModSubscription ":
-#            Exchange.receiver(notificationsubscription)
-            next_id += 1
-            ids.append(new_id)
-            print("RAB Modification.")
+            #Exchange.receiver(notificationsubscription)         
+            # Gera o id
+            #id = str(uuid.uuid4())
+            # Retornar o ID como resposta
+            print("CellChangeSubscription.")
             return {'message':"sucesso"}, 200
 
-        elif notificationsubscription == "RabRelSubscription ":
+        
+        elif notificationsubscription == "RabEstSubscription":
+            #Exchange.receiver(notificationsubscription)
+            #next_id += 1
+            #ids.append(new_id)
+            print("RAB Establishment.")
+            #return jsonify({'app_id': new_id})
+            return {'message':"sucesso"}, 200
+        
+        elif notificationsubscription == "RabModSubscription":
 #            Exchange.receiver(notificationsubscription)
-            next_id += 1
-            ids.append(new_id)
+            # Gera o id
+            #id = str(uuid.uuid4())
+            # Retornar o ID como resposta
+            #return jsonify({'id': id})
+            return {'message':"sucesso"}, 200
+
+        elif notificationsubscription == "RabRelSubscription":
+#            Exchange.receiver(notificationsubscription)
             print("RAB Release.")
             return {'message':"sucesso"}, 200
 
         elif notificationsubscription == "MeasRepUeSubscription":
 #            Exchange.receiver(notificationsubscription)
-            next_id += 1
-            ids.append(new_id)
             print("UE Measurement Report.")
             return {'message':"sucesso"}, 200
         
-        elif notificationsubscription == "NrMeasRepUeSubscription ":
+        elif notificationsubscription == "NrMeasRepUeSubscription":
 #            Exchange.receiver(notificationsubscription)
-            next_id += 1
-            ids.append(new_id)
             print("5G UE Measurement Report .")
             return {'message':"sucesso"}, 200
 
-        elif notificationsubscription == "MeasTaSubscription ":
+        elif notificationsubscription == "MeasTaSubscription":
 #            Exchange.receiver(notificationsubscription)
-            next_id += 1
-            ids.append(new_id)
             print("UE Timing Advance.")
             return {'message':"sucesso"}, 200
         
-        elif notificationsubscription == "CaReconfSubscription ":
+        elif notificationsubscription == "CaReconfSubscription":
 #            Exchange.receiver(notificationsubscription)
-            next_id += 1
-            ids.append(new_id)
             print("Carrier Aggregation Reconfig.")
             return {'message':"sucesso"}, 200
         
-        elif notificationsubscription == "S1BearerSubscription ":
+        elif notificationsubscription == "S1BearerSubscription":
 #            Exchange.receiver(notificationsubscription)
-            next_id += 1
-            ids.append(new_id)
             print("S1 Bearer Notification.")
             return {'message':"sucesso"}, 200
 
