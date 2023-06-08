@@ -59,26 +59,26 @@ def delete_application_route():
 
 
 # SubscriptionsID GET
-@app.route('/rni/v2/queries/subscriptions/{subscriptionId}', methods=['GET'])
-def get_subscriptionId():
+@app.route('/rni/v2/queries/subscriptions/<subscriptionId>', methods=['GET'])
+def get_subscriptionId(subscriptionId):
    
 
     # Retornar uma resposta de sucesso
-    return jsonify({'message': 'sucesso'})
+    return jsonify({'message': subscriptionId})
 
 
 
 # SubscriptionsID DELETE
-@app.route('/rni/v2/queries/subscriptions/{subscriptionId}', methods=['DELETE'])
-def delete_subscriptionId():
+@app.route('/rni/v2/queries/subscriptions/<subscriptionId>', methods=['DELETE'])
+def delete_subscriptionId(subscriptionId):
    
 
     # Retornar uma resposta de sucesso
     return jsonify({'message': 'sucesso'})
 
 # SubscriptionsID PUT
-@app.route('/rni/v2/queries/subscriptions/{subscriptionId}', methods=['PUT'])
-def put_subscriptionId():
+@app.route('/rni/v2/queries/subscriptions/<subscriptionId>', methods=['PUT'])
+def put_subscriptionId(subscriptionId):
    
 
     # Retornar uma resposta de sucesso
