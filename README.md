@@ -121,7 +121,10 @@ python3 app.py
    - https://docs.locust.io/en/stable/installation.html
    - https://docs.locust.io/en/stable/quickstart.html
    
-
 # Detalhes
 
 Detalhe o __init__.py dizer que esta pasta no qual esta inserido e um modulo/pacote. Para que possamos utilizar como se fosse uma blibloteca da mesma forma que importamos um Flask
+
+# Comando rápido
+
+  virtualenv amb --python=python3.8 && source amb/bin/activate && pip3 install -r requirements.txt && python3 app.py
