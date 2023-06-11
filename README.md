@@ -125,6 +125,6 @@ python3 app.py
 
 Detalhe o __init__.py dizer que esta pasta no qual esta inserido e um modulo/pacote. Para que possamos utilizar como se fosse uma blibloteca da mesma forma que importamos um Flask
 
-# Comando rápido
+# Comando rápido para executar
 
   virtualenv amb --python=python3.8 && source amb/bin/activate && pip3 install -r requirements.txt && python3 app.py
