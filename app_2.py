@@ -25,7 +25,7 @@ DB_NAME = 'applications.db'
 ## Methods ##
 
 # Resource: Subscription GET
-@app.route('/rni/v2/subscriptions', methods=['GET'])
+@app.route('/<appRoot>/rni/v2/subscriptions', methods=['GET'])
 def get_application_route():
     # Obter o ID da aplicação a ser excluída na requisição POST
     subscription_type = request.json.get('subscription_type')
@@ -41,11 +41,18 @@ def get_application_route():
     # Retornar uma resposta de sucesso
     return jsonify({'subscription_type': subscription_type,  'SubscriptionLinkList' : 'Após o sucesso, um corpo de resposta contendo a lista de links para as assinaturas do solicitante é retornado.'}), 200
 
-
-
 # Resource: Subscription POST
-@app.route('/rni/v2/subscriptions', methods=['POST'])
-def register_application():
+@app.route('/<appRoot>/rni/v2/subscriptions', methods=['POST'])
+def register_application(appRoot):
+
+    """ 
+        Cada uma dos tipos de subscrições já devem estar cadastrados no Brocker, 
+        Nesse ponto ao efetuar a requisição do tipo Post passando um NotificationSubscription eu devo
+        vincular o appRoot a esse tipo de notificação ou seja inscrever esse appRoot no tópico do 
+        NotificationSubscription especificado!
+    """
+
+    # A apiRoot que deve ter o código vinculado no banco de dados?
     # Obter o identificador da aplicação na requisição POST
     NotificationSubscription = request.json.get('NotificationSubscription')
 
@@ -54,13 +61,19 @@ def register_application():
         return jsonify({'error': 'Identificador não fornecido'}), 400
 
     # Cadastrar a aplicação e obter o ID
-    id = insert_application(NotificationSubscription)
+    id = insert_application(appRoot)
 
     # Retornar o ID como resposta
-    return jsonify({'id': id}), 200
+    return jsonify({'id': id, 'appRoot': appRoot}), 200
+
+
+
+
+
+
 
 # Resource: Subscription DELETE
-@app.route('/rni/v2/subscriptions', methods=['DELETE'])
+@app.route('/<appRoot>/rni/v2/subscriptions', methods=['DELETE'])
 def delete_application_route():
     # Obter o ID da aplicação a ser excluída na requisição POST
     id = request.json.get('id')
@@ -78,32 +91,37 @@ def delete_application_route():
 
 
 
+
+
+
+
+
 # Resource: SubscriptionsID GET
-@app.route('/rni/v2/subscriptions/<subscriptionId>', methods=['GET'])
-def get_subscriptionId(subscriptionId):
+@app.route('/<appRoot>/rni/v2/subscriptions/<subscriptionId>', methods=['GET'])
+def get_subscriptionId(appRoot, subscriptionId):
    
 
     # Retornar uma resposta de sucesso
     return jsonify({'message': subscriptionId})
 
 # Resource: SubscriptionsID PUT
-@app.route('/rni/v2/subscriptions/<subscriptionId>', methods=['PUT'])
-def put_subscriptionId(subscriptionId):
+@app.route('/<appRoot>/rni/v2/subscriptions/<subscriptionId>', methods=['PUT'])
+def put_subscriptionId(appRoot, subscriptionId):
    
 
     # Retornar uma resposta de sucesso
     return jsonify({'message': 'sucesso'})
 
 # Resource: SubscriptionsID DELETE
-@app.route('/rni/v2/subscriptions/<subscriptionId>', methods=['DELETE'])
-def delete_subscriptionId(subscriptionId):
+@app.route('/<appRoot>/rni/v2/subscriptions/<subscriptionId>', methods=['DELETE'])
+def delete_subscriptionId(appRoot, subscriptionId):
    
 
     # Retornar uma resposta de sucesso
     return jsonify({'message': 'sucesso'})
 
 # Resource: rab_info GET
-@app.route('/rni/v2/queries/rab_info', methods=['GET'])
+@app.route('/<appRoot>/rni/v2/queries/rab_info', methods=['GET'])
 def get_rab_info():
    
 
@@ -111,7 +129,7 @@ def get_rab_info():
     return jsonify({'message': 'sucesso'})
 
 # Resource: plmn_info GET
-@app.route('/rni/v2/queries/plmn_info ', methods=['GET'])
+@app.route('/<appRoot>/rni/v2/queries/plmn_info ', methods=['GET'])
 def get_plmn_info():
    
 
@@ -119,7 +137,7 @@ def get_plmn_info():
     return jsonify({'message': 'sucesso'})
 
 # Resource: s1_bearer_info GET
-@app.route('/rni/v2/queries/s1_bearer_info ', methods=['GET'])
+@app.route('/<appRoot>/rni/v2/queries/s1_bearer_info ', methods=['GET'])
 def get_s1_bearer_info():
    
 
@@ -127,7 +145,7 @@ def get_s1_bearer_info():
     return jsonify({'message': 'sucesso'})
 
 # Resource: layer2_meas GET
-@app.route('/rni/v2/queries/layer2_meas  ', methods=['GET'])
+@app.route('/<appRoot>/rni/v2/queries/layer2_meas  ', methods=['GET'])
 def get_layer2_meas ():
    
 
