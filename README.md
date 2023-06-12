@@ -15,7 +15,6 @@ A estrutura da API está sendo feita com base nas especificações do ETSI GS ME
 
 ---
 
-
 # Ambiente virtual
 
 sudo pip3 install virtualenv  --user
@@ -26,11 +25,11 @@ sudo apt install python3-virtualenv
 
 ## criando o ambiente:
 
- virtualenv nome_Do_ambiente  --python=python3.10         
+virtualenv amb --python=python3.8
 
 ## para acessar o ambiente use o comando:
 
-source nome_Do_ambiente/bin/activate
+source amb/bin/activate
 
 ## para desativar o ambiente
 
@@ -123,8 +122,10 @@ python3 app.py
    - https://docs.locust.io/en/stable/installation.html
    - https://docs.locust.io/en/stable/quickstart.html
    
-  
-
 # Detalhes
 
 Detalhe o __init__.py dizer que esta pasta no qual esta inserido e um modulo/pacote. Para que possamos utilizar como se fosse uma blibloteca da mesma forma que importamos um Flask
+
+# Comando rápido para executar
+
+  virtualenv amb --python=python3.8 && source amb/bin/activate && pip3 install -r requirements.txt && python3 app.py

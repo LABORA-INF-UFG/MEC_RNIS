@@ -11,13 +11,13 @@ import pika
 import json
 import connexion
 
-
+""" 
 class PlmnInfo(Resource):
 
     def get (self):
-        Exchange.receive2('plmn','plmn_info','plmn_1')
+        Exchange.receiver('plmn','plmn_info','plmn_1')
         return {'message':"sucesso"}, 200
-    
+     """
 class PlmnInfo2(Resource):
 
     # Post enviando informações para um RabbitMQ.
