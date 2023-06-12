@@ -87,16 +87,20 @@ class subscription_get(Resource):
 """
 
 class subscription_post(Resource):
+
+
+    """ 
+        Cada uma dos tipos de subscrições já devem estar cadastrados no Brocker, 
+        Nesse ponto ao efetuar a requisição do tipo Post passando um NotificationSubscription eu devo
+        vincular o appRoot a esse tipo de notificação ou seja inscrever esse appRoot no tópico do 
+        NotificationSubscription especificado!
+    """
     
     def post (self):
         print("Subscription")
         # Pega os dados enviados via post.
         dados = request.get_json()
         notificationsubscription = dados['NotificationSubscription'] # pegar somente o valor do NotificationSubscription
-        
-        ids = []
-        next_id = 1
-        new_id = next_id
         
         if notificationsubscription == "CellChangeSubscription":
             #Exchange.receiver(notificationsubscription)         
