@@ -87,6 +87,14 @@ class subscription_get(Resource):
 """
 
 class subscription_post(Resource):
+    def post (self):
+        print("Subscription")
+        # Pega os dados enviados via post.
+        print("Chegou aqui!!!! Subscription_post")
+        return {'message':"sucesso"}, 200
+
+
+class subscription_post_2(Resource):
 
 
     """ 
@@ -97,8 +105,7 @@ class subscription_post(Resource):
     """
     
     def post (self):
-        print("Subscription")
-        # Pega os dados enviados via post.
+ 
         dados = request.get_json()
         notificationsubscription = dados['NotificationSubscription'] # pegar somente o valor do NotificationSubscription
         
@@ -116,6 +123,7 @@ class subscription_post(Resource):
             #next_id += 1
             #ids.append(new_id)
             print("RAB Establishment.")
+            print ("notificationsubscription", notificationsubscription)
             #return jsonify({'app_id': new_id})
             return {'message':"sucesso"}, 200
         
