@@ -6,7 +6,7 @@ from flask import Flask, request, jsonify
 def subscription_post(notificationsubscription):
 
     if notificationsubscription == "CellChangeSubscription":
-        # Exchange.receiver(notificationsubscription)         
+        Exchange.receiver(notificationsubscription)        
         print("CellChangeSubscription.")
         return {'message':"sucesso"}, 200
         
@@ -51,4 +51,4 @@ def subscription_post(notificationsubscription):
     
     else:
         print("Não foi possível determinar o valor.")
-        return {'message':"error"}, 400
+        return {'message':"Chegou no ultimo passo"}, 401

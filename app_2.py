@@ -66,10 +66,11 @@ def register_application(appRoot):
     id = insert_application(appRoot)
 
     #Chama a função subscription_post
-    subscription_post(NotificationSubscription) # Chama o subscription_post
+    t = subscription_post(NotificationSubscription) # Chama o subscription_post
 
     # Retornar o ID como resposta
-    return jsonify({'id': id, 'appRoot': appRoot, 'NotificationSubscription': NotificationSubscription}), 200
+    #return jsonify({'id': id, 'appRoot': appRoot, 'NotificationSubscription': NotificationSubscription, "t": t }), 200
+    return t
 
 
 

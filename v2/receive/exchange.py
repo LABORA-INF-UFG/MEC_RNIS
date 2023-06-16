@@ -12,18 +12,18 @@ class Exchange():
     # Conectando com o RabbitMQ
     def connect():
         # Conectando com o RabbitMQ
-        credentials = pika.PlainCredentials(username='admin', password='123456')
-        parameters = pika.ConnectionParameters(host='localhost',credentials=credentials)
-        connection = pika.BlockingConnection(parameters)
+        credentials = pika.PlainCredentials(username='admin', password='123456') # Credentials (user e password)
+        parameters = pika.ConnectionParameters(host='localhost',credentials=credentials) # Parameters (host e credentials)
+        connection = pika.BlockingConnection(parameters) # Connection (parameters)
 
-        return connection
+        return connection # Return
 
     # Recebe mensagens
     def receiver(exchange_name):
         # Conectando com o RabbitMQ
-        connection = Exchange.connect()
-        channel = connection.channel()
-        severity = exchange_name
+        connection = Exchange.connect() # Connection
+        channel = connection.channel() # CRia o CHannel com a connection
+        severity = exchange_name # Cria o servirity com o mesmo nome da exchange
 
         # declara a queue
         #channel.queue_declare(queue=queue_name, durable=True)
