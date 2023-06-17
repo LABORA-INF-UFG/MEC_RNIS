@@ -6,19 +6,19 @@ from flask import Flask, request, jsonify
 def subscription_post(notificationsubscription):
 
     if notificationsubscription == "CellChangeSubscription":
-        Exchange.receiver(notificationsubscription)        
+        Exchange.receiver(notificationsubscription)
         print("CellChangeSubscription.")
         return {'message':"sucesso"}, 200
-        
+
     elif notificationsubscription == "RabEstSubscription":
         Exchange.receiver(notificationsubscription)
         print ("notificationsubscription", notificationsubscription)
         return {'message':"sucesso"}, 200
-        
+
     elif notificationsubscription == "RabModSubscription":
 #       Exchange.receiver(notificationsubscription)
         return {'message':"sucesso"}, 200
-    
+
     elif notificationsubscription == "RabRelSubscription":
 #        Exchange.receiver(notificationsubscription)
         print("RAB Release.")
@@ -28,7 +28,7 @@ def subscription_post(notificationsubscription):
 #            Exchange.receiver(notificationsubscription)
             print("UE Measurement Report.")
             return {'message':"sucesso"}, 200
-        
+
     elif notificationsubscription == "NrMeasRepUeSubscription":
 #       Exchange.receiver(notificationsubscription)
         print("5G UE Measurement Report .")
@@ -38,7 +38,7 @@ def subscription_post(notificationsubscription):
 #       Exchange.receiver(notificationsubscription)
         print("UE Timing Advance.")
         return {'message':"sucesso"}, 200
-        
+
     elif notificationsubscription == "CaReconfSubscription":
 #       Exchange.receiver(notificationsubscription)
         print("Carrier Aggregation Reconfig.")
@@ -48,7 +48,8 @@ def subscription_post(notificationsubscription):
 #       Exchange.receiver(notificationsubscription)
         print("S1 Bearer Notification.")
         return {'message':"sucesso"}, 200
-    
+   
     else:
         print("Não foi possível determinar o valor.")
         return {'message':"Chegou no ultimo passo"}, 401
+    

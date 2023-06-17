@@ -5,10 +5,10 @@ from datetime import date, datetime  # noqa: F401
 
 from typing import List, Dict  # noqa: F401
 
-from swagger_server.models.base_model_ import Model
-from swagger_server.models.ca_reconf_notification_links import CaReconfNotificationLinks  # noqa: F401,E501
-from swagger_server.models.inline_notification import InlineNotification  # noqa: F401,E501
-from swagger_server import util
+from v2.models.base_model_ import Model
+from v2.models_notification.ca_reconf_notification_links import CaReconfNotificationLinks  # noqa: F401,E501
+from v2.models_notification.inline_notification import InlineNotification  # noqa: F401,E501
+from v2 import util
 
 
 class TestNotification(Model):
