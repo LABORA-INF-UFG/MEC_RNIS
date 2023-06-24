@@ -21,6 +21,34 @@ import connexion
 class RabInfo2(Resource):
 
     # Post enviando informações para um RabbitMQ.
+    def post(self, appRoot, app_instance_id):
+
+        # Pega os dados enviados via post.
+        dados = request.get_json()
+        
+        # Criando um objeto do tipo rab_info
+        rab_objeto = RabInfoModel(app_instance_id, **dados)
+        
+        # Como enviar um json 
+        rab_JSON = rab_objeto.json()
+	
+	    # Manda o json para a Exchange que envia para o RabbitMQ
+        Exchange.emit('rab','rab_info','rab_1', rab_JSON)
+
+        '''
+        #Serializa o objeto
+        dados_1 = json.dumps(rab_JSON)
+        #Deserializa o objeto
+        dados_2 = json.loads(dados_1)
+        '''
+        #return {'message':"sucesso"}, 200
+        return rab_JSON, 200
+
+
+
+class RabInfo1(Resource):
+
+    # Post enviando informações para um RabbitMQ.
     def post(self, app_instance_id):
 
         # Pega os dados enviados via post.

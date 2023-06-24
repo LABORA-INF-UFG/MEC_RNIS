@@ -1,4 +1,5 @@
 #Importando as bibliotecas
+import json
 from flask_restful import Resource, reqparse, request
 from v2.receive.exchange import Exchange
 from flask import Flask, request, jsonify
@@ -11,9 +12,9 @@ def subscription_post(notificationsubscription):
         return {'message':"sucesso"}, 200
 
     elif notificationsubscription == "RabEstSubscription":
-        Exchange.receiver(notificationsubscription)
+#       Exchange.receiver(notificationsubscription)
         print ("notificationsubscription", notificationsubscription)
-        return {'message':"sucesso"}, 200
+        return {'message':"sucessooooo"}, 200
 
     elif notificationsubscription == "RabModSubscription":
 #       Exchange.receiver(notificationsubscription)
@@ -25,9 +26,9 @@ def subscription_post(notificationsubscription):
         return {'message':"sucesso"}, 200
 
     elif notificationsubscription == "MeasRepUeSubscription":
-#            Exchange.receiver(notificationsubscription)
-            print("UE Measurement Report.")
-            return {'message':"sucesso"}, 200
+#       Exchange.receiver(notificationsubscription)
+        print("UE Measurement Report.")
+        return {'message':"sucesso"}, 200
 
     elif notificationsubscription == "NrMeasRepUeSubscription":
 #       Exchange.receiver(notificationsubscription)
@@ -48,7 +49,21 @@ def subscription_post(notificationsubscription):
 #       Exchange.receiver(notificationsubscription)
         print("S1 Bearer Notification.")
         return {'message':"sucesso"}, 200
-   
+
+    elif notificationsubscription == "rab":
+#       Exchange.receiver(notificationsubscription)
+        print("rab")
+        resposta = Exchange.receiver3(notificationsubscription)
+        #print (Exchange.receiver2(notificationsubscription))
+        #data = resposta.decode('utf-8')
+        #print ("a resposta:", resposta)
+
+        #json_data = json.dumps(resposta)
+        #return {'message': data}, 200
+
+        #Transformar em json#### como passar uma array_list para json
+        return resposta
+    
     else:
         print("Não foi possível determinar o valor.")
         return {'message':"Chegou no ultimo passo"}, 401

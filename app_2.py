@@ -5,7 +5,7 @@ import sqlite3, uuid, subprocess, os
 from flask import Flask, jsonify, request
 from flask_restful import Api
 from bd.table import create_table, insert_application, delete_application
-from v2.queries.rab_info_controller import RabInfo2
+from v2.queries.rab_info_controller import RabInfo2, RabInfo1
 from v2.queries.plmn_info_controller import PlmnInfo2
 from v2.queries.s1_bearer_info_controller import S1BearerInfo2 
 from v2.subscription.subscription_controller2 import subscription_post
@@ -23,6 +23,8 @@ diretorio = f'{current_directory}/docker-compose'
 DB_NAME = 'applications.db'
 
 ## Methods ##
+
+#################################################################
 
 # Resource: Subscription GET
 @app.route('/<appRoot>/rni/v2/subscriptions', methods=['GET'])
@@ -73,7 +75,6 @@ def register_application(appRoot):
     return t
 
 
-
 # Resource: Subscription DELETE
 @app.route('/<appRoot>/rni/v2/subscriptions', methods=['DELETE'])
 def delete_application_route(appRoot):
@@ -91,7 +92,6 @@ def delete_application_route(appRoot):
     return jsonify({'message': 'ID excluído com sucesso'}), 200
 
 
-
 # Resource: SubscriptionsID GET
 @app.route('/<appRoot>/rni/v2/subscriptions/<subscriptionId>', methods=['GET'])
 def get_subscriptionId(appRoot, subscriptionId):
@@ -101,7 +101,6 @@ def get_subscriptionId(appRoot, subscriptionId):
     return jsonify({'message': subscriptionId})
 
 
-
 # Resource: SubscriptionsID PUT
 @app.route('/<appRoot>/rni/v2/subscriptions/<subscriptionId>', methods=['PUT'])
 def put_subscriptionId(appRoot, subscriptionId):
@@ -109,7 +108,6 @@ def put_subscriptionId(appRoot, subscriptionId):
 
     # Retornar uma resposta de sucesso
     return jsonify({'message': 'sucesso'})
-
 
 
 # Resource: SubscriptionsID DELETE
@@ -122,6 +120,9 @@ def delete_subscriptionId(appRoot, subscriptionId):
 
 
 
+#################################################################
+
+
 
 # Resource: rab_info GET
 @app.route('/<appRoot>/rni/v2/queries/rab_info/<app_ins_id>', methods=['GET'])
@@ -131,6 +132,8 @@ def get_rab_info(appRoot, app_ins_id ):
     # Retornar uma resposta de sucesso
     return jsonify({'message': appRoot, 'teste': app_ins_id })
 
+
+
 # Resource: plmn_info GET
 @app.route('/<appRoot>/rni/v2/queries/plmn_info/<app_ins_id>', methods=['GET'])
 def get_plmn_info(appRoot, app_ins_id):
@@ -138,6 +141,8 @@ def get_plmn_info(appRoot, app_ins_id):
 
     # Retornar uma resposta de sucesso
     return jsonify({'message': 'sucesso'})
+
+
 
 # Resource: s1_bearer_info GET
 @app.route('/<appRoot>/rni/v2/queries/s1_bearer_info/<app_ins_id>', methods=['GET'])
@@ -147,6 +152,8 @@ def get_s1_bearer_info(appRoot, app_ins_id):
     # Retornar uma resposta de sucesso
     return jsonify({'message': 'sucesso'})
 
+
+
 # Resource: layer2_meas GET
 @app.route('/<appRoot>/rni/v2/queries/layer2_meas/<app_ins_id>', methods=['GET'])
 def get_layer2_meas (appRoot, app_ins_id):
@@ -154,6 +161,31 @@ def get_layer2_meas (appRoot, app_ins_id):
 
     # Retornar uma resposta de sucesso
     return jsonify({'message': 'sucesso'})
+
+
+#################################################################
+
+@app.route('/rni/v2/subscriptions', methods=['POST'])
+def regis():
+
+    NotificationSubscription = request.json.get('NotificationSubscription')
+
+    data = subscription_post(NotificationSubscription)
+
+    #print ("data:", data)
+    
+    return data
+
+
+#################################################################
+
+
+# Criar outra variavel para passar o app
+api = Api(app)
+
+# Resource: rab_info POST
+api.add_resource(RabInfo1, '/rni/v2/queries/rab_info/<string:app_instance_id>')
+
 
 
 ## Main ##

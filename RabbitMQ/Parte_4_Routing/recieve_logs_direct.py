@@ -8,7 +8,7 @@ credentials = pika.PlainCredentials(username='admin', password='123456')
 connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost',credentials=credentials))
 channel = connection.channel()
 
-channel.exchange_declare(exchange='plmn', exchange_type='fanout', durable=True)
+channel.exchange_declare(exchange='rab', exchange_type='fanout', durable=True)
 
 # Em primeiro lugar, sempre que nos conectamos ao Rabbit, precisamos de uma fila nova e vazia.
 #Para fazer isso, poderíamos criar uma fila com um nome aleatório ou, melhor ainda - deixar o servidor escolher um nome de fila aleatório para nós. 
@@ -26,7 +26,7 @@ if not severities:
     sys.exit(1)
 
 for severity in severities:
-    channel.queue_bind(exchange='plmn', queue=queue_name, routing_key=severity)
+    channel.queue_bind(exchange='rab', queue=queue_name, routing_key=severity)
 
 
 print(' [*] Waiting for logs. To exit press CTRL+C')
@@ -40,4 +40,3 @@ channel.basic_consume(
     queue=queue_name, on_message_callback=callback, auto_ack=True)
 
 channel.start_consuming()
-
