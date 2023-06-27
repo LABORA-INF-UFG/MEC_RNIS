@@ -51,19 +51,15 @@ def subscription_post(notificationsubscription):
         return {'message':"sucesso"}, 200
 
     elif notificationsubscription == "rab":
-#       Exchange.receiver(notificationsubscription)
-        print("rab")
+        print("Teste rab")
         resposta = Exchange.receiver3(notificationsubscription)
-        #print (Exchange.receiver2(notificationsubscription))
-        #data = resposta.decode('utf-8')
-        #print ("a resposta:", resposta)
 
         #json_data = json.dumps(resposta)
         #return {'message': data}, 200
 
         #Transformar em json#### como passar uma array_list para json
         return resposta
-    
+        
     else:
         print("Não foi possível determinar o valor.")
         return {'message':"Chegou no ultimo passo"}, 401

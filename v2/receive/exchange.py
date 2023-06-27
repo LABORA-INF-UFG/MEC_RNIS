@@ -9,6 +9,9 @@ from flask import jsonify, Flask
 
 class Exchange():
 
+    # Variável global para manter a referência do canal
+    channel = None
+
     # Conectando com o RabbitMQ
     def connect():
         # Conectando com o RabbitMQ
@@ -18,12 +21,15 @@ class Exchange():
 
         return connection # Return
     
+    # callback basico
+    def callback(ch, method, properties, body):
+        print(" [x] %r" % body)
+        return body
 
-
-
-
+    #Mensagem para salvar os dados do receiver
     messages = []
 
+    # callback2 teste aprimorando o callback basico
     def callback2(ch, method, properties, body):
             # Processar os dados da mensagem
             #data = body.decode('utf-8')
@@ -46,8 +52,6 @@ class Exchange():
             
             # Confirmar o processamento da mensagem
             ch.basic_ack(delivey_tag=method.delivery_tag)
-
-
     
     # Recebe mensagens
     def receiver2(exchange_name):
@@ -65,10 +69,6 @@ class Exchange():
         queue_name = result.method.queue
         
         channel.queue_bind(exchange=exchange_name, queue=queue_name)
-    
-
-
-    
 
         channel.basic_consume(queue=queue_name, on_message_callback=Exchange.callback2, auto_ack=True)
 
@@ -76,10 +76,9 @@ class Exchange():
         print('Aguardando mensagens...')
         channel.start_consuming()
 
-
-
-    # Recebe mensagens
+    # Recebe mensagens Atualemente esta funcionando e retorna uma das mensagens.. O problema é que só retorna uma mensagem
     def receiver3(exchange_name):
+
         # Conectando com o RabbitMQ
         connection = Exchange.connect() # Connection
         channel = connection.channel() # CRia o CHannel com a connection
@@ -87,16 +86,15 @@ class Exchange():
 
         # declara a queue
         #channel.queue_declare(queue=queue_name, durable=True)
-        
+            
         # declara a exchange
         channel.exchange_declare(exchange=exchange_name, exchange_type='fanout', durable=True)
         result = channel.queue_declare(queue='', exclusive=True)
         queue_name = result.method.queue
-        
         channel.queue_bind(exchange=exchange_name, queue=queue_name)
 
         #---------------------------------------------------------------#
-          
+            
         # Lista para armazenar as mensagens recebidas
         messages1 = []
 
@@ -114,10 +112,8 @@ class Exchange():
             ch.basic_ack(delivery_tag=method.delivery_tag)
 
             #print (body)
-            # Fechar a conexão
-            connection.close()
-
-
+            channel.stop_consuming()
+            Exchange.receiver3(exchange_name)
 
         channel.basic_consume(queue=queue_name, on_message_callback=callback)
 
@@ -131,48 +127,9 @@ class Exchange():
         json_data = json.dumps(messages1)
         # Aqui estou passando a lista inteira, tenho que transformar em json para passar
         return messages1
-
-  
-
-
-
-
-
-
-
-        # Recebe mensagens
-    
-    def receiver(exchange_name):
-        # Conectando com o RabbitMQ
-        connection = Exchange.connect() # Connection
-        channel = connection.channel() # CRia o CHannel com a connection
-        severity = exchange_name # Cria o servirity com o mesmo nome da exchange
-
-        # declara a queue
-        #channel.queue_declare(queue=queue_name, durable=True)
         
-        # declara a exchange
-        channel.exchange_declare(exchange=exchange_name, exchange_type='fanout', durable=True)
 
-        result = channel.queue_declare(queue='', exclusive=True)
-        queue_name = result.method.queue
-        
-        channel.queue_bind(exchange=exchange_name, queue=queue_name, routing_key=severity)
-
-        print(' [*] Waiting for logs. To exit press CTRL+C')
-
-        def callback(ch, method, properties, body):
-            print(" [x] %r" % body)
-            return body
-
-        channel.basic_consume(queue=queue_name, on_message_callback=callback, auto_ack=True)
-
-        channel.start_consuming()
-
-      # Envia mensagens
-    
-
-
+    # Envia mensagens
     def emit(exchange_name, queue_name, severity, dados):
         # Conectando com o RabbitMQ
         connection = Exchange.connect()
