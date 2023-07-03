@@ -1,3 +1,5 @@
+## Esse script se inscreve no topico rab consome informações e faz um calculo
+
 import pika
 import json
 

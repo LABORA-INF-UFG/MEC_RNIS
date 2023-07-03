@@ -1,3 +1,4 @@
+## Esse script se inscreve no topico rab consome informações printando na tela
 
 #!/usr/bin/env python
 # pip3 install pika

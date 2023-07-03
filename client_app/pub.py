@@ -1,3 +1,5 @@
+## Este script publica no my_exchange do rabbitmq
+
 import pika
 
 # Conectando com o RabbitMQ

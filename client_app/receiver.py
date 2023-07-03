@@ -1,3 +1,5 @@
+## Este script recebe mensagens do topico my_exchange do rabbitmq
+
 """ import pika
 
 # Variável global para manter a referência do canal
