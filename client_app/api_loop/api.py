@@ -14,8 +14,9 @@ def process_request():
         # Verificar se o cliente solicitou a finalização
         if request.args.get('action') == 'stop':
             break
-        return "aqui"
+        #return "aqui"
         # Continuar processando os dados ou executando tarefas
+        print ("aqui")
 
     return 'Processamento finalizado'
 

@@ -23,8 +23,8 @@ def start_processing():
 
     # Continuar processando até solicitar a finalização
     while True:
-        #action = input('Digite "stop" para finalizar o processamento: ')
-        action = 'start'
+        action = input('Digite "stop" para finalizar o processamento: ')
+        #action = 'start'
         ##pegar a resposta e postar aqui
         if action.lower() == 'stop':
             # Enviar uma requisição GET para solicitar a finalização
