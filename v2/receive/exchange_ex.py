@@ -9,23 +9,15 @@ import requests
 
 class ExchangeEx():
 
-    # Conectando com o RabbitMQ
-    def connect():
+    # Função para configurar a conexão RabbitMQ
+    def setup_rabbitmq(exchange_name):
         # Conectando com o RabbitMQ
         credentials = pika.PlainCredentials(username='admin', password='123456') # Credentials (user e password)
         parameters = pika.ConnectionParameters(host='localhost',credentials=credentials) # Parameters (host e credentials)
         connection = pika.BlockingConnection(parameters) # Connection (parameters)
 
-        return connection # Return
-    
-
-    # Recebe mensagens Atualemente esta funcionando e retorna uma das mensagens.. O problema é que só retorna uma mensagem
-    def receiver(exchange_name):
-
         # Conectando com o RabbitMQ
-        connection = ExchangeEx.connect() # Connection
         channel = connection.channel() # CRia o CHannel com a connection
-        severity = exchange_name # Cria o servirity com o mesmo nome da exchange
 
         # declara a exchange
         channel.exchange_declare(exchange=exchange_name, exchange_type='fanout', durable=True)
@@ -33,7 +25,95 @@ class ExchangeEx():
         queue_name = result.method.queue
         channel.queue_bind(exchange=exchange_name, queue=queue_name)
 
-        #---------------------------------------------------------------#
+        return channel, queue_name
+
+    # Recebe mensagens Atualemente esta funcionando e retorna uma das mensagens.. O problema é que só retorna uma mensagem
+    def receiver3(exchange_name):
+
+        continue_running = True
+        channel, queue_name = ExchangeEx.setup_rabbitmq(exchange_name)
+            
+        # Lista para armazenar as mensagens recebidas
+        messages1 = []
+
+        # Função de callback que será chamada quando uma mensagem for recebida
+        def callback(ch, method, properties, body):
+            # Processar os dados da mensagem
+            data = body.decode('utf-8')
+
+            messages1.append(data)
+            #messages1.append(body)
+
+            # Confirmar o processamento da mensagem
+            ch.basic_ack(delivery_tag=method.delivery_tag)
+
+            #print (body)
+            channel.stop_consuming()
+
+            #Exchange.receiver3(exchange_name)
+        def generate():
+            for method, properties, body in channel.consume(queue=queue_name, auto_ack=True):
+                message = body.decode('utf-8')
+                yield message + '\n'
+
+                # Verifica se a execução deve ser interrompida
+                if not continue_running:
+                    break
+        return generate
+    
+        #channel.basic_consume(queue=queue_name, on_message_callback=callback)
+
+        # Inicia a escuta por mensagens
+        #print('Aguardando mensagens... receiver3')
+        #channel.start_consuming()
+
+        #Transformar em json#### como passar uma array_list para json
+
+        # Retornar as mensagens para o cliente
+        #json_data = json.dumps(messages1)
+        # Aqui estou passando a lista inteira, tenho que transformar em json para passar
+        #return messages1
+        
+
+    # Envia mensagens
+    def emit(exchange_name, queue_name, severity, dados):
+        # Conectando com o RabbitMQ
+        connection = ExchangeEx.connect()
+        channel = connection.channel()
+
+        """ 
+        # 
+        # Pego os dados e serializo aqui!
+        # 
+        """
+
+        # serializando os dados com o json.dumps
+        mensagem = json.dumps(dados)
+
+        # declara a queue
+        channel.queue_declare(queue=queue_name, durable=True)
+        
+        channel.exchange_declare(exchange=exchange_name, exchange_type='fanout', durable=True)
+        
+        channel.basic_publish(exchange=exchange_name, routing_key=queue_name, body=mensagem)
+
+        # Antes de sair do programa, precisamos ter certeza de que os buffers de rede foram liberados e 
+        # nossa mensagem foi realmente entregue ao RabbitMQ. Podemos fazê-lo fechando suavemente a conexão.
+        connection.close()
+
+        # Envia mensagens
+
+
+
+
+
+  #--------------------------TESTANDO-------------------------------------#
+
+    # Recebe mensagens Atualemente esta funcionando e retorna uma das mensagens.. O problema é que só retorna uma mensagem
+    def receiver(exchange_name):
+
+
+        channel, queue_name = ExchangeEx.setup_rabbitmq(exchange_name)
             
         # Lista para armazenar as mensagens recebidas
         messages1 = []
@@ -76,31 +156,4 @@ class ExchangeEx():
         # Aqui estou passando a lista inteira, tenho que transformar em json para passar
         return messages1
         
-
-    # Envia mensagens
-    def emit(exchange_name, queue_name, severity, dados):
-        # Conectando com o RabbitMQ
-        connection = ExchangeEx.connect()
-        channel = connection.channel()
-
-        """ 
-        # 
-        # Pego os dados e serializo aqui!
-        # 
-        """
-
-        # serializando os dados com o json.dumps
-        mensagem = json.dumps(dados)
-
-        # declara a queue
-        channel.queue_declare(queue=queue_name, durable=True)
-        
-        channel.exchange_declare(exchange=exchange_name, exchange_type='fanout', durable=True)
-        
-        channel.basic_publish(exchange=exchange_name, routing_key=queue_name, body=mensagem)
-
-        # Antes de sair do programa, precisamos ter certeza de que os buffers de rede foram liberados e 
-        # nossa mensagem foi realmente entregue ao RabbitMQ. Podemos fazê-lo fechando suavemente a conexão.
-        connection.close()
-
-        # Envia mensagens
+  #--------------------------TESTANDO-------------------------------------#

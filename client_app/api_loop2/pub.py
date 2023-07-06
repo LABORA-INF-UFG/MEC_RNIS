@@ -7,7 +7,7 @@ credentials = pika.PlainCredentials(username='admin', password='123456') # Crede
 parameters = pika.ConnectionParameters(host='localhost',credentials=credentials) # Parameters (host e credentials)
 connection = pika.BlockingConnection(parameters) # Connection (parameters)
  # Conectando com o RabbitMQ
-channel = connection.channel() # CRia o CHannel com a connection
+channel = connection.channel() # Cria o CHannel com a connection
 
 # Declaração do exchange
 channel.exchange_declare(exchange='my_exchange', exchange_type='topic')

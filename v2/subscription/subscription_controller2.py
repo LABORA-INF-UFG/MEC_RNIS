@@ -54,7 +54,7 @@ def subscription_post(notificationsubscription):
     elif notificationsubscription == "rab":
         print("Teste rab")
         #resposta = Exchange.receiver3(notificationsubscription)
-        resposta = ExchangeEx.receiver(notificationsubscription)
+        resposta = ExchangeEx.receiver3(notificationsubscription)
 
         #json_data = json.dumps(resposta)
         #return {'message': data}, 200
