@@ -2,7 +2,6 @@
 import json
 from flask_restful import Resource, reqparse, request
 from v2.receive.exchange import Exchange
-from v2.receive.exchange_ex import ExchangeEx
 from flask import Flask, request, jsonify
 
 def subscription_post(notificationsubscription):
@@ -54,7 +53,7 @@ def subscription_post(notificationsubscription):
     elif notificationsubscription == "rab":
         print("Teste rab")
         resposta = Exchange.receiver3(notificationsubscription)
-        #resposta = ExchangeEx.receiver3(notificationsubscription)
+
 
         #json_data = json.dumps(resposta)
         #return {'message': data}, 200
