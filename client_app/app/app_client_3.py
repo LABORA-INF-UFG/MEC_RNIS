@@ -15,12 +15,12 @@ def call_api():
 
         if response.status_code == 200:
             # Iterar sobre as informações recebidas
-            #for data in response.iter_lines():
-            #    if data:
+            for data in response.iter_lines():
+                if data:
                     # Decodificar o JSON recebido
                     #json_data = data.decode('utf-8')
-                    data1 = response.json()
-                    print(data1)  # Exibir as informações na tela
+                    #data1 = response.json()
+                    print(data)  # Exibir as informações na tela
 
     except requests.exceptions.RequestException as e:
         print('Erro na requisição:', e)

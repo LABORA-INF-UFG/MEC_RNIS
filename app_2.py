@@ -181,7 +181,7 @@ api = Api(app)
 # Resource: rab_info POST
 api.add_resource(RabInfo1, '/rni/v2/queries/rab_info/<string:app_instance_id>')
 
- 
+"""  
 #--------------------------TESTANDO-------------------------------------#
 # Variável global para verificar se a API deve continuar retornando informações
 continue_running = True
@@ -221,6 +221,7 @@ def stop():
     return 'API stopped'
 #--------------------------TESTANDO-------------------------------------#
 
+ """
 ## Main ##
 
 # Configuração basica do Flask
