@@ -10,14 +10,14 @@ connection = pika.BlockingConnection(parameters) # Connection (parameters)
 channel = connection.channel() # Cria o CHannel com a connection
 
 # Declaração do exchange
-channel.exchange_declare(exchange='my_exchange', exchange_type='topic')
+channel.exchange_declare(exchange='rab', exchange_type='topic')
 
 # Dados para publicação
 routing_key = 'my_topic'
 message = 'Hello, RabbitMQ!'
 
 # Publicação da mensagem
-channel.basic_publish(exchange='my_exchange', routing_key=routing_key, body=message)
+channel.basic_publish(exchange='rab', routing_key=routing_key, body=message)
 
 print('Mensagem publicada no tópico RabbitMQ.')
 

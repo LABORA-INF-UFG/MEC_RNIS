@@ -12,6 +12,7 @@ if response.status_code == 200:
         if data:
             # Decodificar o JSON recebido
             json_data = data.decode('utf-8')
+            #print("Teste")
             print(json_data)  # Exibir as informações na tela
 else:
     print('Erro na requisição:', response.status_code)

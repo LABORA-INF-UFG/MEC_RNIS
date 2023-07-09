@@ -1,8 +1,8 @@
 #Importando as bibliotecas
 import json
 from flask_restful import Resource, reqparse, request
-from v2.receive.exchange import Exchange
-from flask import Flask, request, jsonify
+from exchange import Exchange
+from flask import Flask, request, jsonify, Response
 
 def subscription_post(notificationsubscription):
 
@@ -52,16 +52,16 @@ def subscription_post(notificationsubscription):
 
     elif notificationsubscription == "rab":
         print("Teste rab")
-        resposta = Exchange.receiver3(notificationsubscription)
+        
+        #resposta = Exchange.receiver3(notificationsubscription)
 
 
         #json_data = json.dumps(resposta)
         #return {'message': data}, 200
 
         #Transformar em json#### como passar uma array_list para json
-        return resposta
+        return Response(Exchange.generate_data(notificationsubscription)(), mimetype='text/plain')
         
     else:
         print("Não foi possível determinar o valor.")
         return {'message':"Chegou no ultimo passo"}, 401
-    
