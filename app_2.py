@@ -60,6 +60,7 @@ def register_application(appRoot):
     # Cadastrar a aplicação e obter o ID
     id = insert_application(appRoot)
 
+    
     #Chama a função subscription_post
     result = subscription_post(NotificationSubscription) # Chama o subscription_post
 
