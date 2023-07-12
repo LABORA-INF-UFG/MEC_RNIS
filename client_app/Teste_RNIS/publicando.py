@@ -1,7 +1,7 @@
 import requests
 
 def call_api():
-    url = 'http://127.0.0.1:5000/rni/v2/pub'  # URL da API
+    url = 'http://127.0.0.1:5000/rni/v2/queries/rab_info/2'  # URL da API
 
     
     try:

@@ -28,13 +28,15 @@ def register_application(appRoot):
 
 
 # Rota principal que retorna as informações do RabbitMQ continuamente
-@app.route('/rni/v2/pub', methods=['POST'])
+@app.route('/rni/v2/queries/rab_info/2', methods=['POST'])
 def pub():
 
-    result = Exchange.pub()
+    # Pega os dados enviados via post.
+    dados = request.get_json()
 
-  
-    return result, 200
+    result = Exchange.pub(dados)
+
+    return result
 
 # Função para verificar se a execução deve ser interrompida
 def continue_running():

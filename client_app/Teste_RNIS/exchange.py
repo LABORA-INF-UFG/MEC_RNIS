@@ -54,7 +54,7 @@ class Exchange():
         return generate
 
 
-    def pub():
+    def pub(dados):
         # Conectando com o RabbitMQ
         credentials = pika.PlainCredentials(username='admin', password='123456') # Credentials (user e password)
         parameters = pika.ConnectionParameters(host='localhost',credentials=credentials) # Parameters (host e credentials)
@@ -69,12 +69,15 @@ class Exchange():
         routing_key = 'my_topic'
         message = 'Hello, RabbitMQ!'
 
+        # serializando os dados com o json.dumps
+        mensagem = json.dumps(dados)
+
         # Publicação da mensagem
-        channel.basic_publish(exchange='rab', routing_key=routing_key, body=message)
+        channel.basic_publish(exchange='rab', routing_key=routing_key, body=mensagem)
 
         print('Mensagem publicada no tópico RabbitMQ.')
 
         # Fechar a conexão
         connection.close()
 
-        return "ok"
+        return mensagem
