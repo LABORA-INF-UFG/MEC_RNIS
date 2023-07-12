@@ -1,7 +1,7 @@
 #Importando as bibliotecas
 import json
 from flask_restful import Resource, reqparse, request
-from exchange import Exchange
+from .exchange import Exchange
 from flask import Flask, request, jsonify, Response
 
 def subscription_post(notificationsubscription):

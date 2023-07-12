@@ -1,9 +1,10 @@
 import requests
 
-url = 'http://localhost:5000/continuous-data'
+url = 'http://127.0.0.1:5000/app_client/rni/v2'  # URL da API
+endpoint = '/subscriptions'  # Endpoint específico da API
+data = {"NotificationSubscription" : "rab"} 
 
-# Fazer a requisição GET para receber as informações continuamente
-response = requests.get(url, stream=True)
+response = requests.post(url + endpoint, json=data, stream=True)
 
 # Verificar se a requisição foi bem-sucedida
 if response.status_code == 200:
