@@ -7,8 +7,23 @@ import json
 import sys
 from flask import jsonify, Flask
 
+global continue_running
+# Variável global para verificar se a API deve continuar retornando informações
+continue_running = True
+
 class Exchange():
 
+
+    # Função para verificar se a execução deve ser interrompida
+    def continue_r():
+        #print ("Continue:", continue_running)
+        return continue_running
+
+    def stop():
+        global continue_running
+        continue_running = False
+        #print ("Continue:", Exchange.continue_r())
+        return 'API stopped'
 
     # Função para configurar a conexão RabbitMQ
     def setup_rabbitmq(NotificationSubscription):
@@ -34,9 +49,6 @@ class Exchange():
 
 
 
-    # Variável global para verificar se a API deve continuar retornando informações
-    continue_running = True
-
     # Função para gerar os dados do RabbitMQ
     def generate_data(NotificationSubscription):
 
@@ -46,9 +58,9 @@ class Exchange():
             for method, properties, body in channel.consume(queue=queue_name, auto_ack=True):
                 message = body.decode('utf-8')
                 yield message + '\n'
-
+                #print ("continue_running:", Exchange.continue_r())
                 # Verifica se a execução deve ser interrompida
-                if not Exchange.continue_running:
+                if not Exchange.continue_r():
                     break
 
         return generate

@@ -70,104 +70,29 @@ def delete_application_route(appRoot):
     delete_application(id)
 
     #Exchange.stop_consumer()
-
+ 
+    result = Exchange.stop()
 
     # Retornar uma resposta de sucesso
     return jsonify({'message': 'ID excluído com sucesso'}), 200
 
 
-# Resource: SubscriptionsID GET
-@app.route('/<appRoot>/rni/v2/subscriptions/<subscriptionId>', methods=['GET'])
-def get_subscriptionId(appRoot, subscriptionId):
-   
-
-    # Retornar uma resposta de sucesso
-    return jsonify({'message': subscriptionId})
-
-
-# Resource: SubscriptionsID PUT
-@app.route('/<appRoot>/rni/v2/subscriptions/<subscriptionId>', methods=['PUT'])
-def put_subscriptionId(appRoot, subscriptionId):
-   
-
-    # Retornar uma resposta de sucesso
-    return jsonify({'message': 'sucesso'})
-
-
-# Resource: SubscriptionsID DELETE
-@app.route('/<appRoot>/rni/v2/subscriptions/<subscriptionId>', methods=['DELETE'])
-def delete_subscriptionId(appRoot, subscriptionId):
-   
-
-    # Retornar uma resposta de sucesso
-    return jsonify({'message': 'sucesso'})
-
-
-
-#################################################################
-
-# Resource: rab_info GET
-@app.route('/<appRoot>/rni/v2/queries/rab_info/<app_ins_id>', methods=['GET'])
-def get_rab_info(appRoot, app_ins_id ):
-   
-
-    # Retornar uma resposta de sucesso
-    return jsonify({'message': appRoot, 'teste': app_ins_id })
-
-
-# Resource: plmn_info GET
-@app.route('/<appRoot>/rni/v2/queries/plmn_info/<app_ins_id>', methods=['GET'])
-def get_plmn_info(appRoot, app_ins_id):
-   
-
-    # Retornar uma resposta de sucesso
-    return jsonify({'message': 'sucesso'})
-
-
-# Resource: s1_bearer_info GET
-@app.route('/<appRoot>/rni/v2/queries/s1_bearer_info/<app_ins_id>', methods=['GET'])
-def get_s1_bearer_info(appRoot, app_ins_id):
-   
-
-    # Retornar uma resposta de sucesso
-    return jsonify({'message': 'sucesso'})
-
-
-# Resource: layer2_meas GET
-@app.route('/<appRoot>/rni/v2/queries/layer2_meas/<app_ins_id>', methods=['GET'])
-def get_layer2_meas (appRoot, app_ins_id):
-   
-
-    # Retornar uma resposta de sucesso
-    return jsonify({'message': 'sucesso'})
-
-
 
 
 # Rota principal que retorna as informações do RabbitMQ continuamente
-@app.route('/rni/v2/queries/rab_info/2', methods=['POST'])
-def pub():
+@app.route('/rni/v2/queries/rab_info/<app_instance_id>', methods=['POST'])
+def pub(app_instance_id):
 
     # Pega os dados enviados via post.
     dados = request.get_json()
-    RabInfo1.post()
-    result = Exchange.pub(dados)
+    result2 =RabInfo1.post(app_instance_id, dados)
+    #result = Exchange.pub(dados)
 
-    return result
-
-
+    return result2
 
 
-# Função para verificar se a execução deve ser interrompida
-def continue_running():
-    return continue_running
 
-# Rota para interromper a execução da API
-@app.route('/stop')
-def stop():
-    global continue_running
-    continue_running = False
-    return 'API stopped'
+
 
 
 
