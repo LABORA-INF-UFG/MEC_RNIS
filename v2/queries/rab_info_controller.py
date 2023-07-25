@@ -61,13 +61,8 @@ class RabInfo1(Resource):
         rab_JSON = rab_objeto.json()
 	
 	    # Manda o json para a Exchange que envia para o RabbitMQ
-        Exchange.emit('rab','rab_info','rab_1', rab_JSON)
-
-        '''
-        #Serializa o objeto
-        dados_1 = json.dumps(rab_JSON)
-        #Deserializa o objeto
-        dados_2 = json.loads(dados_1)
-        '''
+        #Exchange.emit('rab','rab_info','rab_1', rab_JSON)
+        Exchange.emit(rab_JSON)
+        
         #return {'message':"sucesso"}, 200
         return rab_JSON, 200

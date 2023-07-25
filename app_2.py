@@ -8,7 +8,7 @@ from bd.table import create_table, insert_application, delete_application
 from v2.queries.rab_info_controller import RabInfo2, RabInfo1
 from v2.queries.plmn_info_controller import PlmnInfo2
 from v2.queries.s1_bearer_info_controller import S1BearerInfo2 
-from v2.subscription.subscription_controller2 import subscription_post
+from v2.subscription.subscription_controller import subscription_post
 from v2.receive.exchange import Exchange
 
 # Cria uma variavel para passar o Flask
@@ -49,7 +49,6 @@ def get_application_route():
 @app.route('/<appRoot>/rni/v2/subscriptions', methods=['POST'])
 def register_application(appRoot):
 
-    # A apiRoot que deve ter o código vinculado no banco de dados?
     # Obter o identificador da aplicação na requisição POST
     NotificationSubscription = request.json.get('NotificationSubscription')
 
@@ -60,7 +59,6 @@ def register_application(appRoot):
     # Cadastrar a aplicação e obter o ID
     id = insert_application(appRoot)
 
-    
     #Chama a função subscription_post
     result = subscription_post(NotificationSubscription) # Chama o subscription_post
 
@@ -82,7 +80,7 @@ def delete_application_route(appRoot):
     # Excluir a aplicação com o ID fornecido
     delete_application(id)
 
-    #Exchange.stop_consumer()
+    result = Exchange.stop()
 
 
     # Retornar uma resposta de sucesso

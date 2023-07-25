@@ -33,7 +33,8 @@ class S1BearerInfo2(Resource):
         s1bearer_JSON = s1bearer_objeto.json()
 	
 	    # Manda o json para a Exchange que envia para o RabbitMQ
-        Exchange.emit('s1bearer','s1bearer_info','s1bearer_1', s1bearer_JSON)
+        #Exchange.emit('s1bearer','s1bearer_info','s1bearer_1', s1bearer_JSON)
+        Exchange.emit(s1bearer_JSON)
 
         #return {'message':"sucesso"}, 200
         return s1bearer_JSON, 200

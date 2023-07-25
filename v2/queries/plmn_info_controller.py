@@ -33,7 +33,8 @@ class PlmnInfo2(Resource):
         plmn_JSON = plmn_objeto.json()
 
         # Manda o json para a Exchange que envia para o RabbitMQ
-        Exchange.emit('plmn','plmn_info','plmn_1', plmn_JSON)
+        #Exchange.emit('plmn','plmn_info','plmn_1', plmn_JSON)
+        Exchange.emit(plmn_JSON)
 
         #return {'message':"sucesso"}, 200
         return plmn_JSON, 200

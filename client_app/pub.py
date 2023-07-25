@@ -10,7 +10,7 @@ connection = pika.BlockingConnection(parameters) # Connection (parameters)
 channel = connection.channel() # Cria o CHannel com a connection
 
 # Declaração do exchange
-channel.exchange_declare(exchange='rab', exchange_type='topic')
+channel.exchange_declare(exchange='plmn', exchange_type='topic')
 
 # Dados para publicação
 routing_key = 'my_topic'
