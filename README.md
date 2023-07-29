@@ -117,6 +117,9 @@ python3 app.py
       pip3 install locust
       locust -V
 
+    ## para acessar o locusst 
+      http://localhost:8089
+   
    Crirar um arquivo chamado locustfile.py onde vamos iniciar as configurações para executar testes na api
    - https://locust.io
    - https://docs.locust.io/en/stable/installation.html
