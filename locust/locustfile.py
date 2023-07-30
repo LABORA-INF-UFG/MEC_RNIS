@@ -1,6 +1,7 @@
 from locust import HttpUser, task
 
 class HelloWorldUser(HttpUser):
+    
     @task
     def hello_world(self):
         self.client.post("/", json={"service_ip": "http://127.0.0.1:5000/rni/v2/queries/rab_info/1",
