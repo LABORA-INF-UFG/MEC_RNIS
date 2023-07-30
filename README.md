@@ -168,4 +168,6 @@ Detalhe o __init__.py dizer que esta pasta no qual esta inserido e um modulo/pac
 
 # Comando rápido para executar o RNIS.
 
-  virtualenv amb --python=python3.8 && source amb/bin/activate && pip3 install -r requirements.txt && python3 api.py
+  Comando:
+
+      virtualenv amb --python=python3.8 && source amb/bin/activate && pip3 install -r requirements.txt && python3 api.py
