@@ -2,7 +2,7 @@ import pandas as pd
 import requests
 
 # Carregar o dataset
-dataset = pd.read_csv('/l/disk0/mcunha/Documentos/ufg/MEC_RNIS/flexran/rni_d.csv')
+dataset = pd.read_csv('rni_d.csv')
 
 # Iterar sobre as linhas do dataset
 for _, row in dataset.iterrows():
@@ -14,15 +14,18 @@ for _, row in dataset.iterrows():
 
     # Montar os dados a serem enviados na requisição POST
     data = {
-        'coluna1': coluna1,
-        'coluna2': coluna2,
-        'coluna3': coluna3
+        'cell_user_info': coluna1,
+        'request_id': coluna2,
+        'time_stamp': coluna3
         # ...
     }
 
+    print ("data:", data)
+    print ("data cell_user_info", data['cell_user_info'])
+
     # Fazer a requisição POST para a API
     #Configurar o caminho do post
-    response = requests.post('http://127.0.0.1:5000/tx/rni/v2/queries/teste/', json=data)
+    response = requests.post('http://127.0.0.1:5000/rni/v2/queries/rab_info/5', json=data)
 
     # Verificar o status da resposta
     if response.status_code == 200:

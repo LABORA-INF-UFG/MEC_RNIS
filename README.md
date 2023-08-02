@@ -152,6 +152,15 @@ Iniciar o RabbitMQ:
   ou:
   
     locust -f locust_test.py -H http://127.0.0.1:5000
+
+  Caso tenha problema com o pandas:
+
+    pip install --upgrade numpy
+
+    pip install --upgrade pandas
+
+
+  - https://cursos.alura.com.br/forum/topico-modulenotfounderror-no-module-named-pandas-198292
   
   Para acessar o locusst 
   - http://localhost:8089
