@@ -56,7 +56,7 @@ class Exchange():
         return generate
 
     # publica as informações
-    def emit(dados):
+    def emit(dados, notif):
         # Conectando com o RabbitMQ
         credentials = pika.PlainCredentials(username='admin', password='123456') # Credentials (user e password)
         parameters = pika.ConnectionParameters(host='localhost',credentials=credentials) # Parameters (host e credentials)
@@ -65,7 +65,7 @@ class Exchange():
         channel = connection.channel() # Cria o CHannel com a connection
 
         # Declaração do exchange
-        channel.exchange_declare(exchange='rab', exchange_type='topic')
+        channel.exchange_declare(exchange=notif, exchange_type='topic')
 
         # Dados para publicação
         routing_key = 'my_topic'
@@ -74,7 +74,7 @@ class Exchange():
         mensagem = json.dumps(dados)
 
         # Publicação da mensagem
-        channel.basic_publish(exchange='rab', routing_key=routing_key, body=mensagem)
+        channel.basic_publish(exchange=notif, routing_key=routing_key, body=mensagem)
 
         print('Mensagem publicada no tópico RabbitMQ.')
 

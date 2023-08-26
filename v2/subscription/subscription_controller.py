@@ -17,7 +17,7 @@ def subscription_post(notificationsubscription):
 
     elif notificationsubscription == "RabEstSubscription":
 
-        print ("notificationsubscription", notificationsubscription)
+        print ("notificationsubscription")
 
         resposta = Response(Exchange.generate_data(notificationsubscription)(), mimetype='text/plain')
 
@@ -26,7 +26,7 @@ def subscription_post(notificationsubscription):
 
     elif notificationsubscription == "RabModSubscription":
 
-        print ("notificationsubscription", notificationsubscription)
+        print ("notificationsubscription")
 
         resposta = Response(Exchange.generate_data(notificationsubscription)(), mimetype='text/plain')
 
@@ -50,16 +50,6 @@ def subscription_post(notificationsubscription):
 
         return resposta
 
-
-    elif notificationsubscription == "NrMeasRepUeSubscription":
-
-        print("5G UE Measurement Report .")
-
-        resposta = Response(Exchange.generate_data(notificationsubscription)(), mimetype='text/plain')
-
-        return resposta
-
-
     elif notificationsubscription == "MeasTaSubscription":
 
         print("UE Timing Advance.")
@@ -77,7 +67,6 @@ def subscription_post(notificationsubscription):
 
         return resposta
 
-
     elif notificationsubscription == "S1BearerSubscription":
 
         print("S1 Bearer Notification.")
@@ -86,6 +75,29 @@ def subscription_post(notificationsubscription):
 
         return resposta
 
+    elif notificationsubscription == "NrMeasRepUeSubscription":
+
+        print("5G UE Measurement Report .")
+
+        resposta = Response(Exchange.generate_data(notificationsubscription)(), mimetype='text/plain')
+
+        return resposta
+    
+    elif notificationsubscription == "SubscriptionLinkList":
+
+        print("Teste SubscriptionLinkList")
+
+        resposta = Response(Exchange.generate_data(notificationsubscription)(), mimetype='text/plain')
+
+        return resposta
+    
+    elif notificationsubscription == "plmn":
+
+        print("Teste plmn")
+
+        resposta = Response(Exchange.generate_data(notificationsubscription)(), mimetype='text/plain')
+
+        return resposta
 
     elif notificationsubscription == "rab":
 
@@ -94,6 +106,7 @@ def subscription_post(notificationsubscription):
         resposta = Response(Exchange.generate_data(notificationsubscription)(), mimetype='text/plain')
 
         return resposta
+
 
 
     else:

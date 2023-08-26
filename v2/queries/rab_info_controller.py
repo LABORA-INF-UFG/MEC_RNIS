@@ -53,7 +53,7 @@ class RabInfo1(Resource):
 
         # Pega os dados enviados via post.
         dados = request.get_json()
-        
+
         # Criando um objeto do tipo rab_info
         rab_objeto = RabInfoModel(app_instance_id, **dados)
         
@@ -62,7 +62,7 @@ class RabInfo1(Resource):
 	
 	    # Manda o json para a Exchange que envia para o RabbitMQ
         #Exchange.emit('rab','rab_info','rab_1', rab_JSON)
-        Exchange.emit(rab_JSON)
+        Exchange.emit(rab_JSON,'rab')
         
         #return {'message':"sucesso"}, 200
         return rab_JSON, 200

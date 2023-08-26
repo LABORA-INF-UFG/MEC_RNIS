@@ -1,8 +1,8 @@
 import requests
 #                            /<appRoot>/rni/v2/subscriptions
-url = 'http://127.0.0.1:5000/app_client/rni/v2'  # URL da API
+url = 'http://127.0.0.1:5000/app_teste/rni/v2'  # URL da API
 endpoint = '/subscriptions'  # Endpoint específico da API
-data = {"NotificationSubscription" : "RabModSubscription"} 
+data = {"NotificationSubscription" : "rab"} 
 
 response = requests.post(url + endpoint, json=data, stream=True)
 

@@ -114,7 +114,6 @@ class RabInfoModel(Model):
         if cell_user_info == "":
             raise ValueError("Invalid value for `cell_user_info`, must not be `None`")  # noqa: E501
 
-        print ("Cell_user_info: ", **cell_user_info)    
         # Chamo o construtor da classe TimeStamp passando os parametros nano_seconds e seconds
         #new_time_stamp =  TimeStamp(time_stamp['nano_seconds'],time_stamp['seconds'])   
         new_cell_user_info = CellUserInfo(**cell_user_info)
