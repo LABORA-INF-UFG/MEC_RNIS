@@ -6,11 +6,12 @@ import time
 # Função para executar uma API em uma thread
 def run_api(api_file, port):
     subprocess.call(['python3', api_file, '--port', str(port)])
+    
 
 if __name__ == '__main__':
     # Especifique os arquivos Python de suas APIs e as portas em que deseja executá-las
     api1_file = 'api_1.py'
-    api2_file = 'api_2.py'
+    api2_file = 'receive.py'
     port_api1 = 5000
     port_api2 = 8085
 
@@ -20,7 +21,7 @@ if __name__ == '__main__':
 
     # Inicie as threads
     thread1.start()
-    time.sleep(5)
+    time.sleep(10)
     thread2.start()
 
     # Aguarde até que ambas as threads terminem

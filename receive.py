@@ -2,9 +2,9 @@ import threading
 import pika
 import requests, time
 from flask import Flask
+import subprocess
 from bd.table import listar_callback_apps_por_notification2
 
-app = Flask(__name__)
 
 
 # Função para receber mensagens do RabbitMQ e enviar via callback
@@ -119,13 +119,30 @@ def receive_and_send_messages_rab():
     except Exception as e:
         print(f"Erro ao receber mensagens (RAB): {str(e)}")
     
+# Função para executar uma API em uma thread
+def run_api(api_file, port):
+    subprocess.call(['python3', api_file, '--port', str(port)])
+   
 
 if __name__ == '__main__':
+    api1_file = 'api_1.py'
+    port_api1 = 5000
+
+    # Crie threads para executar cada API
+    thread1 = threading.Thread(target=run_api, args=(api1_file, port_api1))
+
     thread_plmn = threading.Thread(target=receive_and_send_messages_plmn)
     thread_rab = threading.Thread(target=receive_and_send_messages_rab)
 
+    # Inicie as threads
+    thread1.start()
+    time.sleep(10)
+    
     # Iniciar as threads
     thread_plmn.start()
     thread_rab.start()
-    print("api_2 ok")
+    print("receive ok")
     #app.run(port=8085)
+
+    # Aguarde até que ambas as threads terminem
+    thread1.join()
