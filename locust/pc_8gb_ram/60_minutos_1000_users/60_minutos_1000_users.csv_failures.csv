@@ -1,0 +1,5 @@
+Method,Name,Error,Occurrences
+POST,/rni/v2/queries/rab_info/1,"ConnectionResetError(104, 'Connection reset by peer')",1407
+POST,/rni/v2/queries/plmn_info/1,"TimeoutError(110, 'Connection timed out')",1049
+POST,/rni/v2/queries/rab_info/1,"TimeoutError(110, 'Connection timed out')",1074
+POST,/rni/v2/queries/plmn_info/1,"ConnectionResetError(104, 'Connection reset by peer')",1431

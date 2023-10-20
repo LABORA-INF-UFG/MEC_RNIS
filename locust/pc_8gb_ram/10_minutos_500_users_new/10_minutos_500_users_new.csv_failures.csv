@@ -1,0 +1,2 @@
+Method,Name,Error,Occurrences
+POST,/rni/v2/queries/plmn_info/1,"TimeoutError(110, 'Connection timed out')",1

@@ -1,0 +1,7 @@
+Method,Name,Error,Occurrences
+POST,/rni/v2/queries/rab_info/1,"ConnectionResetError(104, 'Connection reset by peer')",26314
+POST,/rni/v2/queries/plmn_info/1,"OSError(24, 'Too many open files')",437475
+POST,/rni/v2/queries/rab_info/1,"OSError(24, 'Too many open files')",436605
+POST,/rni/v2/queries/plmn_info/1,"TimeoutError(110, 'Connection timed out')",1882
+POST,/rni/v2/queries/rab_info/1,"TimeoutError(110, 'Connection timed out')",1818
+POST,/rni/v2/queries/plmn_info/1,"ConnectionResetError(104, 'Connection reset by peer')",26159
