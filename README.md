@@ -151,8 +151,41 @@ Iniciar o RabbitMQ:
       
   ou:
   
-    locust -f locust_test.py -H http://127.0.0.1:5000
+    locust -f locustfile.py -H http://127.0.0.1:5000
 
+  ou
+
+    locust -f locustfile2.py -H http://127.0.0.1:5000 --autostart --run-time 5m -u 100 -r 100 --csv=/home/kaique/Documentos/ufg/MEC_RNIS/locust/exemplo/exemplo.csv --html=/home/kaique/Documentos/ufg/MEC_RNIS/locust/exemplo/exemplo.html
+
+  ou
+
+    locust -f locustfile2.py --host=http://127.0.0.1:5000 --web-host=0.0.0.0 --autostart --run-time 5m -u 100 -r 100
+    locust -f locustfile_2.py --host=http://127.0.0.1:5000 --web-host=0.0.0.0 --autostart --run-time 10m -u 800 -r 800 --html=/l/disk0/mcunha/Documentos/ufg/MEC_RNIS/Dataset_flexran/Teste_10m_800_2.html
+
+
+  ou 
+
+    locust -f locustfile2.py --host=http://127.0.0.1:5000 --web-host=0.0.0.0 --autostart --run-time 35m -u 500 -r 500 --csv=/l/disk0/mcunha/Documentos/ufg/MEC_RNIS/locust/pc_32gb_ram/60_minutos_500_users_limpei_o_script/60_minutos_500_users_limpei_o_script.csv --html=/l/disk0/mcunha/Documentos/ufg/MEC_RNIS/locust/pc_32gb_ram/60_minutos_500_users_limpei_o_script/60_minutos_500_users_limpei_o_script.html
+
+
+  -f LOCUSTFILE, --locustfile LOCUSTFILE
+                        Python module to import, e.g. '../other_test.py'. Either a .py file, multiple comma-separated .py
+                        files or a package directory. Defaults to 'locustfile'.
+
+  -H HOST, --host HOST  Host to load test in the following format: http://10.21.32.33                      
+    
+  -t RUN_TIME, --run-time RUN_TIME
+                        Stop after the specified amount of time, e.g. (300s, 20m, 3h, 1h30m, etc.). Only used together with
+                        --headless or --autostart. Defaults to run forever.
+
+  -u NUM_USERS, --users NUM_USERS
+                        Peak number of concurrent Locust users. Primarily used together with --headless or --autostart. Can
+                        be changed during a test by keyboard inputs w, W (spawn 1, 10 users) and s, S (stop 1, 10 users)
+
+  -r SPAWN_RATE, --spawn-rate SPAWN_RATE
+                        Rate to spawn users at (users per second). Primarily used together with --headless or --autostart
+
+                        
   Caso tenha problema com o pandas:
 
     pip install --upgrade numpy
@@ -173,10 +206,11 @@ Iniciar o RabbitMQ:
    
 # Detalhes
 
-Detalhe o __init__.py dizer que esta pasta no qual esta inserido e um modulo/pacote. Para que possamos utilizar como se fosse uma blibloteca da mesma forma que importamos um Flask
+Detalhe o __init__.py dizer que esta pasta no qual esta inserido e um modulo/pacote. Para que possamos utilizar como se fosse uma blibloteca da mesma forma que mportamos um Flask
 
 # Comando rápido para executar o RNIS.
 
   Comando:
 
       virtualenv amb --python=python3.8 && source amb/bin/activate && pip3 install -r requirements.txt && python3 api.py
+      

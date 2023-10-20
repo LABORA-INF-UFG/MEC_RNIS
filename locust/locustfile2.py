@@ -1,83 +1,41 @@
 from locust import HttpUser, task, between
-import pandas as pd
+import json
 
-# Criaremos a classe ApiUser, que herda da classe HttpUser e nos dá a possibilidade de realizar requests do tipo HTTP. 
-class ApiUser(HttpUser):
-    
-    #inserimos a informação do intervalo de tempo entre 1 e 3 segundos entre as requests enviadas.
-    wait_time = between(1, 3)
+class MyLocustUser(HttpUser):
+    wait_time = between(1, 2)  # Tempo de espera entre as solicitações
 
-    # especificamos nossas tasks para os testes através do decorator @task 
-    @task
-    def send_data_rab(self):
-        # Dados para enviar na requisição POST
-        # Dados que vamos enviar para a API
-        data = {
-                "cell_user_info": {
-                    "ecgi": {
-                        "cell_id":  "1",
-                        "plmn" :{
-                            "mcc" : "mcc",
-                            "mnc" : "mnc"
-                        }
-                    },
-                    "ue_info": {
-                        "associate_id": {
-                            "type": "1",
-                            "value": "constante"
-                        },
-                        "erab_info": {
-                            "erab_id": 14,
-                            "erab_qos_parameters": {
-                                "qci": 1,
-                                "qos_information": {
-                                    "erab_gbr_dl": 1,
-                                    "erab_gbr_ul": 1,
-                                    "erab_mbr_dl": 1,
-                                    "erab_mbr_ul": 1
-                                }
-                            }
-                        }
-                    }
-                },
-                "request_id": "1",
-                "time_stamp": {
-                    "nano_seconds": 12,
-                    "seconds": 13
-                }
-            }
-            
-        # Enviar a requisição POST para a API
-        response = self.client.post("http://127.0.0.1:5000/rni/v2/queries/rab_info/1", json=data)
+    # Abra o arquivo JSON e leia os dados
+    with open('radio_network_data_rab.json', 'r') as file:
+        data_list_rab = json.load(file)
 
-        # Exibir o status da resposta (opcional)
-        print(f"Status da resposta 1: {response.status_code}")
-        #print(f"Resposta 1: {response.text}")
+    # Abra o arquivo JSON e leia os dados
+    with open('radio_network_data_plmn.json', 'r') as file:
+        data_list_plmn = json.load(file)
 
-    # especificamos nossas tasks para os testes através do decorator @task 
-    @task
-    def send_data_plmn(self):
-        # Dados para enviar na requisição POST
-        # Dados que vamos enviar para a API
-        data = {
-                "plmn" : {
-                    "mcc" : "mcc",
-                    "mnc" : "mnc"
-                },
-                "time_stamp" : {
-                    "nano_seconds" : 12,
-                    "seconds": 13
-                }
-            }
-            
-        # Enviar a requisição POST para a API
-        response = self.client.post("http://127.0.0.1:5000/rni/v2/queries/plmn_info/1", json=data)
+    # Defina as tarefas que o usuário realizará
+    @task(1)
+    def send_data_to_api(self):
+        # Se você deseja iterar sobre os dados do JSON em um loop, descomente a linha abaixo
+        # for data in self.data_list:
+        for data in self.data_list_rab:
+            # Realize uma solicitação POST para a API com os dados do JSON
+            response = self.client.post('http://127.0.0.1:5000/rni/v2/queries/rab_info/1', json=data)
+            # Verifique a resposta da API, se necessário
+            if response.status_code == 200:
+                print("API request successful")
+            else:
+                print(f"API request failed with status code: {response.status_code}")
 
-        # Exibir o status da resposta (opcional)
-        print(f"Status da resposta 1: {response.status_code}")
-        #print(f"Resposta 1: {response.text}")
-
-
-
-    #Execute o comando locust -f locust_script.py -H http://127.0.0.1:5000 
-    #e a interface gráfica deve aparecer no endereço http://127.0.0.1:8089/
+# Defina as tarefas que o usuário realizará
+    @task(2)
+    def send_data_to_api_2(self):
+        # Se você deseja iterar sobre os dados do JSON em um loop, descomente a linha abaixo
+        # for data in self.data_list:
+        for data in self.data_list_plmn:
+            # Realize uma solicitação POST para a API com os dados do JSON
+            response = self.client.post('http://127.0.0.1:5000/rni/v2/queries/plmn_info/1', json=data)
+            # Verifique a resposta da API, se necessário
+            if response.status_code == 200:
+                print("API request successful")
+            else:
+                print(f"API request failed with status code: {response.status_code}")
