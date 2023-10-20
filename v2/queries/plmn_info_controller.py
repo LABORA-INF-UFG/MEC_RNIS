@@ -2,6 +2,7 @@
 from flask_restful import Resource, reqparse, request
 #from v2.models.rab_info import RabInfoModel
 from v2.models.plmn_info import PlmnInfoModel
+#from v2.receive.exchange import Exchange
 from v2.receive.exchange import Exchange
 #from v2.exemplo_dados.plmn_info import plmninfos
 
@@ -18,7 +19,7 @@ class PlmnInfo(Resource):
         Exchange.receiver('plmn','plmn_info','plmn_1')
         return {'message':"sucesso"}, 200
      """
-class PlmnInfo2(Resource):
+class PlmnInfo(Resource):
 
     # Post enviando informações para um RabbitMQ.
     def post(self, app_instance_id):
@@ -34,7 +35,7 @@ class PlmnInfo2(Resource):
 
         # Manda o json para a Exchange que envia para o RabbitMQ
         #Exchange.emit('plmn','plmn_info','plmn_1', plmn_JSON)
-        Exchange.emit(plmn_JSON,'plmn')
+        Exchange.emit_plmn(plmn_JSON,'plmn')
 
         #return {'message':"sucesso"}, 200
         return plmn_JSON, 200

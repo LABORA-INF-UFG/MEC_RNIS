@@ -1,191 +1,131 @@
-# Importando as bibliotecas
-import sqlite3, uuid, subprocess, os, requests, pika
-import requests
-
-# from
-from flask import Flask, jsonify, request
-from flask_restful import Api
 import threading
-from bd.table import create_table, insert_application, delete_application
-from v2.queries.rab_info_controller import RabInfo2, RabInfo1
-from v2.queries.plmn_info_controller import PlmnInfo
-from v2.queries.s1_bearer_info_controller import S1BearerInfo2 
-from v2.subscription.subscription_controller import subscription_verification
-from v2.receive.exchange import Exchange
+import pika
+import requests, time
+from flask import Flask
+from bd.table import listar_callback_apps_por_notification2
 
-# Cria uma variavel para passar o Flask
 app = Flask(__name__)
 
-# Cria variaveis com o caminho das pastas
-result = subprocess.run(['pwd'], capture_output=True, text=True)
-current_directory = result.stdout.strip()
-diretorio = f'{current_directory}/docker-compose'
 
-# Configuração do banco de dados
-DB_NAME = 'applications.db'
-
-## Methods ##
-
-#################################################################
-
-# Resource: Subscription GET
-@app.route('/<appRoot>/rni/v2/subscriptions', methods=['GET'])
-def get_application_route():
-    # Obter o ID da aplicação a ser excluída na requisição POST
-    subscription_type = request.json.get('subscription_type')
-
-    # Verificar se o ID foi fornecido
-    if not subscription_type:
-        data = {
-                "subscription_type": "subscription_type não fornecido",
-                 "status": 400
-        }
-        return jsonify(data), 400
-            
-    # Retornar uma resposta de sucesso
-    return jsonify({'subscription_type': subscription_type,  'SubscriptionLinkList' : 'Após o sucesso, um corpo de resposta contendo a lista de links para as assinaturas do solicitante é retornado.'}), 200
-
-
-# Resource: Subscription POST
-@app.route('/<appRoot>/rni/v2/subscriptions', methods=['POST'])
-def register_application(appRoot):
-     
+# Função para receber mensagens do RabbitMQ e enviar via callback
+def receive_and_send_messages_plmn():
     try:
-        NotificationSubscription = request.json.get('NotificationSubscription')
-        callback_uri = request.json.get('callback_uri')
+        # Conectando com o RabbitMQ
+        credentials = pika.PlainCredentials(username='admin', password='123456')
+        parameters = pika.ConnectionParameters(host='localhost', credentials=credentials)
+        connection = pika.BlockingConnection(parameters)
 
-        if not NotificationSubscription:
-            return jsonify({'error': 'Client NotificationSubscription not provided'}), 400
+        channel = connection.channel()
 
-        if 'nok' == subscription_verification(NotificationSubscription):
-            return jsonify({'error': 'Invalid NotificationSubscription'}), 400
+        channel.exchange_declare(exchange="plmn", exchange_type='topic')
+        result = channel.queue_declare(queue='', exclusive=True)
+        queue_name = result.method.queue
 
-        if not callback_uri:
-            return jsonify({'error': 'Client callback_uri not provided'}), 400
+        routing_key = 'my_topic'
+        channel.queue_bind(exchange="plmn", queue=queue_name, routing_key=routing_key)
+        output_file = open('mensagens_plmn.txt', 'w')
         
-          # Cadastrar a aplicação e obter o ID
-        id = insert_application(appRoot, NotificationSubscription, callback_uri)
+        # Função que será executada quando uma mensagem for recebida
+        def callback(ch, method, properties, body):
+            message_with_time = body.decode()
+            start_time_str, message = message_with_time.split(':', 1)
+            start_time = float(start_time_str)
+            
+            # Calcule o tempo de entrega
+            end_time = time.time()
+            elapsed_time = end_time - start_time
+            print(f"Tempo total de entrega: {elapsed_time} segundos") 
+            data = {'message': message}
+            
+            try:
+                
+                resultados = listar_callback_apps_por_notification2("plmn")
+                # Use uma compreensão de lista para extrair os links
+                links = [item[0] for item in resultados]
+                # Loop for para imprimir todas as URLs
+                for callback_url_1 in links:
+                    response = requests.post(callback_url_1, json=data)
+                    with open("tempos_decorridos_plmn.txt", "a") as arquivo:
+                        arquivo.write(f"Tempo decorrido: {elapsed_time} segundos\n")
+                    output_file.write(message + '\n')
+                    response.raise_for_status()
+                    #print(f"Callback (PLMN) enviado com sucesso para {callback_url_1}")
+            except requests.exceptions.RequestException as e:
+                print(f"Erro ao enviar o callback (PLMN): {e}")
 
-        return jsonify({'NotificationSubscription': NotificationSubscription, 'callback': callback_uri, 'id_registre': id}), 200
+        # Define o callback para processar mensagens recebidas
+        channel.basic_consume(queue=queue_name, on_message_callback=callback, auto_ack=True)
+
+        # Inicia a escuta por mensagens
+        channel.start_consuming()
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        print(f"Erro ao receber mensagens (PLMN): {str(e)}")
 
+# Função para receber mensagens do RabbitMQ e enviar via callback
+def receive_and_send_messages_rab():
+    try:
+        # Conectando com o RabbitMQ
+        credentials = pika.PlainCredentials(username='admin', password='123456')
+        parameters = pika.ConnectionParameters(host='localhost', credentials=credentials)
+        connection = pika.BlockingConnection(parameters)
 
-# Resource: Subscription DELETE
-@app.route('/<appRoot>/rni/v2/subscriptions', methods=['DELETE'])
-def delete_application_route(appRoot):
-    # Obter o ID da aplicação a ser excluída na requisição POST
-    id = request.json.get('id')
+        channel = connection.channel()
 
-    # Verificar se o ID foi fornecido
-    if not id:
-        return jsonify({'error': 'ID não fornecido'}), 400
+        channel.exchange_declare(exchange="rab", exchange_type='topic')
+        result = channel.queue_declare(queue='', exclusive=True)
+        queue_name = result.method.queue
 
-    # Excluir a aplicação com o ID fornecido
-    delete_application(id)
+        routing_key = 'my_topic'
+        channel.queue_bind(exchange="rab", queue=queue_name, routing_key=routing_key)
+        output_file = open('mensagens_rab.txt', 'w')
 
-    result = Exchange.stop()
+        # Função que será executada quando uma mensagem for recebida
+        def callback(ch, method, properties, body):
+             
+            message_with_time = body.decode()
+            start_time_str, message = message_with_time.split(':', 1)
+            start_time = float(start_time_str)
+            
+            # Calcule o tempo de entrega
+            end_time = time.time()
+            elapsed_time = end_time - start_time
+            print(f"Tempo total de entrega: {elapsed_time} segundos")
+            
+            data = {'message': message}
 
+            try:
 
-    # Retornar uma resposta de sucesso
-    return jsonify({'message': 'ID excluído com sucesso'}), 200
+                # Use uma compreensão de lista para extrair os links
+                resultados = listar_callback_apps_por_notification2("rab")
+                links = [item[0] for item in resultados]
+                # Loop for para imprimir todas as URLs
+                for callback_url_1 in links:
+                    response = requests.post(callback_url_1, json=data)
+                     # Salve o tempo decorrido em um arquivo de texto
+                    with open("tempos_decorridos_rab.txt", "a") as arquivo:
+                        arquivo.write(f"Tempo decorrido: {elapsed_time} segundos\n")
 
+                    output_file.write(message + '\n')
+                    response.raise_for_status()
+                    #print(f"Callback (RAB) enviado com sucesso para {callback_url_1}")
+            except requests.exceptions.RequestException as e:
+                print(f"Erro ao enviar o callback (RAB): {e}")
 
-# Resource: SubscriptionsID GET
-@app.route('/<appRoot>/rni/v2/subscriptions/<subscriptionId>', methods=['GET'])
-def get_subscriptionId(appRoot, subscriptionId):
-   
+        # Define o callback para processar mensagens recebidas
+        channel.basic_consume(queue=queue_name, on_message_callback=callback, auto_ack=True)
 
-    # Retornar uma resposta de sucesso
-    return jsonify({'message': subscriptionId})
+        # Inicia a escuta por mensagens
+        channel.start_consuming()
+    except Exception as e:
+        print(f"Erro ao receber mensagens (RAB): {str(e)}")
+    
 
-
-# Resource: SubscriptionsID PUT
-@app.route('/<appRoot>/rni/v2/subscriptions/<subscriptionId>', methods=['PUT'])
-def put_subscriptionId(appRoot, subscriptionId):
-   
-
-    # Retornar uma resposta de sucesso
-    return jsonify({'message': 'sucesso'})
-
-
-# Resource: SubscriptionsID DELETE
-@app.route('/<appRoot>/rni/v2/subscriptions/<subscriptionId>', methods=['DELETE'])
-def delete_subscriptionId(appRoot, subscriptionId):
-   
-
-    # Retornar uma resposta de sucesso
-    return jsonify({'message': 'sucesso'})
-
-
-#################################################################
-
-
-# Resource: rab_info GET
-@app.route('/<appRoot>/rni/v2/queries/rab_info/<app_ins_id>', methods=['GET'])
-def get_rab_info(appRoot, app_ins_id ):
-   
-
-    # Retornar uma resposta de sucesso
-    return jsonify({'message': appRoot, 'teste': app_ins_id })
-
-
-
-# Resource: plmn_info GET
-@app.route('/<appRoot>/rni/v2/queries/plmn_info/<app_ins_id>', methods=['GET'])
-def get_plmn_info(appRoot, app_ins_id):
-   
-
-    # Retornar uma resposta de sucesso
-    return jsonify({'message': 'sucesso'})
-
-
-
-# Resource: s1_bearer_info GET
-@app.route('/<appRoot>/rni/v2/queries/s1_bearer_info/<app_ins_id>', methods=['GET'])
-def get_s1_bearer_info(appRoot, app_ins_id):
-   
-
-    # Retornar uma resposta de sucesso
-    return jsonify({'message': 'sucesso'})
-
-
-
-# Resource: layer2_meas GET
-@app.route('/<appRoot>/rni/v2/queries/layer2_meas/<app_ins_id>', methods=['GET'])
-def get_layer2_meas (appRoot, app_ins_id):
-   
-
-    # Retornar uma resposta de sucesso
-    return jsonify({'message': 'sucesso'})
-
-
-#################################################################
-
-
-# Criar outra variavel para passar o app
-api = Api(app)
-
-# Resource: rab_info POST
-api.add_resource(RabInfo1, '/rni/v2/queries/rab_info/<string:app_instance_id>')
-api.add_resource(PlmnInfo, '/rni/v2/queries/plmn_info/<string:app_instance_id>')
-api.add_resource(S1BearerInfo2, '/rni/v2/queries/s1_bearer_info')
-
-## Main ##
-
-# Configuração basica do Flask
 if __name__ == '__main__':
+    thread_plmn = threading.Thread(target=receive_and_send_messages_plmn)
+    thread_rab = threading.Thread(target=receive_and_send_messages_rab)
 
-    os.chdir(diretorio) # Mudando para o diretório
-    # Executando o comando docker para subir o RabbitMQ
-    subprocess.run("docker-compose up -d", shell=True)
-    os.chdir(current_directory) # Mudando para o diretório
-
-    create_table() # Cria a tabela
-
-    app.run(port=5000)
-    #app.run() # Executa a aplicação em modo debug
-   
-
-# Running on http://127.0.0.1:5000/rni/v2/queries/rab_info
-#python3 app.py
+    # Iniciar as threads
+    thread_plmn.start()
+    thread_rab.start()
+    print("api_2 ok")
+    #app.run(port=8085)

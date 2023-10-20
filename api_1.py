@@ -1,14 +1,16 @@
 # Importando as bibliotecas
-import sqlite3, uuid, subprocess, os
+import sqlite3, uuid, subprocess, os, requests, pika
+import requests
 
 # from
 from flask import Flask, jsonify, request
 from flask_restful import Api
+import threading
 from bd.table import create_table, insert_application, delete_application
 from v2.queries.rab_info_controller import RabInfo2, RabInfo1
-from v2.queries.plmn_info_controller import PlmnInfo2
+from v2.queries.plmn_info_controller import PlmnInfo
 from v2.queries.s1_bearer_info_controller import S1BearerInfo2 
-from v2.subscription.subscription_controller import subscription_post
+from v2.subscription.subscription_controller import subscription_verification
 from v2.receive.exchange import Exchange
 
 # Cria uma variavel para passar o Flask
@@ -18,7 +20,6 @@ app = Flask(__name__)
 result = subprocess.run(['pwd'], capture_output=True, text=True)
 current_directory = result.stdout.strip()
 diretorio = f'{current_directory}/docker-compose'
-
 
 # Configuração do banco de dados
 DB_NAME = 'applications.db'
@@ -48,23 +49,26 @@ def get_application_route():
 # Resource: Subscription POST
 @app.route('/<appRoot>/rni/v2/subscriptions', methods=['POST'])
 def register_application(appRoot):
+     
+    try:
+        NotificationSubscription = request.json.get('NotificationSubscription')
+        callback_uri = request.json.get('callback_uri')
 
-    # Obter o identificador da aplicação na requisição POST
-    NotificationSubscription = request.json.get('NotificationSubscription')
+        if not NotificationSubscription:
+            return jsonify({'error': 'Client NotificationSubscription not provided'}), 400
 
-    # Verificar se o identificador foi fornecido
-    if not NotificationSubscription:
-        return jsonify({'error': 'Identificador não fornecido'}), 400
+        if 'nok' == subscription_verification(NotificationSubscription):
+            return jsonify({'error': 'Invalid NotificationSubscription'}), 400
 
-    # Cadastrar a aplicação e obter o ID
-    id = insert_application(appRoot)
+        if not callback_uri:
+            return jsonify({'error': 'Client callback_uri not provided'}), 400
+        
+          # Cadastrar a aplicação e obter o ID
+        id = insert_application(appRoot, NotificationSubscription, callback_uri)
 
-    #Chama a função subscription_post
-    result = subscription_post(NotificationSubscription) # Chama o subscription_post
-
-    # Retornar o ID como resposta
-    #return jsonify({'id': id, 'appRoot': appRoot, 'NotificationSubscription': NotificationSubscription, "t": t }), 200
-    return result
+        return jsonify({'NotificationSubscription': NotificationSubscription, 'callback': callback_uri, 'id_registre': id}), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
 
 
 # Resource: Subscription DELETE
@@ -114,9 +118,7 @@ def delete_subscriptionId(appRoot, subscriptionId):
     return jsonify({'message': 'sucesso'})
 
 
-
 #################################################################
-
 
 
 # Resource: rab_info GET
@@ -160,53 +162,30 @@ def get_layer2_meas (appRoot, app_ins_id):
 
 #################################################################
 
-@app.route('/rni/v2/subscriptions', methods=['POST'])
-def regis():
-
-    NotificationSubscription = request.json.get('NotificationSubscription')
-
-    data = subscription_post(NotificationSubscription)
-
-    #print ("data:", data)
-    
-    return data
-
-
-#################################################################
-
 
 # Criar outra variavel para passar o app
 api = Api(app)
 
 # Resource: rab_info POST
 api.add_resource(RabInfo1, '/rni/v2/queries/rab_info/<string:app_instance_id>')
-api.add_resource(PlmnInfo2, '/rni/v2/queries/plmn_info/<string:app_instance_id>')
+api.add_resource(PlmnInfo, '/rni/v2/queries/plmn_info/<string:app_instance_id>')
 api.add_resource(S1BearerInfo2, '/rni/v2/queries/s1_bearer_info')
-
-
 
 ## Main ##
 
 # Configuração basica do Flask
 if __name__ == '__main__':
 
-    #print("Iniciando")
-    
     os.chdir(diretorio) # Mudando para o diretório
-
     # Executando o comando docker para subir o RabbitMQ
     subprocess.run("docker-compose up -d", shell=True)
-    
-    #print("RabbiMQ ok")
-    
     os.chdir(current_directory) # Mudando para o diretório
 
     create_table() # Cria a tabela
 
-    
-    app.run(debug=True) # Executa a aplicação em modo debug
-    #app.run() # Executa a aplicação
+    app.run(port=5000)
+    #app.run() # Executa a aplicação em modo debug
+   
 
 # Running on http://127.0.0.1:5000/rni/v2/queries/rab_info
 #python3 app.py
-

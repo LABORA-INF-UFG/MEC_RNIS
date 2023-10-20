@@ -1,6 +1,7 @@
 #Importando as bibliotecas
 from flask_restful import Resource, reqparse, request
 from v2.models.s1_bearer_info import S1BearerInfoModel
+#from v2.receive.exchange import Exchange
 from v2.receive.exchange import Exchange
 
 #from requests import request
