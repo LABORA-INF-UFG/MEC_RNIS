@@ -46,7 +46,7 @@ def receive_and_send_messages_plmn():
                 for callback_url_1 in links:
                     response = requests.post(callback_url_1, json=data)
                     with open("tempos_decorridos_plmn.txt", "a") as arquivo:
-                        arquivo.write(f"Tempo decorrido: {elapsed_time} segundos\n")
+                        arquivo.write(f"{elapsed_time}\n")
                     output_file.write(message + '\n')
                     response.raise_for_status()
                     #print(f"Callback (PLMN) enviado com sucesso para {callback_url_1}")
@@ -103,7 +103,7 @@ def receive_and_send_messages_rab():
                     response = requests.post(callback_url_1, json=data)
                      # Salve o tempo decorrido em um arquivo de texto
                     with open("tempos_decorridos_rab.txt", "a") as arquivo:
-                        arquivo.write(f"Tempo decorrido: {elapsed_time} segundos\n")
+                        arquivo.write(f"{elapsed_time}\n")
 
                     output_file.write(message + '\n')
                     response.raise_for_status()
