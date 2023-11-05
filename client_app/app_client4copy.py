@@ -1,5 +1,5 @@
 from flask import Flask, request
-import requests, json
+import requests, json, time
 
 # Variável global para contar as requisições
 request_count = 0
@@ -42,16 +42,25 @@ def callback():
     global request_count  # Usar a variável global
 
     data = request.json  # Dados recebidos na notificação
-    request_count += 1  # Incrementar a contagem de requisições
 
     # Processar os dados recebidos da notificação
     print('Received notification:')
-    print(data)
 
-    """ # Atualizar o arquivo JSON com a contagem de requisições
-        with open('60_minutos_rab_1000_users_1_2_segundos_dataset_4.json', 'w') as file:
-            json.dump({'request_count': request_count}, file)
-    """
+    start_time_str, message = data.split(':', 1)
+    start_time = float(start_time_str)
+    
+    # Calcule o tempo de entrega
+    end_time = time.time()
+    elapsed_time = end_time - start_time
+    
+    data = {'message': message}
+
+    # Especifique o caminho completo para o arquivo "tempos.txt"
+    caminho_arquivo = "/l/disk0/mcunha/Documentos/ufg/MEC_RNIS/locust/20_minutos_client_200users_1s_2_mec_apps/tempos_decorridos_rab_client_2.txt"
+
+    with open(caminho_arquivo, "a") as arquivo:
+        arquivo.write(f"{elapsed_time}\n")
+
     return 'Notification received', 200
 
 

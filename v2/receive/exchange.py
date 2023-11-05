@@ -243,7 +243,7 @@ class Exchange():
         channel, queue_name = Exchange.setup_rabbitmq(NotificationSubscription)
         #print ("Entrou no init")
 
-
+"""  
     # Função para gerar os dados do RabbitMQ
     def generate_data(NotificationSubscription):
         #print ("dentro do generate")
@@ -350,3 +350,4 @@ class Exchange():
 
                     
         return generate
+"""

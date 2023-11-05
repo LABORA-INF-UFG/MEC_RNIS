@@ -2,7 +2,7 @@ from locust import HttpUser, task, between
 import json
 
 class MyLocustUser(HttpUser):
-    wait_time = between(1, 2)  # Tempo de espera entre as solicitações
+    wait_time = between(1, 1)  # Tempo de espera entre as solicitações
 
     # Abra o arquivo JSON e leia os dados
     with open('radio_network_data_rab.json', 'r') as file:

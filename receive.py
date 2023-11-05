@@ -23,7 +23,7 @@ def receive_and_send_messages_plmn():
 
         routing_key = 'my_topic'
         channel.queue_bind(exchange="plmn", queue=queue_name, routing_key=routing_key)
-        output_file = open('mensagens_plmn.txt', 'w')
+        #output_file = open('mensagens_plmn.txt', 'w')
         
         # Função que será executada quando uma mensagem for recebida
         def callback(ch, method, properties, body):
@@ -44,10 +44,14 @@ def receive_and_send_messages_plmn():
                 links = [item[0] for item in resultados]
                 # Loop for para imprimir todas as URLs
                 for callback_url_1 in links:
-                    response = requests.post(callback_url_1, json=data)
-                    with open("tempos_decorridos_plmn.txt", "a") as arquivo:
+                    response = requests.post(callback_url_1, json=message_with_time)
+                    #response = requests.post(callback_url_1, json=data)
+                    caminho_arquivo = "/l/disk0/mcunha/Documentos/ufg/MEC_RNIS/locust/20_minutos_client_200users_1s_2_mec_apps/tempos_decorridos_plmn_2.txt"
+
+                    with open(caminho_arquivo, "a") as arquivo:
                         arquivo.write(f"{elapsed_time}\n")
-                    output_file.write(message + '\n')
+                    #output_file.write(message + '\n')
+                    
                     response.raise_for_status()
                     #print(f"Callback (PLMN) enviado com sucesso para {callback_url_1}")
             except requests.exceptions.RequestException as e:
@@ -77,7 +81,7 @@ def receive_and_send_messages_rab():
 
         routing_key = 'my_topic'
         channel.queue_bind(exchange="rab", queue=queue_name, routing_key=routing_key)
-        output_file = open('mensagens_rab.txt', 'w')
+        #output_file = open('mensagens_rab.txt', 'w')
 
         # Função que será executada quando uma mensagem for recebida
         def callback(ch, method, properties, body):
@@ -100,12 +104,16 @@ def receive_and_send_messages_rab():
                 links = [item[0] for item in resultados]
                 # Loop for para imprimir todas as URLs
                 for callback_url_1 in links:
-                    response = requests.post(callback_url_1, json=data)
+                    response = requests.post(callback_url_1, json=message_with_time)
+                    #response = requests.post(callback_url_1, json=data)
                      # Salve o tempo decorrido em um arquivo de texto
-                    with open("tempos_decorridos_rab.txt", "a") as arquivo:
-                        arquivo.write(f"{elapsed_time}\n")
+                        # Especifique o caminho completo para o arquivo "tempos.txt"
+                    caminho_arquivo = "/l/disk0/mcunha/Documentos/ufg/MEC_RNIS/locust/20_minutos_client_200users_1s_2_mec_apps/tempos_decorridos_rab_2.txt"
 
-                    output_file.write(message + '\n')
+                    with open(caminho_arquivo, "a") as arquivo:
+                        arquivo.write(f"{elapsed_time}\n")
+                    #output_file.write(message + '\n')
+                    
                     response.raise_for_status()
                     #print(f"Callback (RAB) enviado com sucesso para {callback_url_1}")
             except requests.exceptions.RequestException as e:

@@ -46,12 +46,12 @@ def callback():
     # Processar os dados recebidos da notificação
     print('Received notification:')
     print(data)
+    """ 
+        # Atualizar o arquivo JSON com a contagem de requisições
+        with open('60_minutos_plmn_1000_users_1_2_segundos_dataset_3.json', 'w') as file:
+            json.dump({'request_count': request_count}, file)
 
-    # Atualizar o arquivo JSON com a contagem de requisições
-    with open('60_minutos_plmn_1000_users_1_2_segundos_dataset_3.json', 'w') as file:
-        json.dump({'request_count': request_count}, file)
-
-
+    """
     return 'Notification received', 200
 
 
