@@ -4,19 +4,20 @@ import requests, json, time
 # Variável global para contar as requisições
 request_count = 0
 
-
 app = Flask(__name__)
 
 
 def post_registrer():
-    api_url = 'http://127.0.0.1:5000/sdfe/rni/v2'  # Substitua pela URL da sua API
+    api_url = 'http://127.0.0.1:5000/app_5/rni/v2'  # Substitua pela URL da sua API
     endpoint = '/subscriptions'  # Endpoint específico da API
-    callback_uri = 'http://localhost:8009/callback3'  # URL do callback para receber notificações
+    preferences = ['notification_type_1', 'notification_type_2']  # As preferências de notificação do cliente
+    callback_uri = 'http://localhost:8003/callback_app_5'  # URL do callback para receber notificações
 
     data = {
-        'NotificationSubscription': "plmn",
-        'callback_uri': "http://localhost:8009/callback3"
+        'NotificationSubscription': "rab",
+        'callback_uri': "http://localhost:8003/callback_app_5"
     }
+
     try:
         response = requests.post(api_url + endpoint, json=data, stream=True)
         
@@ -36,10 +37,10 @@ def post_registrer():
 
 
 #http://localhost:8000/callback_app_ciente
-@app.route('/callback3', methods=['POST'])
+@app.route('/callback_app_5', methods=['POST'])
 def callback():
     global request_count  # Usar a variável global
-
+    
     data = request.json  # Dados recebidos na notificação
     request_count += 1  # Incrementar a contagem de requisições
 
@@ -54,8 +55,8 @@ def callback():
     
     data = {'message': message}
 
-    # Especifique o caminho completo para o arquivo "tempos.txt"
-    caminho_arquivo = "/l/disk0/mcunha/Documentos/ufg/MEC_RNIS/locust/20_minutos_client_200users_1s_2_mec_apps/tempos_decorridos_plmn_client_2.txt"
+     # Especifique o caminho completo para o arquivo "tempos.txt"
+    caminho_arquivo = "/l/disk0/mcunha/Documentos/ufg/MEC_RNIS/locust/05_minutos_client_100users_1s_2_mec_apps/tempos_decorridos_rab_client_1.txt"
 
     with open(caminho_arquivo, "a") as arquivo:
         arquivo.write(f"{elapsed_time}\n")
@@ -67,4 +68,4 @@ if __name__ == '__main__':
 
     post_registrer()
         
-    app.run(host='0.0.0.0', port=8009)
+    app.run(host='0.0.0.0', port=8003)

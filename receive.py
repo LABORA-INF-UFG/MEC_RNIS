@@ -6,7 +6,7 @@ import subprocess
 from bd.table import listar_callback_apps_por_notification2
 
 
-
+numero = "10"
 # Função para receber mensagens do RabbitMQ e enviar via callback
 def receive_and_send_messages_plmn():
     try:
@@ -46,7 +46,7 @@ def receive_and_send_messages_plmn():
                 for callback_url_1 in links:
                     response = requests.post(callback_url_1, json=message_with_time)
                     #response = requests.post(callback_url_1, json=data)
-                    caminho_arquivo = "/l/disk0/mcunha/Documentos/ufg/MEC_RNIS/locust/20_minutos_client_200users_1s_2_mec_apps/tempos_decorridos_plmn_2.txt"
+                    caminho_arquivo = "/l/disk0/mcunha/Documentos/ufg/MEC_RNIS/locust/05_minutos_client_800users_1s_2_mec_apps/tempos_decorridos_plmn_"+numero+".txt"
 
                     with open(caminho_arquivo, "a") as arquivo:
                         arquivo.write(f"{elapsed_time}\n")
@@ -108,7 +108,7 @@ def receive_and_send_messages_rab():
                     #response = requests.post(callback_url_1, json=data)
                      # Salve o tempo decorrido em um arquivo de texto
                         # Especifique o caminho completo para o arquivo "tempos.txt"
-                    caminho_arquivo = "/l/disk0/mcunha/Documentos/ufg/MEC_RNIS/locust/20_minutos_client_200users_1s_2_mec_apps/tempos_decorridos_rab_2.txt"
+                    caminho_arquivo = "/l/disk0/mcunha/Documentos/ufg/MEC_RNIS/locust/05_minutos_client_800users_1s_2_mec_apps/tempos_decorridos_rab_"+numero+".txt"
 
                     with open(caminho_arquivo, "a") as arquivo:
                         arquivo.write(f"{elapsed_time}\n")

@@ -56,7 +56,7 @@ def callback():
     data = {'message': message}
 
     # Especifique o caminho completo para o arquivo "tempos.txt"
-    caminho_arquivo = "/l/disk0/mcunha/Documentos/ufg/MEC_RNIS/locust/20_minutos_client_200users_1s_2_mec_apps/tempos_decorridos_rab_client_2.txt"
+    caminho_arquivo = "/l/disk0/mcunha/Documentos/ufg/MEC_RNIS/locust/05_minutos_client_800users_1s_2_mec_apps/tempos_decorridos_rab_client_10.txt"
 
     with open(caminho_arquivo, "a") as arquivo:
         arquivo.write(f"{elapsed_time}\n")

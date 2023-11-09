@@ -1,5 +1,5 @@
 # Nome do arquivo de texto com os valores de tempo
-nome_arquivo = 'tempos_decorridos_rab_10.txt'
+nome_arquivo = 'tempos_decorridos_plmn_1.txt'
 
 # Inicialize uma lista para armazenar os valores de tempo
 tempos = []
