@@ -12,10 +12,10 @@ request_count = 0
 app = Flask(__name__)
 
 def post_registrer():
-    api_url = 'http://127.0.0.1:5000/app_2/rni/v2'
+    api_url = 'http://127.0.0.1:5000/app_9/rni/v2'
     endpoint = '/subscriptions'
     preferences = ['notification_type_1', 'notification_type_2']
-    callback_uri = 'http://localhost:8002/callback_app_2'
+    callback_uri = 'http://localhost:8009/callback_app_9'
 
     data = {
         'NotificationSubscription': "plmn",
@@ -36,7 +36,7 @@ def post_registrer():
     except Exception as e:
         print(f'Error: {str(e)}')
 
-@app.route('/callback_app_2', methods=['POST'])
+@app.route('/callback_app_9', methods=['POST'])
 def callback():
     global request_count
 
@@ -54,7 +54,7 @@ def callback():
 
     n = args.n if args.n else ""  # Adicione o número ao nome do arquivo se fornecido
 
-    caminho_arquivo = os.path.join(args.directory, f"tempos_decorridos_plmn_app2_client_{n}.txt")
+    caminho_arquivo = os.path.join(args.directory, f"tempos_decorridos_plmn_app9_client_{n}.txt")
 
     with open(caminho_arquivo, "a") as arquivo:
         arquivo.write(f"{elapsed_time}\n")
@@ -79,4 +79,4 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     post_registrer()
-    app.run(host='0.0.0.0', port=8002)
+    app.run(host='0.0.0.0', port=8009)

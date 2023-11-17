@@ -3,12 +3,13 @@ import pika
 import requests, time
 from flask import Flask
 import subprocess
+import sys
 from bd.table import listar_callback_apps_por_notification2
 
 
-numero = "10"
+numero = "1"
 # Função para receber mensagens do RabbitMQ e enviar via callback
-def receive_and_send_messages_plmn():
+def receive_and_send_messages_plmn(iteracao, current_directory):
     try:
         # Conectando com o RabbitMQ
         credentials = pika.PlainCredentials(username='admin', password='123456')
@@ -46,7 +47,7 @@ def receive_and_send_messages_plmn():
                 for callback_url_1 in links:
                     response = requests.post(callback_url_1, json=message_with_time)
                     #response = requests.post(callback_url_1, json=data)
-                    caminho_arquivo = "/l/disk0/mcunha/Documentos/ufg/MEC_RNIS/locust/05_minutos_client_800users_1s_2_mec_apps/tempos_decorridos_plmn_"+numero+".txt"
+                    caminho_arquivo = current_directory + "/locust/10_minutos_client_100users_1s_2_mec_apps/tempos_decorridos_plmn_"+iteracao+".txt"
 
                     with open(caminho_arquivo, "a") as arquivo:
                         arquivo.write(f"{elapsed_time}\n")
@@ -66,7 +67,7 @@ def receive_and_send_messages_plmn():
         print(f"Erro ao receber mensagens (PLMN): {str(e)}")
 
 # Função para receber mensagens do RabbitMQ e enviar via callback
-def receive_and_send_messages_rab():
+def receive_and_send_messages_rab(iteracao, current_directory):
     try:
         # Conectando com o RabbitMQ
         credentials = pika.PlainCredentials(username='admin', password='123456')
@@ -108,7 +109,7 @@ def receive_and_send_messages_rab():
                     #response = requests.post(callback_url_1, json=data)
                      # Salve o tempo decorrido em um arquivo de texto
                         # Especifique o caminho completo para o arquivo "tempos.txt"
-                    caminho_arquivo = "/l/disk0/mcunha/Documentos/ufg/MEC_RNIS/locust/05_minutos_client_800users_1s_2_mec_apps/tempos_decorridos_rab_"+numero+".txt"
+                    caminho_arquivo = current_directory + "/locust/10_minutos_client_100users_1s_2_mec_apps/tempos_decorridos_rab_"+iteracao+".txt"
 
                     with open(caminho_arquivo, "a") as arquivo:
                         arquivo.write(f"{elapsed_time}\n")
@@ -136,11 +137,18 @@ if __name__ == '__main__':
     api1_file = 'api_1.py'
     port_api1 = 5000
 
+    iteracao = "1"
+
+    if len(sys.argv) > 1:
+        iteracao = sys.argv[1]
+
+    result = subprocess.run(['pwd'], capture_output=True, text=True)
+    current_directory = result.stdout.strip()
     # Crie threads para executar cada API
     thread1 = threading.Thread(target=run_api, args=(api1_file, port_api1))
 
-    thread_plmn = threading.Thread(target=receive_and_send_messages_plmn)
-    thread_rab = threading.Thread(target=receive_and_send_messages_rab)
+    thread_plmn = threading.Thread(target=receive_and_send_messages_plmn, args=(iteracao, current_directory))
+    thread_rab = threading.Thread(target=receive_and_send_messages_rab, args=(iteracao, current_directory))
 
     # Inicie as threads
     thread1.start()

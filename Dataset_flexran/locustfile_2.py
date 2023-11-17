@@ -1,15 +1,22 @@
 from locust import HttpUser, task, between
 import json
+import subprocess
 
 class MyLocustUser(HttpUser):
+
+            # Obter o caminho do diretório atual
+    result = subprocess.run(['pwd'], capture_output=True, text=True)
+    current_directory = result.stdout.strip()
+
+
     wait_time = between(1, 1)  # Tempo de espera entre as solicitações
 
     # Abra o arquivo JSON e leia os dados
-    with open('radio_network_data_rab.json', 'r') as file:
+    with open('/home/kaique/Documentos/ufg/MEC_RNIS/Dataset_flexran/radio_network_data_rab.json', 'r') as file:
         data_list_rab = json.load(file)
 
     # Abra o arquivo JSON e leia os dados
-    with open('radio_network_data_plmn.json', 'r') as file:
+    with open('/home/kaique/Documentos/ufg/MEC_RNIS/Dataset_flexran/radio_network_data_plmn.json', 'r') as file:
         data_list_plmn = json.load(file)
 
     # Defina as tarefas que o usuário realizará

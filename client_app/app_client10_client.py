@@ -12,13 +12,13 @@ request_count = 0
 app = Flask(__name__)
 
 def post_registrer():
-    api_url = 'http://127.0.0.1:5000/app_2/rni/v2'
+    api_url = 'http://127.0.0.1:5000/app_10/rni/v2'
     endpoint = '/subscriptions'
     preferences = ['notification_type_1', 'notification_type_2']
-    callback_uri = 'http://localhost:8002/callback_app_2'
+    callback_uri = 'http://localhost:8010/callback_app_10'
 
     data = {
-        'NotificationSubscription': "plmn",
+        'NotificationSubscription': "rab",
         'callback_uri': callback_uri
     }
 
@@ -36,7 +36,7 @@ def post_registrer():
     except Exception as e:
         print(f'Error: {str(e)}')
 
-@app.route('/callback_app_2', methods=['POST'])
+@app.route('/callback_app_10', methods=['POST'])
 def callback():
     global request_count
 
@@ -54,7 +54,7 @@ def callback():
 
     n = args.n if args.n else ""  # Adicione o número ao nome do arquivo se fornecido
 
-    caminho_arquivo = os.path.join(args.directory, f"tempos_decorridos_plmn_app2_client_{n}.txt")
+    caminho_arquivo = os.path.join(args.directory, f"tempos_decorridos_rab_app10_client_{n}.txt")
 
     with open(caminho_arquivo, "a") as arquivo:
         arquivo.write(f"{elapsed_time}\n")
@@ -71,12 +71,10 @@ if __name__ == '__main__':
     parent_directory = subprocess.run(['dirname', current_directory], capture_output=True, text=True)
     parent_directory = parent_directory.stdout.strip()
 
-    print("caminho" + parent_directory)
-
     parser = argparse.ArgumentParser(description='Flask app for handling notifications and writing to a file.')
     parser.add_argument('--directory', type=str, default= current_directory + "/locust/10_minutos_client_100users_1s_2_mec_apps/", help='Diretório onde o arquivo está localizado.')
     parser.add_argument('--n', type=int, default=None, help='Número para adicionar ao nome do arquivo.')
     args = parser.parse_args()
 
     post_registrer()
-    app.run(host='0.0.0.0', port=8002)
+    app.run(host='0.0.0.0', port=8010)
