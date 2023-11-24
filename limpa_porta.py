@@ -46,6 +46,17 @@ def stop_and_remove_containers():
 
     print("Todos os containers em execução foram parados e removidos com sucesso.")
 
+def limpa_banco(caminho_arquivo):
+    caminho_arquivo = caminho_arquivo + '/applications.db'
+
+        # Verifica se o arquivo existe antes de tentar removê-lo
+    if os.path.exists(caminho_arquivo):
+        # Remove o arquivo
+        os.remove(caminho_arquivo)
+        print(f"Arquivo {caminho_arquivo} removido com sucesso.")
+    else:
+        print(f"O arquivo {caminho_arquivo} não existe.")
+
 
 if __name__ == "__main__":
     # Portas a serem verificadas e liberadas
@@ -55,5 +66,9 @@ if __name__ == "__main__":
         find_and_terminate_process(port)
         
     stop_and_remove_containers()
+
+    result = subprocess.run(['pwd'], capture_output=True, text=True)
+    caminho_arquivo = result.stdout.strip()
+    limpa_banco(caminho_arquivo)
 
     print("Processos encerrados e portas liberadas.")

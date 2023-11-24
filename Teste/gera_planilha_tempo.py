@@ -2,7 +2,7 @@ import os
 import pandas as pd
 
 # Caminho onde os arquivos TXT estão localizados
-caminho_dos_arquivos = "/l/disk0/mcunha/Documentos/ufg/MEC_RNIS/Teste_1/"
+caminho_dos_arquivos = "/home/kaique/Documentos/ufg/MEC_RNIS/Teste/"
 
 # Lista para armazenar os dados
 dados = []
@@ -25,7 +25,7 @@ for nome_arquivo in os.listdir(caminho_dos_arquivos):
 df = pd.DataFrame(dados)
 
 # Salva o DataFrame em um arquivo Excel
-caminho_planilha = "/l/disk0/mcunha/Documentos/ufg/MEC_RNIS/Teste_1/planilha.xlsx"
+caminho_planilha = "/home/kaique/Documentos/ufg/MEC_RNIS/Teste/planilha.xlsx"
 df.to_excel(caminho_planilha, index=False)
 
 print(f"Os dados foram salvos em {caminho_planilha}")

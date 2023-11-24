@@ -100,3 +100,15 @@ def listar_callback_apps_por_notification2(NotificationSubscription):
     conn.close()
     
     return resultados
+
+# Função para obter todos os clientes e a lista de callback_uri
+def listar_callback_apps():
+
+    conn = sqlite3.connect(DB_NAME)
+    cursor = conn.cursor()
+    cursor.execute('SELECT callback_uri, NotificationSubscription FROM applications')
+    resultados = cursor.fetchall()
+    conn.close()
+    
+    return resultados
+    #return resultados
