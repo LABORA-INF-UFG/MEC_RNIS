@@ -134,7 +134,7 @@ def run_api(api_file, port):
    
 
 if __name__ == '__main__':
-    api1_file = 'api_1.py'
+    api1_file = 'api.py'
     port_api1 = 5000
 
     iteracao = "1"

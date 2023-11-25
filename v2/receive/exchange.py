@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import pika, json, requests, time
 from bd.table import listar_callback_apps_por_notification2, get_application_list
+import concurrent.futures
 
 global continue_running
 
@@ -13,28 +14,7 @@ request_count = 0
 class Exchange():
 
     # Função para configurar a conexão RabbitMQ
-    def setup_rabbitmq_original(NotificationSubscription):
-        
-        # Conectando com o RabbitMQ
-        credentials = pika.PlainCredentials(username='admin', password='123456') # Credentials (user e password)
-        parameters = pika.ConnectionParameters(host='localhost',credentials=credentials) # Parameters (host e credentials)
-        connection = pika.BlockingConnection(parameters) # Connection (parameters)
-        # Conectando com o RabbitMQ
-        channel = connection.channel() # CRia o CHannel com a connection
-
-        # Declaração do exchange e da fila
-        channel.exchange_declare(exchange=NotificationSubscription, exchange_type='topic')
-        result = channel.queue_declare(queue='', exclusive=True)
-        queue_name = result.method.queue
-        #print ("Entrou no setup_rabbitmq")
-        # Binding da fila ao tópico desejado
-        routing_key = 'my_topic'
-        channel.queue_bind(exchange=NotificationSubscription, queue=queue_name, routing_key=routing_key)
-
-        return channel, queue_name
-
-    # Função para configurar a conexão RabbitMQ
-    def setup_rabbitmq(NotificationSubscription):
+    def setup_rabsbitmq(NotificationSubscription):
         while True:
             try:
                         
@@ -54,7 +34,7 @@ class Exchange():
                 routing_key = 'my_topic'
                 channel.queue_bind(exchange=NotificationSubscription, queue=queue_name, routing_key=routing_key)
 
-                return channel, queue_name
+                return channel, queue_name, connection
             except pika.exceptions.AMQPConnectionError:
                 print("Falha na conexão com RabbitMQ. Tentando novamente em 5 segundos...")
                 time.sleep(5)
@@ -63,6 +43,9 @@ class Exchange():
     # publica as informações
     def emit_rab(dados, notif):
         
+        channel, queue_name, connection = Exchange.setup_rabsbitmq(notif)
+        
+        """ 
         # Conectando com o RabbitMQ
         credentials = pika.PlainCredentials(username='admin', password='123456') # Credentials (user e password)
         parameters = pika.ConnectionParameters(host='localhost',credentials=credentials) # Parameters (host e credentials)
@@ -75,6 +58,7 @@ class Exchange():
 
         # Dados para publicação
         routing_key = 'my_topic'
+        """
 
 
         # serializando os dados com o json.dumps
@@ -86,7 +70,7 @@ class Exchange():
         message_with_time = f"{start_time}:{mensagem}"
 
         # Publicação da mensagem
-        channel.basic_publish(exchange=notif, routing_key=routing_key, body=message_with_time)
+        channel.basic_publish(exchange=notif, routing_key='my_topic', body=message_with_time)
         print('Mensagem publicada no tópico RabbitMQ', notif )
 
         # Fechar a conexão
@@ -96,8 +80,11 @@ class Exchange():
 
     # publica as informações
     def emit_plmn(dados, notif):
+
+        channel, queue_name, connection = Exchange.setup_rabsbitmq(notif)
         
-        # Conectando com o RabbitMQ
+        
+        """ # Conectando com o RabbitMQ
         credentials = pika.PlainCredentials(username='admin', password='123456') # Credentials (user e password)
         parameters = pika.ConnectionParameters(host='localhost',credentials=credentials) # Parameters (host e credentials)
         connection = pika.BlockingConnection(parameters) # Connection (parameters)
@@ -109,7 +96,7 @@ class Exchange():
 
         # Dados para publicação
         routing_key = 'my_topic'
-
+        """
         # serializando os dados com o json.dumps
         mensagem = json.dumps(dados)
 
@@ -118,17 +105,38 @@ class Exchange():
         # Envie o tempo de início junto com a mensagem
         message_with_time = f"{start_time}:{mensagem}"
 
-
         # Publicação da mensagem
-        channel.basic_publish(exchange=notif, routing_key=routing_key, body=message_with_time)
+        channel.basic_publish(exchange=notif, routing_key='my_topic', body=message_with_time)
         print('Mensagem publicada no tópico RabbitMQ', notif)
 
         # Fechar a conexão
         connection.close()
 
         return mensagem
+
+
+    def emit(dados, notif):
+        print ("notif", notif)
+        #max_threads = 20  # Ajuste conforme necessário
+        if notif == "rab":
+            # Configuração do ThreadPoolExecutor com um número máximo de threads
+
+            with concurrent.futures.ThreadPoolExecutor() as executor:
+                # Mapeie a função para os argumentos em paralelo
+                print("Entrou no rab")
+                executor.map(Exchange.emit_rab(dados, notif))
+        else: 
+            if notif == "plmn":
+                # Configuração do ThreadPoolExecutor com um número máximo de threads
+               
+                with concurrent.futures.ThreadPoolExecutor() as executor:
+                    # Mapeie a função para os argumentos em paralelo
+                    print("Entrou no plmn")
+                    executor.map(Exchange.emit_plmn(dados, notif))
+
 ###############################################################################
 
+""" 
     # Função para receber mensagens do RabbitMQ
     def receive_messages_rab():
         try:
@@ -242,112 +250,4 @@ class Exchange():
     def init_plmn(NotificationSubscription):
         channel, queue_name = Exchange.setup_rabbitmq(NotificationSubscription)
         #print ("Entrou no init")
-
-"""  
-    # Função para gerar os dados do RabbitMQ
-    def generate_data(NotificationSubscription):
-        #print ("dentro do generate")
-        channel, queue_name = Exchange.setup_rabbitmq(NotificationSubscription)
-
-        def generate():
-            for method, properties, body in channel.consume(queue=queue_name, auto_ack=True):
-                message = body.decode('utf-8')
-                
-                link = "http://localhost:8002/callback5"
-
-                #requests.post(link, json=message)
-                # Função para notificar os clientes com o mesmo tópico via requisição POST
-                resultados = listar_callback_apps_por_notification2(NotificationSubscription)
-                #print ("resultados: ->", resultados[0])
-
-
-                #resultado2 = get_application_list()
-                #print ("resultado2: ", resultado2)
-                # Use uma compreensão de lista para extrair os links
-                links = [item[0] for item in resultados]
-
-                for linki in links:
-                    #print("link-> ", linki)
-                    requests.post(linki, json=message)           
-                # Atualizar o arquivo JSON com a contagem de requisições
-                
-                #yield message + '\n'
-                #print ("Quero ver se entrou")
-                
-                
-        return generate
-    
-    # Função para gerar os dados do RabbitMQ
-    def generate_data_rab(NotificationSubscription):
-        channel, queue_name = Exchange.setup_rabbitmq(NotificationSubscription)
-
-        def generate():
-            try:
-                for method, properties, body in channel.consume(queue=queue_name, auto_ack=True):
-                    try:
-                        message = body.decode('utf-8')
-                        
-                        #requests.post(link, json=message)
-                        # Função para notificar os clientes com o mesmo tópico via requisição POST
-                        resultados = listar_callback_apps_por_notification2("rab")
-
-                        # Use uma compreensão de lista para extrair os links
-                        links = [item[0] for item in resultados]
-
-                        for linki in links:
-                            requests.post(linki, json=message)
-                        #requests.post("http://localhost:8002/callback_app_4", json=message)
-                        # Obtenha a hora atual
-                        hora_atual = time.strftime('%H:%M:%S')
-                        # Nome do arquivo de texto
-                        nome_arquivo = 'horas_20_minutos_rab_500_500_6_8_segundos_2.txt'
-                        # Abra o arquivo para escrita (ou crie um novo)
-                        with open(nome_arquivo, 'w') as arquivo:
-                            # Escreva a hora atual no arquivo
-                            arquivo.write(f'Hora atual: {hora_atual}\n')
-                    except Exception as e:
-                        # Trate a exceção aqui, por exemplo, imprima o erro
-                        print(f"Exceção durante a iteração: {e}")
-            except Exception as e:
-                # Trate a exceção do loop principal aqui, se necessário
-                print(f"Exceção no loop principal: {e}")  
-                    
-        return generate
-        
-    # Função para gerar os dados do RabbitMQ
-    def generate_data_plmn(NotificationSubscription):
-        channel, queue_name = Exchange.setup_rabbitmq(NotificationSubscription)
-
-        def generate():
-            try:
-                for method, properties, body in channel.consume(queue=queue_name, auto_ack=True):
-                    try:
-                        message = body.decode('utf-8')
-                        
-                        # Função para notificar os clientes com o mesmo tópico via requisição POST
-                        resultados = listar_callback_apps_por_notification2(NotificationSubscription)
-
-                        # Use uma compreensão de lista para extrair os links
-                        links = [item[0] for item in resultados]
-
-                        for linki in links:
-                            requests.post(linki, json=message)
-        
-                        # Obtenha a hora atual
-                        hora_atual = time.strftime('%H:%M:%S')
-                        # Nome do arquivo de texto
-                        nome_arquivo = 'horas_20_minutos_plmn_500_500_6_8_segundos_2.txt'
-                        # Abra o arquivo para escrita (ou crie um novo)
-                        with open(nome_arquivo, 'w') as arquivo:
-                            # Escreva a hora atual no arquivo
-                            arquivo.write(f'Hora atual: {hora_atual}\n')
-                    except Exception as e:
-                        # Trate a exceção aqui, por exemplo, imprima o erro
-                        print(f"Exceção durante a iteração: {e}")
-            except Exception as e:
-                # Trate a exceção do loop principal aqui, se necessário
-                print(f"Exceção no loop principal: {e}")
-
-                    
-        return generate
-"""
+ """

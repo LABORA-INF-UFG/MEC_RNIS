@@ -9,6 +9,7 @@ from v2.receive.exchange import Exchange
 import pika
 import json
 import connexion
+import concurrent.futures
 
  
 #class RabInfo(Resource):
@@ -63,7 +64,9 @@ class RabInfo1(Resource):
 	
 	    # Manda o json para a Exchange que envia para o RabbitMQ
         #Exchange.emit('rab','rab_info','rab_1', rab_JSON)
-        Exchange.emit_rab(rab_JSON,'rab')
-        
+        #Exchange.emit_rab(rab_JSON,'rab')
+        Exchange.emit(rab_JSON,'rab')
+
+            
         #return {'message':"sucesso"}, 200
         return rab_JSON, 200
