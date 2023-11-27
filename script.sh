@@ -33,7 +33,7 @@ for ((iteracao=1; iteracao<=$TOTAL_ITERACOES; iteracao++)); do
     fi
 
     # Inicia a API em um terminal separado (background)
-    gnome-terminal -- bash -c "python3 ${diretorio_atual}/receive_teste.py $iteracao; exec bash"
+    gnome-terminal -- bash -c "python3 ${diretorio_atual}/receive_teste2.py $iteracao; exec bash"
 
     # Aguarda um breve momento antes de iniciar o cliente (ajuste conforme necessário)
     sleep 10
@@ -48,10 +48,10 @@ for ((iteracao=1; iteracao<=$TOTAL_ITERACOES; iteracao++)); do
     gnome-terminal -- bash -c "python3 ${diretorio_atual}/client_app/app_client2_client.py --n $iteracao; exec bash"
 
     # Aguarda um breve momento antes de iniciar o Locust (ajuste conforme necessário)
-    #sleep 1
+    sleep 1
 
     # Inicia o cliente em um terminal separado (background)
-    #gnome-terminal -- bash -c "python3 ${diretorio_atual}/client_app/app_client3_client.py --n $iteracao; exec bash"
+    gnome-terminal -- bash -c "python3 ${diretorio_atual}/client_app/app_client3_client.py --n $iteracao; exec bash"
 
     # Aguarda um breve momento antes de iniciar o Locust (ajuste conforme necessário)
     sleep 1
@@ -66,22 +66,22 @@ for ((iteracao=1; iteracao<=$TOTAL_ITERACOES; iteracao++)); do
     gnome-terminal -- bash -c "python3 ${diretorio_atual}/client_app/app_client5_client.py --n $iteracao; exec bash"
 
     # Aguarda um breve momento antes de iniciar o Locust (ajuste conforme necessário)
-    #sleep 1
+    sleep 1
 
-        # Inicia o cliente em um terminal separado (background)
-    #gnome-terminal -- bash -c "python3 ${diretorio_atual}/client_app/app_client6_client.py --n $iteracao; exec bash"
-
-    # Aguarda um breve momento antes de iniciar o Locust (ajuste conforme necessário)
-    #sleep 1
-
-        # Inicia o cliente em um terminal separado (background)
-    #gnome-terminal -- bash -c "python3 ${diretorio_atual}/client_app/app_client7_client.py --n $iteracao; exec bash"
+    # Inicia o cliente em um terminal separado (background)
+    gnome-terminal -- bash -c "python3 ${diretorio_atual}/client_app/app_client6_client.py --n $iteracao; exec bash"
 
     # Aguarda um breve momento antes de iniciar o Locust (ajuste conforme necessário)
-    #sleep 1
+    sleep 1
 
-        # Inicia o cliente em um terminal separado (background)
-    #gnome-terminal -- bash -c "python3 ${diretorio_atual}/client_app/app_client8_client.py --n $iteracao; exec bash"
+    # Inicia o cliente em um terminal separado (background)
+    gnome-terminal -- bash -c "python3 ${diretorio_atual}/client_app/app_client7_client.py --n $iteracao; exec bash"
+
+    # Aguarda um breve momento antes de iniciar o Locust (ajuste conforme necessário)
+    sleep 1
+
+    # Inicia o cliente em um terminal separado (background)
+    gnome-terminal -- bash -c "python3 ${diretorio_atual}/client_app/app_client8_client.py --n $iteracao; exec bash"
 
     # Aguarda um breve momento antes de iniciar o Locust (ajuste conforme necessário)
     #sleep 1
@@ -101,7 +101,7 @@ for ((iteracao=1; iteracao<=$TOTAL_ITERACOES; iteracao++)); do
     # Inicia o Locust em um terminal separado (background)
     #gnome-terminal -- bash -c "locust -f ${diretorio_atual}/Dataset_flexran/locustfile_2.py --host=http://127.0.0.1:5000 --web-host=0.0.0.0 --autostart --run-time ${TEMPO_EXECUCAO_LOCUST}m -u ${users} -r ${users} --html=${diretorio_atual}/locust/${TEMPO_EXECUCAO_LOCUST}_minutos_client_${users}users_1s_2_mec_apps/time_${TEMPO_EXECUCAO_LOCUST}m_client_${iteracao}_${users}.html --autoquit ${TEMPO_EXECUCAO_LOCUST}; exec bash"
     # Inicia o Locust em um terminal separado (background)
-    gnome-terminal -- bash -c "locust -f ${diretorio_atual}/Dataset_flexran/locustfile_2.py --host=http://127.0.0.1:5000 --web-host=0.0.0.0 --autostart --run-time ${TEMPO_EXECUCAO_LOCUST}m -u ${users} -r ${users} --html=${diretorio_atual}/locust/${TEMPO_EXECUCAO_LOCUST}_minutos_client_${users}users_1s_4_mec_apps/time_${TEMPO_EXECUCAO_LOCUST}m_client_${iteracao}_${users}.html --autoquit ${TEMPO_EXECUCAO_LOCUST} && sleep 2"
+    gnome-terminal -- bash -c "locust -f ${diretorio_atual}/Dataset_flexran/locustfile_2.py --host=http://127.0.0.1:5000 --web-host=0.0.0.0 --autostart --run-time ${TEMPO_EXECUCAO_LOCUST}m -u ${users} -r ${users} --html=${diretorio_atual}/locust/${TEMPO_EXECUCAO_LOCUST}_minutos_client_${users}users_1s_8_mec_apps_Threads/time_${TEMPO_EXECUCAO_LOCUST}m_client_${iteracao}_${users}.html --autoquit ${TEMPO_EXECUCAO_LOCUST} && sleep 2"
 
     # Aguardando o tempo em segundos
     sleep $segundos
@@ -109,15 +109,15 @@ for ((iteracao=1; iteracao<=$TOTAL_ITERACOES; iteracao++)); do
     #wait
 
     # Finaliza os processos da API e do Cliente (ajuste conforme necessário)
-    pkill -f "python3 ${diretorio_atual}/receive_teste.py"
+    pkill -f "python3 ${diretorio_atual}/receive_teste2.py"
     pkill -f "python3 ${diretorio_atual}/client_app/app_client1_client.py"
     pkill -f "python3 ${diretorio_atual}/client_app/app_client2_client.py"
-    #pkill -f "python3 ${diretorio_atual}/client_app/app_client3_client.py"
+    pkill -f "python3 ${diretorio_atual}/client_app/app_client3_client.py"
     pkill -f "python3 ${diretorio_atual}/client_app/app_client4_client.py"
     pkill -f "python3 ${diretorio_atual}/client_app/app_client5_client.py"
-    #pkill -f "python3 ${diretorio_atual}/client_app/app_client6_client.py"
-    #pkill -f "python3 ${diretorio_atual}/client_app/app_client7_client.py"
-    #pkill -f "python3 ${diretorio_atual}/client_app/app_client8_client.py"
+    pkill -f "python3 ${diretorio_atual}/client_app/app_client6_client.py"
+    pkill -f "python3 ${diretorio_atual}/client_app/app_client7_client.py"
+    pkill -f "python3 ${diretorio_atual}/client_app/app_client8_client.py"
     #pkill -f "python3 ${diretorio_atual}/client_app/app_client10_client.py"
     #pkill -f "locust -f ${diretorio_atual}/Dataset_flexran/locustfile_2.py --host=http://127.0.0.1:5000 --web-host=0.0.0.0 --autostart --run-time ${TEMPO_EXECUCAO_LOCUST}m -u ${users} -r ${users} --html=${diretorio_atual}/locust/${TEMPO_EXECUCAO_LOCUST}_minutos_client_${users}users_1s_2_mec_apps/time_${TEMPO_EXECUCAO_LOCUST}m_client_${iteracao}_${users}.html --autoquit ${TEMPO_EXECUCAO_LOCUST}"
 

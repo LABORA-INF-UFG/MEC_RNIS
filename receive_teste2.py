@@ -12,6 +12,7 @@ numero = "1"
 # Lista para armazenar threads
 threads = []
 threads_lock = threading.Lock()
+max_threads = 40
 
 
 # Variável de sinalização para encerramento
@@ -50,7 +51,7 @@ def receive_and_send_messages(iteracao, current_directory, notification, callbac
                 
                 response = requests.post(callback_url, json=message_with_time)
                     #response = requests.post(callback_url_1, json=data)
-                caminho_arquivo = current_directory + "/locust/5_minutos_client_100users_1s_8_mec_apps_Threads_2_invert_plmn_rab/tempos_decorridos_"+notification+"_"+iteracao+".txt"
+                caminho_arquivo = current_directory + "/locust/5_minutos_client_200users_1s_8_mec_apps_Threads/tempos_decorridos_"+notification+"_"+iteracao+".txt"
 
                 with open(caminho_arquivo, "a") as arquivo:
                     arquivo.write(f"{elapsed_time}\n")
@@ -71,9 +72,10 @@ def receive_and_send_messages(iteracao, current_directory, notification, callbac
 
 def verifica_thread(iteracao, current_directory):
     global encerrar_programa
+
     primeira_iteracao = True
     usuarios_anteriores = set()
-
+                                               # max_workers=max_threads
     with concurrent.futures.ThreadPoolExecutor() as executor:
         while not encerrar_programa:
             resultados = listar_callback_apps()

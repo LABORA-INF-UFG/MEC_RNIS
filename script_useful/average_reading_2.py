@@ -8,23 +8,26 @@ nomes_arquivos_plmn = ['tempos_decorridos_plmn_1.txt', 'tempos_decorridos_plmn_2
 nomes_arquivos_rab = ['tempos_decorridos_rab_1.txt', 'tempos_decorridos_rab_2.txt', 'tempos_decorridos_rab_3.txt', 'tempos_decorridos_rab_4.txt', 'tempos_decorridos_rab_5.txt', 'tempos_decorridos_rab_6.txt', 'tempos_decorridos_rab_7.txt', 'tempos_decorridos_rab_8.txt', 'tempos_decorridos_rab_9.txt', 'tempos_decorridos_rab_10.txt']
 
 
-cliente_plmn_1 = ['tempos_decorridos_plmn_1_client_1.txt', 'tempos_decorridos_plmn_1_client_2.txt', 'tempos_decorridos_plmn_1_client_3.txt', 'tempos_decorridos_plmn_1_client_4.txt', 'tempos_decorridos_plmn_1_client_5.txt', 'tempos_decorridos_plmn_1_client_6.txt', 'tempos_decorridos_plmn_1_client_7.txt', 'tempos_decorridos_plmn_1_client_8.txt', 'tempos_decorridos_plmn_1_client_9.txt', 'tempos_decorridos_plmn_1_client_10.txt']
 
-cliente_plmn_2 = ['tempos_decorridos_plmn_2_client_1.txt', 'tempos_decorridos_plmn_2_client_2.txt', 'tempos_decorridos_plmn_2_client_3.txt', 'tempos_decorridos_plmn_2_client_4.txt', 'tempos_decorridos_plmn_2_client_5.txt', 'tempos_decorridos_plmn_2_client_6.txt', 'tempos_decorridos_plmn_2_client_7.txt', 'tempos_decorridos_plmn_2_client_8.txt', 'tempos_decorridos_plmn_2_client_9.txt', 'tempos_decorridos_plmn_2_client_10.txt']
+app1_plmn = ['tempos_decorridos_plmn_app1_client_1.txt', 'tempos_decorridos_plmn_app1_client_2.txt', 'tempos_decorridos_plmn_app1_client_3.txt', 'tempos_decorridos_plmn_app1_client_4.txt', 'tempos_decorridos_plmn_app1_client_5.txt', 'tempos_decorridos_plmn_app1_client_6.txt', 'tempos_decorridos_plmn_app1_client_7.txt', 'tempos_decorridos_plmn_app1_client_8.txt', 'tempos_decorridos_plmn_app1_client_9.txt', 'tempos_decorridos_plmn_app1_client_10.txt']
 
-cliente_rab_3 = ['tempos_decorridos_rab_3_client_1.txt', 'tempos_decorridos_rab_3_client_2.txt', 'tempos_decorridos_rab_3_client_3.txt', 'tempos_decorridos_rab_3_client_4.txt', 'tempos_decorridos_rab_3_client_5.txt', 'tempos_decorridos_rab_3_client_6.txt', 'tempos_decorridos_rab_3_client_7.txt', 'tempos_decorridos_rab_3_client_8.txt', 'tempos_decorridos_rab_3_client_9.txt', 'tempos_decorridos_rab_3_client_10.txt']
+app2_plmn = ['tempos_decorridos_plmn_app2_client_1.txt', 'tempos_decorridos_plmn_app2_client_2.txt', 'tempos_decorridos_plmn_app2_client_3.txt', 'tempos_decorridos_plmn_app2_client_4.txt', 'tempos_decorridos_plmn_app2_client_5.txt', 'tempos_decorridos_plmn_app2_client_6.txt', 'tempos_decorridos_plmn_app2_client_7.txt', 'tempos_decorridos_plmn_app2_client_8.txt', 'tempos_decorridos_plmn_app2_client_9.txt', 'tempos_decorridos_plmn_app2_client_10.txt']
 
-cliente_rab_4 = ['tempos_decorridos_rab_4_client_1.txt', 'tempos_decorridos_rab_4_client_2.txt', 'tempos_decorridos_rab_4_client_3.txt', 'tempos_decorridos_rab_4_client_4.txt', 'tempos_decorridos_rab_4_client_5.txt', 'tempos_decorridos_rab_4_client_6.txt', 'tempos_decorridos_rab_4_client_7.txt', 'tempos_decorridos_rab_4_client_8.txt', 'tempos_decorridos_rab_4_client_9.txt', 'tempos_decorridos_rab_4_client_10.txt']
+app3_plmn = ['tempos_decorridos_plmn_app3_client_1.txt', 'tempos_decorridos_plmn_app3_client_2.txt', 'tempos_decorridos_plmn_app3_client_3.txt', 'tempos_decorridos_plmn_app3_client_4.txt', 'tempos_decorridos_plmn_app3_client_5.txt', 'tempos_decorridos_plmn_app3_client_6.txt', 'tempos_decorridos_plmn_app3_client_7.txt', 'tempos_decorridos_plmn_app3_client_8.txt', 'tempos_decorridos_plmn_app3_client_9.txt', 'tempos_decorridos_plmn_app3_client_10.txt']
 
-rnis_plmn = ['tempos_decorridos_plmn_1.txt', 'tempos_decorridos_plmn_2.txt', 'tempos_decorridos_plmn_3.txt', 'tempos_decorridos_plmn_4.txt', 'tempos_decorridos_plmn_5.txt', 'tempos_decorridos_plmn_6.txt', 'tempos_decorridos_plmn_7.txt', 'tempos_decorridos_plmn_8.txt', 'tempos_decorridos_plmn_9.txt', 'tempos_decorridos_plmn_10.txt']
+app4_rab = ['tempos_decorridos_rab_app4_client_1.txt', 'tempos_decorridos_rab_app4_client_2.txt', 'tempos_decorridos_rab_app4_client_3.txt', 'tempos_decorridos_rab_app4_client_4.txt', 'tempos_decorridos_rab_app4_client_5.txt', 'tempos_decorridos_rab_app4_client_6.txt', 'tempos_decorridos_rab_app4_client_7.txt', 'tempos_decorridos_rab_app4_client_8.txt', 'tempos_decorridos_rab_app4_client_9.txt', 'tempos_decorridos_rab_app4_client_10.txt']
 
-rnis_rab = ['tempos_decorridos_rab_1.txt', 'tempos_decorridos_rab_2.txt', 'tempos_decorridos_rab_3.txt', 'tempos_decorridos_rab_4.txt', 'tempos_decorridos_rab_5.txt', 'tempos_decorridos_rab_6.txt', 'tempos_decorridos_rab_7.txt', 'tempos_decorridos_rab_8.txt', 'tempos_decorridos_rab_9.txt', 'tempos_decorridos_rab_10.txt']
+app5_rab = ['tempos_decorridos_rab_app5_client_1.txt', 'tempos_decorridos_rab_app5_client_2.txt', 'tempos_decorridos_rab_app5_client_3.txt', 'tempos_decorridos_rab_app5_client_4.txt', 'tempos_decorridos_rab_app5_client_5.txt', 'tempos_decorridos_rab_app5_client_6.txt', 'tempos_decorridos_rab_app5_client_7.txt', 'tempos_decorridos_rab_app5_client_8.txt', 'tempos_decorridos_rab_app5_client_9.txt', 'tempos_decorridos_rab_app5_client_10.txt']
+
+app6_rab = ['tempos_decorridos_rab_app6_client_1.txt', 'tempos_decorridos_rab_app6_client_2.txt', 'tempos_decorridos_rab_app6_client_3.txt', 'tempos_decorridos_rab_app6_client_4.txt', 'tempos_decorridos_rab_app6_client_5.txt', 'tempos_decorridos_rab_app6_client_6.txt', 'tempos_decorridos_rab_app6_client_7.txt', 'tempos_decorridos_rab_app6_client_8.txt', 'tempos_decorridos_rab_app6_client_9.txt', 'tempos_decorridos_rab_app6_client_10.txt']
+
+
 
 # Inicialize uma lista para armazenar as médias de cada arquivo
 medias_milissegundos = []
 
 # Processa cada arquivo
-for nome_arquivo in nomes_arquivos_rab_client:
+for nome_arquivo in app6_rab:
     tempos = []
     with open(nome_arquivo, 'r') as arquivo:
         for linha in arquivo:
@@ -40,7 +43,7 @@ for nome_arquivo in nomes_arquivos_rab_client:
 media_total_milissegundos = sum(medias_milissegundos) / len(medias_milissegundos)
 
 # Salva o resultado em um arquivo de texto
-with open('media_resultado_rab_client.txt', 'w') as resultado_arquivo:
+with open('media_resultado_app6_rab_thread_3.txt', 'w') as resultado_arquivo:
     for media in medias_milissegundos:
         resultado_arquivo.write(f'Média em Milissegundos: {media:.12f} milissegundos\n')
     resultado_arquivo.write(f'Média Total em Milissegundos: {media_total_milissegundos:.12f} milissegundos\n')

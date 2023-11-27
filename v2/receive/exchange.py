@@ -6,7 +6,7 @@ import concurrent.futures
 global continue_running
 
 global request_count
-
+max_threads = 40
 
 # Variável global para verificar se a API deve continuar retornando informações
 continue_running = True
@@ -120,7 +120,7 @@ class Exchange():
         #max_threads = 20  # Ajuste conforme necessário
         if notif == "rab":
             # Configuração do ThreadPoolExecutor com um número máximo de threads
-
+                                                        # max_workers=max_threads
             with concurrent.futures.ThreadPoolExecutor() as executor:
                 # Mapeie a função para os argumentos em paralelo
                 print("Entrou no rab")
