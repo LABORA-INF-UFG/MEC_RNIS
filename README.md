@@ -7,7 +7,7 @@ O presente trabalho foi realizado com o apoio da Coordenação de Aperfeiçoamen
 
 
 ---
-Repositório que contém todo o desenvolvimento relacionado à dissertação de mestrado "Integração da Computação de Borda Móvel e Sistema 5G para Internet das Coisas na Agricultura 4.0". 
+Repositório que contém todo o desenvolvimento relacionado à dissertação de mestrado "Potencializando o Agro 4.0: Serviço de Informações de Rádio para Otimização da Agricultura com MEC, IoT e 5G". 
 
 Aluno responsável:
 * [Kaíque Matheus](http://lattes.cnpq.br/9539570966327546)
