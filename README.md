@@ -1,6 +1,9 @@
 # Develop
 # MEC_RNIS
 
+O presente trabalho foi realizado com o apoio da Coordenação de Aperfeiçoamento de Pessoal de Nível Superior (CAPES) e do Conselho Superior da Fundação de Amparo à Pesquisa do Estado de Goiás (FAPEG), edital 1988959 
+
+
 ---
 Repositório que contém todo o desenvolvimento relacionado à dissertação de mestrado "Integração da Computação de Borda Móvel e Sistema 5G para Internet das Coisas na Agricultura 4.0". 
 
