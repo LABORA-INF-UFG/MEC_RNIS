@@ -1,15 +1,15 @@
 # Develop
 # MEC_RNIS
 
-O presente trabalho foi realizado com o apoio da Coordenação de Aperfeiçoamento de Pessoal de Nível Superior (CAPES) e do Conselho Superior da Fundação de Amparo à Pesquisa do Estado de Goiás (FAPEG), edital 1988959, PROGRAMA DE DESENVOLVIMENTO DA PÓS-GRADUAÇÃO - APOIO AOS PROGRAMAS DE PÓS-GRADUAÇÃO EM CONSOLIDAÇÃO EM ÁREAS PRIORITÁRIAS NOS ESTADOS - 03/2021 
+O repositório contém todo o desenvolvimento relacionado à dissertação de mestrado intitulada "Serviço de Informações de Rádio (RNIS) para o framework MEC usando Redes 5G". Sendo desenvolvido através do Curso de Mestrado Acadêmico em Ciência da Computação - Presencial - Goiânia, pelo Instituto de Informática (INF) da Universidade Federal de Goiás (UFG). Este projeto contou com o apoio da Coordenação de Aperfeiçoamento de Pessoal de Nível Superior (CAPES) e do Conselho Superior da Fundação de Amparo à Pesquisa do Estado de Goiás (FAPEG).
 
+O processo de ingresso no mestrado foi realizado por meio do [edital 1988959](https://files.cercomp.ufg.br/weby/up/85/o/SEI_UFG_-_1988959_-_Edital_-_Retificado.pdf), PROGRAMA DE DESENVOLVIMENTO DA PÓS-GRADUAÇÃO - APOIO AOS PROGRAMAS DE PÓS-GRADUAÇÃO EM CONSOLIDAÇÃO EM ÁREAS PRIORITÁRIAS NOS ESTADOS - 03/2021, que tornou público o Processo Seletivo 03/2021 para o preenchimento de vagas no segundo semestre letivo de 2021, nos níveis de Mestrado, Doutorado e Pós-Doutorado, em conformidade com as exigências da Chamada Pública CAPES No 18/2020.
 
 ---
-Repositório que contém todo o desenvolvimento relacionado à dissertação de mestrado "Serviço de Informações de Rádio (RNIS) para o framework MEC usando Redes 5G".
 
 Aluno responsável:
 * [Kaíque Matheus](http://lattes.cnpq.br/9539570966327546)
-
+* kaiquematheus@discente.ufg.br / ufgkaique@gmail.com 
 
 ---
 # Descrição
