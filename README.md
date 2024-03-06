@@ -14,6 +14,10 @@ Aluno responsável:
 * kaiquematheus@discente.ufg.br / ufgkaique@gmail.com 
 
 
+---
+# Resumo
+
+A Agricultura 4.0 tem evoluído à medida que novas oportunidades e benefícios surgem com a aplicação de diversas tecnologias no setor agropecuário. O \textit{Multi-access Edge Computing} (MEC) destaca-se como uma tecnologia fundamental, possibilitando o desenvolvimento de novas aplicações e serviços que agregam benefícios tanto para a geração atual quanto para as futuras. No âmbito do MEC, o \textit{Radio Network Information Service} (RNIS) assume um papel crucial, sendo um dos principais serviços relacionados à obtenção de informações da \textit{Radio Access Network} (RAN). No cenário (\textit{Fifth generation of mobile networks} - 5G), o RNIS necessitará de aprimoramentos para lidar com as informações de RAN das novas gerações. Nesse contexto, o aprimoramento do serviço RNIS é essencial para potencializar diversas aplicações agrícolas. Este trabalho propõe o serviço \textit{RNIS as a service to the MEC framework in 5G Networks} (RaM-5G) implementando o RNIS e destacando a importância da integração destas tecnologias como MEC, \textit{Internet of Things} (IoT), 5G e RNIS, impulsionando o setor agropecuário. Além disso, busca otimizar aplicações que dependem de informações provenientes da RAN.
 
 ---
 # Descrição
