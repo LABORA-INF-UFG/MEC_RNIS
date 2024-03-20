@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
 from PIL import Image
 
 # Dados do primeiro gráfico
-processamento_interno = [10.213, 14.630, 8.076, 6.176, 5.662, 6.651, 6.606, 7.024]
-processamento_ate_o_cliente = [13.247, 17.640, 11.141, 9.007, 8.320, 9.458, 9.544, 10.168]
+processamento_interno = [7.343, 9.080, 6.716, 5.274, 4.783, 5.335, 5.595, 5.933]
+processamento_ate_o_cliente = [10.774, 12.464, 10.034, 8.386, 7.718, 8.423, 8.820, 9.432]
 
 # Criando o primeiro gráfico
 fig, ax = plt.subplots()
@@ -15,10 +15,10 @@ bar_width = 0.35
 ax.bar(index, processamento_interno, bar_width, color='blue', label='Processamento interno')
 ax.bar([i + bar_width for i in index], processamento_ate_o_cliente, bar_width, color='red', label='Processamento até o cliente')
 
-fontsize = 6
-for i in index:
-    ax.text(i, processamento_interno[i], f"{processamento_interno[i]:.3f}", ha='center', va='bottom', fontsize=fontsize, fontweight='bold')
-    ax.text(i + bar_width, processamento_ate_o_cliente[i], f"{processamento_ate_o_cliente[i]:.3f}", ha='center', va='bottom', fontsize=fontsize, fontweight='bold')
+# fontsize = 6
+# for i in index:
+#     ax.text(i, processamento_interno[i], f"{processamento_interno[i]:.3f}", ha='center', va='bottom', fontsize=fontsize, fontweight='bold')
+#     ax.text(i + bar_width, processamento_ate_o_cliente[i], f"{processamento_ate_o_cliente[i]:.3f}", ha='center', va='bottom', fontsize=fontsize, fontweight='bold')
 
 ax.set_xlabel('Usuários enviando informações')
 ax.set_ylabel('Milissegundos')
@@ -36,8 +36,8 @@ fig.savefig(fig_path)
 plt.close(fig)
 
 # Dados do segundo gráfico
-processamento_interno_2 = [15.221, 16.509, 18.736, 11.614, 11.248, 12.136, 13.246, 13.711]
-processamento_ate_o_cliente_2 = [21.790, 23.776, 26.291, 17.846, 16.922, 18.130, 19.475, 20.114]
+processamento_interno_2 = [12.148, 12.993, 14.618, 9.658, 9.318, 10.103, 10.842, 11.201]
+processamento_ate_o_cliente_2 = [19.624, 21.026, 23.327, 16.703, 15.692, 16.868, 17.947, 18.499]
 
 # Criando o segundo gráfico
 fig2, ax2 = plt.subplots()
@@ -46,10 +46,10 @@ bar_width = 0.35
 ax2.bar(index, processamento_interno_2, bar_width, color='blue', label='Processamento interno')
 ax2.bar([i + bar_width for i in index], processamento_ate_o_cliente_2, bar_width, color='red', label='Processamento até o cliente')
 
-fontsize = 6
-for i in index:
-    ax2.text(i, processamento_interno_2[i], f"{processamento_interno_2[i]:.3f}", ha='center', va='bottom', fontsize=fontsize, fontweight='bold')
-    ax2.text(i + bar_width, processamento_ate_o_cliente_2[i], f"{processamento_ate_o_cliente_2[i]:.3f}", ha='center', va='bottom', fontsize=fontsize, fontweight='bold')
+# fontsize = 6
+# for i in index:
+#     ax2.text(i, processamento_interno_2[i], f"{processamento_interno_2[i]:.3f}", ha='center', va='bottom', fontsize=fontsize, fontweight='bold')
+#     ax2.text(i + bar_width, processamento_ate_o_cliente_2[i], f"{processamento_ate_o_cliente_2[i]:.3f}", ha='center', va='bottom', fontsize=fontsize, fontweight='bold')
 
 ax2.set_xlabel('Usuários enviando informações')
 ax2.set_ylabel('Milissegundos')
@@ -84,4 +84,4 @@ new_img.paste(img1, (0, 0))
 new_img.paste(img2, (img1.width, 0))
 
 # Salva a imagem combinada
-new_img.save('combined_graphs_plmn_4_mec_apps.png')
+new_img.save('combined_graphs_rab_4_mec_apps.png')

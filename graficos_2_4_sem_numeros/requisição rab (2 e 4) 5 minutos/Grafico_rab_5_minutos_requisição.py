@@ -18,4 +18,4 @@ new_img.paste(img1, (0, 0))
 new_img.paste(img2, (0, img1.height))
 
 # Salvar a imagem combinada
-new_img.save('Grafico_rab_10_minutos_processamento_2_4_mec_apps.png')
+new_img.save('Grafico_rab_5_minutos_requisição_2_4_mec_apps.png')

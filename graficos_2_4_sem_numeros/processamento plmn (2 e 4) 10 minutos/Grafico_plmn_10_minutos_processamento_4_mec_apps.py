@@ -15,10 +15,10 @@ bar_width = 0.35
 ax.bar(index, processamento_interno, bar_width, color='blue', label='Processamento interno')
 ax.bar([i + bar_width for i in index], processamento_ate_o_cliente, bar_width, color='red', label='Processamento até o cliente')
 
-fontsize = 6
-for i in index:
-    ax.text(i, processamento_interno[i], f"{processamento_interno[i]:.3f}", ha='center', va='bottom', fontsize=fontsize, fontweight='bold')
-    ax.text(i + bar_width, processamento_ate_o_cliente[i], f"{processamento_ate_o_cliente[i]:.3f}", ha='center', va='bottom', fontsize=fontsize, fontweight='bold')
+# fontsize = 6
+# for i in index:
+#     ax.text(i, processamento_interno[i], f"{processamento_interno[i]:.3f}", ha='center', va='bottom', fontsize=fontsize, fontweight='bold')
+#     ax.text(i + bar_width, processamento_ate_o_cliente[i], f"{processamento_ate_o_cliente[i]:.3f}", ha='center', va='bottom', fontsize=fontsize, fontweight='bold')
 
 ax.set_xlabel('Usuários enviando informações')
 ax.set_ylabel('Milissegundos')
@@ -46,10 +46,10 @@ bar_width = 0.35
 ax2.bar(index, processamento_interno_2, bar_width, color='blue', label='Processamento interno')
 ax2.bar([i + bar_width for i in index], processamento_ate_o_cliente_2, bar_width, color='red', label='Processamento até o cliente')
 
-fontsize = 6
-for i in index:
-    ax2.text(i, processamento_interno_2[i], f"{processamento_interno_2[i]:.3f}", ha='center', va='bottom', fontsize=fontsize, fontweight='bold')
-    ax2.text(i + bar_width, processamento_ate_o_cliente_2[i], f"{processamento_ate_o_cliente_2[i]:.3f}", ha='center', va='bottom', fontsize=fontsize, fontweight='bold')
+# fontsize = 6
+# for i in index:
+#     ax2.text(i, processamento_interno_2[i], f"{processamento_interno_2[i]:.3f}", ha='center', va='bottom', fontsize=fontsize, fontweight='bold')
+#     ax2.text(i + bar_width, processamento_ate_o_cliente_2[i], f"{processamento_ate_o_cliente_2[i]:.3f}", ha='center', va='bottom', fontsize=fontsize, fontweight='bold')
 
 ax2.set_xlabel('Usuários enviando informações')
 ax2.set_ylabel('Milissegundos')

@@ -1,8 +1,8 @@
 from PIL import Image
 
 # Carregar as duas imagens
-img1 = Image.open("combined_graphs_rab_2_mec_apps.png")
-img2 = Image.open("combined_graphs_rab_4_mec_apps.png")
+img1 = Image.open("combined_graphs_plmn_2_mec_apps.png")
+img2 = Image.open("combined_graphs_plmn_4_mec_apps.png")
 
 # Calcular a largura total (a largura das duas imagens será a mesma)
 total_width = img1.width
@@ -18,4 +18,4 @@ new_img.paste(img1, (0, 0))
 new_img.paste(img2, (0, img1.height))
 
 # Salvar a imagem combinada
-new_img.save('Grafico_rab_10_minutos_processamento_2_4_mec_apps.png')
+new_img.save('Grafico_plmn_5_minutos_requisição_2_4_mec_apps.png')

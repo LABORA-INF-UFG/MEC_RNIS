@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
 from PIL import Image
 
 # Dados do primeiro gráfico
-processamento_interno = [7.392, 9.493, 6.688, 5.269, 4.812, 8.036, 5.595, 5.617]
-processamento_ate_o_cliente = [10.787, 12.877, 10.004, 8.372, 7.764, 12.597, 8.820, 8.833]
+processamento_interno = [7.343, 9.080, 6.716, 5.274, 4.783, 5.335, 5.595, 5.933]
+processamento_ate_o_cliente = [10.774, 12.464, 10.034, 8.386, 7.718, 8.423, 8.820, 9.432]
 
 # Criando o primeiro gráfico
 fig, ax = plt.subplots()
@@ -36,8 +36,8 @@ fig.savefig(fig_path)
 plt.close(fig)
 
 # Dados do segundo gráfico
-processamento_interno_2 = [11.715, 12.872, 15.037, 9.757, 9.069, 10.211, 10.890, 11.324]
-processamento_ate_o_cliente_2 = [19.182, 20.950, 23.800, 16.611, 15.322, 16.977, 17.987, 18.590]
+processamento_interno_2 = [12.148, 12.993, 14.618, 9.658, 9.318, 10.103, 10.842, 11.201]
+processamento_ate_o_cliente_2 = [19.624, 21.026, 23.327, 16.703, 15.692, 16.868, 17.947, 18.499]
 
 # Criando o segundo gráfico
 fig2, ax2 = plt.subplots()

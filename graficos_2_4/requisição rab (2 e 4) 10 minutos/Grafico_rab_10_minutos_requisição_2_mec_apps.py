@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
 from PIL import Image
 
 # Dados do primeiro gráfico
-quantidade_requisicoes_atendidas = []
-quantidade_informacoes_nao_atendidas = []
+quantidade_requisicoes_atendidas = [31108.5, 27908.7, 24884.3, 20016.4, 21461.7, 17039.9, 17041.6, 17539.4]
+quantidade_informacoes_nao_atendidas = [0,0, 3192, 18423, 25430.3, 41990, 101472.4, 97000.7]
 
 # Criando o primeiro gráfico
 fig, ax = plt.subplots()
@@ -40,8 +40,8 @@ plt.close(fig)
 
 
 # Dados do segundo gráfico
-quantidade_requisicoes_atendidas_2 = []
-quantidade_informacoes_nao_atendidas_2 = []
+quantidade_requisicoes_atendidas_2 = [15676.7, 16409.9, 14002.5, 11352.9, 12385.5, 9258, 9318.2, 9491.9]
+quantidade_informacoes_nao_atendidas_2 = [0, 0, 265.2, 11942.2, 16515.9, 27873.9, 65499.5, 62350.4]
 
 
 # Criando o segundo gráfico
