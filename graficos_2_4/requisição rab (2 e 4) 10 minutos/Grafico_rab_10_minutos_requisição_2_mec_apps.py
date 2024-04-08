@@ -12,17 +12,17 @@ quantidade_informacoes_nao_atendidas = [0,0, 3192, 18423, 25430.3, 41990, 101472
 fig, ax = plt.subplots()
 index = range(len(quantidade_informacoes_nao_atendidas))
 bar_width = 0.35
-ax.bar(index, quantidade_requisicoes_atendidas, bar_width, color='gray', label='Requisições Atendidas')
-ax.bar([i + bar_width for i in index], quantidade_informacoes_nao_atendidas, bar_width, color='black', label='Requisições Não Atendidas')
+ax.bar(index, quantidade_requisicoes_atendidas, bar_width, color='gray', label='Requests answered')
+ax.bar([i + bar_width for i in index], quantidade_informacoes_nao_atendidas, bar_width, color='black', label='Requests not answered')
 
 fontsize = 6
 for i in index:
     ax.text(i, quantidade_requisicoes_atendidas[i], str(int(quantidade_requisicoes_atendidas[i])), ha='center', va='bottom', fontsize=fontsize, fontweight='bold')
     ax.text(i + bar_width, quantidade_informacoes_nao_atendidas[i], str(int(quantidade_informacoes_nao_atendidas[i])), ha='center', va='bottom', fontsize=fontsize, fontweight='bold')
 
-ax.set_xlabel('Usuários enviando informações')
+ax.set_xlabel('Users sending information')
 ax.set_ylabel('Requisições')
-ax.set_title('Quantidade de requisições rab atendidas e não')
+ax.set_title('Requests answered and requests not answered RAB')
 ax.set_xticks([i + bar_width/2 for i in index])
 ax.set_xticklabels([100, 200, 400, 600, 800, 1000, 1500, 2000])
 ax.legend()
@@ -48,17 +48,17 @@ quantidade_informacoes_nao_atendidas_2 = [0, 0, 265.2, 11942.2, 16515.9, 27873.9
 fig2, ax2 = plt.subplots()
 index = range(len(quantidade_informacoes_nao_atendidas_2))
 bar_width = 0.35
-ax2.bar(index, quantidade_requisicoes_atendidas_2, bar_width, color='gray', label='Requisições Atendidas')
-ax2.bar([i + bar_width for i in index], quantidade_informacoes_nao_atendidas_2, bar_width, color='black', label='Requisições Não Atendidas')
+ax2.bar(index, quantidade_requisicoes_atendidas_2, bar_width, color='gray', label='Requests answered')
+ax2.bar([i + bar_width for i in index], quantidade_informacoes_nao_atendidas_2, bar_width, color='black', label='Requests not answered')
 
 fontsize = 6
 for i in index:
     ax2.text(i, quantidade_requisicoes_atendidas_2[i], str(int(quantidade_requisicoes_atendidas_2[i])), ha='center', va='bottom', fontsize=fontsize, fontweight='bold')
     ax2.text(i + bar_width, quantidade_informacoes_nao_atendidas_2[i], str(int(quantidade_informacoes_nao_atendidas_2[i])), ha='center', va='bottom', fontsize=fontsize, fontweight='bold')
 
-ax2.set_xlabel('Usuários enviando informações')
+ax2.set_xlabel('Users sending information')
 ax2.set_ylabel('Requisições')
-ax2.set_title('Quantidade de requisições rab atendidas e não')
+ax2.set_title('Requests answered and requests not answered RAB')
 ax2.set_xticks([i + bar_width/2 for i in index])
 ax2.set_xticklabels([100, 200, 400, 600, 800, 1000, 1500, 2000])
 ax2.legend()

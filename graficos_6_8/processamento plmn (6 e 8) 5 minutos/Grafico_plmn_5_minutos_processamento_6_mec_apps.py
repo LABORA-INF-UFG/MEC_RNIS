@@ -14,17 +14,17 @@ processamento_ate_o_cliente = [24.817, 30.603, 18.867, 26.026, 13.280, 14.618, 1
 fig, ax = plt.subplots()
 index = range(len(processamento_ate_o_cliente))
 bar_width = 0.35
-ax.bar(index, processamento_interno, bar_width, color='blue', label='Processamento interno')
-ax.bar([i + bar_width for i in index], processamento_ate_o_cliente, bar_width, color='red', label='Processamento até o cliente')
+ax.bar(index, processamento_interno, bar_width, color='gray', hatch='/', label='Internal processing')
+ax.bar([i + bar_width for i in index], processamento_ate_o_cliente, bar_width, color='black', hatch='/', edgecolor='white', label='Processing to the customer')
 
 fontsize = 6
 for i in index:
     ax.text(i, processamento_interno[i], f"{processamento_interno[i]:.3f}", ha='center', va='bottom', fontsize=fontsize, fontweight='bold')
     ax.text(i + bar_width, processamento_ate_o_cliente[i], f"{processamento_ate_o_cliente[i]:.3f}", ha='center', va='bottom', fontsize=fontsize, fontweight='bold')
 
-ax.set_xlabel('Usuários enviando informações')
+ax.set_xlabel('Users sending information')
 ax.set_ylabel('Milissegundos')
-ax.set_title('Média de tempo de processamento PLMN')
+ax.set_title('Average processing time for each reques PLMN')
 ax.set_xticks([i + bar_width/2 for i in index])
 ax.set_xticklabels([100, 200, 400, 600, 800, 1000, 1500, 2000])
 ax.legend()
@@ -49,17 +49,17 @@ processamento_ate_o_cliente_2 = [3866.412, 219.249, 124.010, 39.168, 45.044, 56.
 fig2, ax2 = plt.subplots()
 index = range(len(processamento_ate_o_cliente_2))
 bar_width = 0.35
-ax2.bar(index, processamento_interno_2, bar_width, color='blue', label='Processamento interno')
-ax2.bar([i + bar_width for i in index], processamento_ate_o_cliente_2, bar_width, color='red', label='Processamento até o cliente')
+ax2.bar(index, processamento_interno_2, bar_width, color='gray', hatch='/', label='Internal processing')
+ax2.bar([i + bar_width for i in index], processamento_ate_o_cliente_2, bar_width, color='black', hatch='/', edgecolor='white', label='Processing to the customer')
 
 fontsize = 6
 for i in index:
     ax2.text(i, processamento_interno_2[i], f"{processamento_interno_2[i]:.3f}", ha='center', va='bottom', fontsize=fontsize, fontweight='bold')
     ax2.text(i + bar_width, processamento_ate_o_cliente_2[i], f"{processamento_ate_o_cliente_2[i]:.3f}", ha='center', va='bottom', fontsize=fontsize, fontweight='bold')
 
-ax2.set_xlabel('Usuários enviando informações')
+ax2.set_xlabel('Users sending information')
 ax2.set_ylabel('Milissegundos')
-ax2.set_title('Média de tempo de processamento PLMN')
+ax2.set_title('Average processing time for each reques PLMN')
 ax2.set_xticks([i + bar_width/2 for i in index])
 ax2.set_xticklabels([100, 200, 400, 600, 800, 1000, 1500, 2000])
 ax2.legend()
